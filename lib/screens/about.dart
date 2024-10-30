@@ -1,0 +1,209 @@
+import 'package:my_botc_notes/utils.dart';
+import 'package:my_botc_notes/widgets/layout.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:my_botc_notes/constants.dart';
+
+class AboutScreen extends StatelessWidget {
+  const AboutScreen({
+    super.key,
+  });
+
+  Future<void> _launchInWebView(Uri url) async {
+    if (!await launchUrl(url, mode: LaunchMode.inAppWebView)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final width = MediaQuery.of(context).size.width;
+
+    final subFeature1 = [
+      t.feature1a,
+      t.feature1b,
+      t.feature1c,
+      t.feature1d,
+      t.feature1e,
+      t.feature1f
+    ];
+
+    return Layout(
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: isScreenSmallerThanX(width, ScreenSize.l),
+          title: Text(t.about),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'The Investigator\'s Clues ',
+                      style: theme.textTheme.bodyMedium!
+                          .copyWith(fontWeight: FontWeight.bold, height: 1.25),
+                    ),
+                    TextSpan(
+                      text: t.aboutApp,
+                      style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: t.aboutAppCode,
+                      style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
+                    ),
+                    TextSpan(
+                      text: 'GitHub',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _launchInWebView(
+                              Uri(
+                                  scheme: 'https',
+                                  host: 'github.com',
+                                  path:
+                                      'marianapatcosta/the-investigators.clues'),
+                            ),
+                    ),
+                    const TextSpan(
+                      text: '.',
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Blood on the Clocktower',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                        height: 1.25,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _launchInWebView(
+                              Uri(
+                                scheme: 'https',
+                                host: 'bloodontheclocktower.com',
+                              ),
+                            ),
+                    ),
+                    TextSpan(
+                      text: ' ${t.botcTrademark}',
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
+              Text(
+                t.features,
+                style: theme.textTheme.titleMedium!.copyWith(height: 1.25),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                '‣  ${t.feature1}',
+                style: theme.textTheme.bodyMedium!.copyWith(height: 1.5),
+              ),
+              for (final subFeature in subFeature1)
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      width: 6,
+                    ),
+                    Text(
+                      ' - ',
+                      style: theme.textTheme.bodyMedium!.copyWith(
+                        height: 1.5,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        subFeature,
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                          height: 1.5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '‣  ',
+                    style: theme.textTheme.bodyMedium!.copyWith(height: 1.5),
+                  ),
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: t.feature2a,
+                          ),
+                          TextSpan(
+                            text: 'Blood on the Clocktower wiki',
+                            style: const TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                              height: 1.25,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => _launchInWebView(
+                                    Uri(
+                                      scheme: 'https',
+                                      host: 'wiki.bloodontheclocktower.com',
+                                    ),
+                                  ),
+                          ),
+                          TextSpan(
+                            text: ' ${t.feature2b}',
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '‣  ',
+                    style: theme.textTheme.bodyMedium!.copyWith(height: 1.5),
+                  ),
+                  Expanded(
+                    child: Text(
+                      t.feature3,
+                      style: theme.textTheme.bodyMedium!.copyWith(height: 1.5),
+                    ),
+                  ),
+                ],
+              ),
+            ]),
+          ),
+        ),
+      ),
+    );
+  }
+}

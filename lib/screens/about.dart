@@ -84,8 +84,9 @@ class AboutScreen extends StatelessWidget {
                                       'marianapatcosta/the-investigators-clues'),
                             ),
                     ),
-                    const TextSpan(
+                    TextSpan(
                       text: '.',
+                      style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
                     )
                   ],
                 ),
@@ -112,6 +113,7 @@ class AboutScreen extends StatelessWidget {
                     ),
                     TextSpan(
                       text: ' ${t.botcTrademark}',
+                      style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
                     )
                   ],
                 ),
@@ -162,6 +164,8 @@ class AboutScreen extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: t.feature2a,
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(height: 1.25),
                           ),
                           TextSpan(
                             text: 'Blood on the Clocktower wiki',

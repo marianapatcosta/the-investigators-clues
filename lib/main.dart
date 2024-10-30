@@ -131,7 +131,7 @@ class App extends ConsumerWidget {
             )
             .copyWith(
               bodyMedium:
-                  TextStyle(fontSize: 14, color: kDarkColorScheme.onSurface),
+                  TextStyle(fontSize: 14, color: kColorScheme.onSurface),
               titleSmall: kTitleSmall.apply(color: kColorScheme.onSurface),
               titleMedium: kTitleMedium.apply(color: kColorScheme.onSurface),
               titleLarge: kTitleLarge.apply(color: kColorScheme.onSurface),

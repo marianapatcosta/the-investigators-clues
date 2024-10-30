@@ -37,7 +37,10 @@ class GameMenu extends StatelessWidget {
     final t = AppLocalizations.of(context);
 
     return PopupMenuButton<MenuItem>(
-      icon: const Icon(Icons.more_vert),
+      icon: const Icon(
+        Icons.more_vert,
+        color: Colors.white,
+      ),
       onSelected: (item) => _onSelectMenuItem(item, context),
       offset: const Offset(40, 40),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuItem>>[

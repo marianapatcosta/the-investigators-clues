@@ -219,9 +219,12 @@ class _PlayerItemState extends State<PlayerItem> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 4),
-                      child: Text(widget.player.name != ''
-                          ? widget.player.name
-                          : t.unknown),
+                      child: Text(
+                        widget.player.name != ''
+                            ? widget.player.name
+                            : t.unknown,
+                        style: theme.textTheme.bodyMedium,
+                      ),
                     ),
                   )
                 ],

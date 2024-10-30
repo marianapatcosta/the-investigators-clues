@@ -16,8 +16,7 @@ class ButtonTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     double borderWidth = isSelected ? 3.0 : 1.0;
-    Color color =
-        isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurface;
+    Color color = isSelected ? theme.colorScheme.primary : Colors.white;
 
     return Transform.translate(
       offset: Offset(0, isSelected ? 0 : 2),

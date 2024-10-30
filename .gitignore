@@ -43,3 +43,8 @@ app.*.map.json
 /android/app/release
 
 /assets/images/character_tokens_off
+
+/.firebase/
+/.firebaserc
+/.github/
+/firebase.json

@@ -90,8 +90,10 @@ class AcknowledgmentsScreen extends StatelessWidget {
                                     ),
                                   ),
                           ),
-                          const TextSpan(
+                          TextSpan(
                             text: '.',
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(height: 1.25),
                           )
                         ],
                       ),
@@ -121,8 +123,10 @@ class AcknowledgmentsScreen extends StatelessWidget {
                                     ),
                                   ),
                           ),
-                          const TextSpan(
+                          TextSpan(
                             text: '.',
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(height: 1.25),
                           )
                         ],
                       ),
@@ -176,8 +180,10 @@ class AcknowledgmentsScreen extends StatelessWidget {
                                         path: 'v5/search'),
                                   ),
                           ),
-                          const TextSpan(
+                          TextSpan(
                             text: ').',
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(height: 1.25),
                           )
                         ],
                       ),
@@ -206,8 +212,10 @@ class AcknowledgmentsScreen extends StatelessWidget {
                                     ),
                                   ),
                           ),
-                          const TextSpan(
+                          TextSpan(
                             text: '.',
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(height: 1.25),
                           )
                         ],
                       ),
@@ -236,9 +244,10 @@ class AcknowledgmentsScreen extends StatelessWidget {
                                     ),
                                   ),
                           ),
-                          const TextSpan(
-                            text: '.',
-                          )
+                          TextSpan(
+                              text: '.',
+                              style: theme.textTheme.bodyMedium!
+                                  .copyWith(height: 1.25)),
                         ],
                       ),
                     ),

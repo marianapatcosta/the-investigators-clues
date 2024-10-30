@@ -90,31 +90,34 @@ class CharacterToken extends StatelessWidget {
 
     return Stack(
       children: [
-        Container(
-          width: size,
-          height: size,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromARGB(255, 226, 165, 73),
-              ),
-              BoxShadow(
-                color: Color.fromARGB(234, 239, 219, 171),
-                spreadRadius: -3.0,
-                blurRadius: 7.0,
-              ),
-            ],
-          ),
-          padding: EdgeInsets.all(isLarge ? 16 : 12.0),
-          child: Opacity(
-            opacity: 0.4,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.transparent,
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/clockface.webp"),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(100.0),
+          child: Container(
+            width: size,
+            height: size,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(255, 226, 165, 73),
+                ),
+                BoxShadow(
+                  color: Color.fromARGB(234, 239, 219, 171),
+                  spreadRadius: -3.0,
+                  blurRadius: 7.0,
+                ),
+              ],
+            ),
+            padding: EdgeInsets.all(isLarge ? 16 : 12.0),
+            child: Opacity(
+              opacity: 0.4,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/clockface.webp"),
+                  ),
                 ),
               ),
             ),

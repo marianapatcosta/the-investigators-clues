@@ -31,6 +31,7 @@ class SettingsScreen extends ConsumerWidget {
       appBar: AppBar(
         automaticallyImplyLeading: isScreenSmallerThanX(width, ScreenSize.l),
         title: Text(t.settings),
+        centerTitle: false,
       ),
       body: SafeArea(
         child: SingleChildScrollView(

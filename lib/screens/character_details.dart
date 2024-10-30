@@ -133,6 +133,7 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
                 ),
               ),
               floating: true,
+              centerTitle: false,
             ),
             SliverFillRemaining(
               child: _isLoading

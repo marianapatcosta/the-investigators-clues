@@ -41,6 +41,7 @@ class ScriptDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              centerTitle: false,
               /*    actions: [
                 IconButton(
                   onPressed: () {

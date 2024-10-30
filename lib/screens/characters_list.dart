@@ -89,6 +89,7 @@ class _CharactersListScreenState extends State<CharactersListScreen> {
                   ),
                 ],
               ),
+              centerTitle: false,
             ),
             !hasCharactersToShow
                 ? SliverFillRemaining(

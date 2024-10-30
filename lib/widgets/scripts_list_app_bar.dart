@@ -31,6 +31,7 @@ class ScriptsListAppBar extends StatelessWidget {
     return SliverAppBar(
       automaticallyImplyLeading: isScreenSmallerThanX(width, ScreenSize.l),
       title: Text(t.scriptsList),
+      centerTitle: false,
       floating: true,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(40),

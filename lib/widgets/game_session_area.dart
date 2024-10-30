@@ -39,30 +39,33 @@ class _GameSessionAreaState extends State<GameSessionArea> {
 
   List<Player> _getPlayers(BoxConstraints constraints) {
     final players = [...widget.gameSession.players];
-    print(players.length);
-    inspect(players);
+    // checks if position was already set for players list
+    if (players.first.x != null) {
+      return players;
+    }
 
     final radiusX = (constraints.maxWidth - kCharacterTokenSmallSize) / 2;
-    final radiusY = (constraints.maxHeight - kCharacterTokenSmallSize) / 2;
+    final radiusY =
+        (constraints.maxHeight - 150 - kCharacterTokenSmallSize) / 2;
     final coordinates = [];
-    var precision = 0.001;
-    var offset = pi * 0.5;
-    var circ = 0.0;
-    for (var radians = 0 + offset;
+    double precision = 0.001;
+    double offset = pi * 0.5;
+    double circ = 0.0;
+    for (double radians = 0 + offset;
         radians < (pi * 2 + offset);
         radians += precision) {
       circ += _dp(radians, radiusX, radiusY);
     }
-    var nextPoint = 0;
-    var run = 0.0;
-    for (var radians = 0 + offset;
+    double nextPoint = 0;
+    double run = 0.0;
+    for (double radians = 0 + offset;
         radians < (pi * 2 + offset);
         radians += precision) {
       if ((players.length * run / circ) >= nextPoint) {
         nextPoint++;
-        var pointX = radiusX + (cos(radians) * radiusX);
-        var pointY = radiusY + (sin(radians) * radiusY);
-        coordinates.add([pointX, pointY]);
+        double x = radiusX + (cos(radians) * radiusX);
+        double y = radiusY + (sin(radians) * radiusY);
+        coordinates.add([x, y]);
       }
       run += _dp(radians, radiusX, radiusY);
     }

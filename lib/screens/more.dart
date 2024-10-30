@@ -21,6 +21,7 @@ class MoreScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(t.more),
+          centerTitle: false,
           automaticallyImplyLeading: isScreenSmallerThanX(width, ScreenSize.l),
         ),
         body: SafeArea(

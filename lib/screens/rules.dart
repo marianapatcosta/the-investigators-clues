@@ -27,6 +27,7 @@ class RulesScreen extends StatelessWidget {
               automaticallyImplyLeading:
                   isScreenSmallerThanX(width, ScreenSize.l),
               title: Text(t.rules),
+              centerTitle: false,
               floating: true,
             ),
             SliverPadding(

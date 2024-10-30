@@ -36,7 +36,10 @@ class AboutScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: isScreenSmallerThanX(width, ScreenSize.l),
-          title: Text(t.about),
+          title: Text(
+            t.about,
+            textAlign: TextAlign.start,
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -78,7 +81,7 @@ class AboutScreen extends StatelessWidget {
                                   scheme: 'https',
                                   host: 'github.com',
                                   path:
-                                      'marianapatcosta/the-investigators.clues'),
+                                      'marianapatcosta/the-investigators-clues'),
                             ),
                     ),
                     const TextSpan(

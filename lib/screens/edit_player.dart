@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
+import 'package:my_botc_notes/data/characters.dart';
 import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/models/player.dart';
 import 'package:my_botc_notes/utils.dart';
@@ -108,7 +109,6 @@ class _EditPlayerState extends State<EditPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final t = AppLocalizations.of(context);
     final width = MediaQuery.of(context).size.width;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
@@ -120,6 +120,7 @@ class _EditPlayerState extends State<EditPlayer> {
         appBar: AppBar(
           automaticallyImplyLeading: isScreenSmallerThanX(width, ScreenSize.l),
           title: Text('${t.edit} $displayName'),
+          centerTitle: false,
         ),
         body: SizedBox(
             height: double.infinity,
@@ -141,10 +142,15 @@ class _EditPlayerState extends State<EditPlayer> {
                           child: InkWell(
                             onTap: () => selectCharacter(
                                 context,
-                                widget.scriptCharacters
-                                    .where((character) =>
-                                        character.team != Team.traveller)
-                                    .toList(), (character) {
+                                widget.character?.team == Team.traveller
+                                    ? characters
+                                        .where((character) =>
+                                            character.team == Team.traveller)
+                                        .toList()
+                                    : widget.scriptCharacters
+                                        .where((character) =>
+                                            character.team != Team.traveller)
+                                        .toList(), (character) {
                               setState(() {
                                 _character = character;
                               });

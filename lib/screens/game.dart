@@ -32,9 +32,11 @@ const gameTabsMetadata = {
 };
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({
+  GameScreen({
     super.key,
   });
+
+  GameSession? _gameSession;
 
   @override
   State<GameScreen> createState() {
@@ -43,8 +45,6 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  GameSession? _gameSession;
-
   void _addGame(
     BuildContext context,
   ) async {
@@ -60,7 +60,7 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     setState(() {
-      _gameSession = newGameSession;
+      widget._gameSession = newGameSession;
     });
     _saveGameSession();
   }
@@ -78,14 +78,17 @@ class _GameScreenState extends State<GameScreen> {
     final gameSessionString = preferences.getString(kGameSession);
 
     if (gameSessionString != null) {
-      _gameSession = GameSession.fromJson(json.decode(gameSessionString));
+      setState(() {
+        widget._gameSession =
+            GameSession.fromJson(json.decode(gameSessionString));
+      });
     }
   }
 
   void _saveGameSession() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     final encodedSession = jsonEncode(
-      _gameSession?.toJson(),
+      widget._gameSession?.toJson(),
     );
     await preferences.setString(
       kGameSession,
@@ -136,13 +139,13 @@ class _GameScreenState extends State<GameScreen> {
       ),
     );
 
-    if (_gameSession != null && _gameTab == GameTab.scriptDetails) {
-      content = ScriptDetailsContent(script: _gameSession!.script);
+    if (widget._gameSession != null && _gameTab == GameTab.scriptDetails) {
+      content = ScriptDetailsContent(script: widget._gameSession!.script);
     }
 
-    if (_gameSession != null && _gameTab == GameTab.setup) {
+    if (widget._gameSession != null && _gameTab == GameTab.setup) {
       content = GameSessionArea(
-        gameSession: _gameSession!,
+        gameSession: widget._gameSession!,
         saveGameSession: _saveGameSession,
       );
     }
@@ -155,8 +158,12 @@ class _GameScreenState extends State<GameScreen> {
               automaticallyImplyLeading:
                   isScreenSmallerThanX(width, ScreenSize.l),
               title: Text(
-                  _gameSession == null ? t.game : _gameSession!.script.name),
-              bottom: _gameSession == null
+                widget._gameSession == null
+                    ? t.game
+                    : widget._gameSession!.script.name,
+              ),
+              centerTitle: false,
+              bottom: widget._gameSession == null
                   ? null
                   : PreferredSize(
                       preferredSize: const Size.fromHeight(20),
@@ -193,12 +200,13 @@ class _GameScreenState extends State<GameScreen> {
                                             character.team == Team.traveller)
                                         .toList(), (character) {
                                   setState(() {
-                                    _gameSession!.players
+                                    widget._gameSession!.players
                                         .add(Player(characterId: character.id));
-                                    _gameSession!.gameSetup.setTraveller =
-                                        (_gameSession!.gameSetup.traveller ??
-                                                0) +
-                                            1;
+                                    widget._gameSession!.gameSetup
+                                        .setTraveller = (widget._gameSession!
+                                                .gameSetup.traveller ??
+                                            0) +
+                                        1;
                                   });
                                   _saveGameSession();
                                 });
@@ -212,7 +220,8 @@ class _GameScreenState extends State<GameScreen> {
                                       .toList(),
                                   (character) {
                                     setState(() {
-                                      _gameSession!.setFabled = character;
+                                      widget._gameSession!.setFabled =
+                                          character;
                                       _saveGameSession();
                                     });
                                   },
@@ -227,9 +236,9 @@ class _GameScreenState extends State<GameScreen> {
                                     maxWidth: double.infinity,
                                   ),
                                   builder: (ctx) => EditNotes(
-                                    notes: _gameSession!.notes ?? '',
+                                    notes: widget._gameSession!.notes ?? '',
                                     saveNotes: (notes) {
-                                      _gameSession!.setNotes = notes;
+                                      widget._gameSession!.setNotes = notes;
                                       _saveGameSession();
                                       Navigator.pop(ctx);
                                     },
@@ -245,9 +254,11 @@ class _GameScreenState extends State<GameScreen> {
                                     maxWidth: double.infinity,
                                   ),
                                   builder: (ctx) => ShowInfoToken(
-                                    infoToken: _gameSession!.infoToken ?? '',
+                                    infoToken:
+                                        widget._gameSession!.infoToken ?? '',
                                     saveInfoToken: (infoToken) {
-                                      _gameSession!.setInfoToken = infoToken;
+                                      widget._gameSession!.setInfoToken =
+                                          infoToken;
                                       _saveGameSession();
                                     },
                                   ),
@@ -255,7 +266,7 @@ class _GameScreenState extends State<GameScreen> {
                               },
                               MenuItem.delete: () {
                                 setState(() {
-                                  _gameSession = null;
+                                  widget._gameSession = null;
                                   _saveGameSession();
                                 });
                               },
@@ -274,7 +285,7 @@ class _GameScreenState extends State<GameScreen> {
             ? null
             : FloatingActionButton.small(
                 onPressed: () {
-                  if (_gameSession == null) {
+                  if (widget._gameSession == null) {
                     _addGame(context);
                     return;
                   }
@@ -283,7 +294,7 @@ class _GameScreenState extends State<GameScreen> {
                       context, '${t.gameSetupExists} ${t.deleteGameAreYouSure}',
                       () {
                     setState(() {
-                      _gameSession = null;
+                      widget._gameSession = null;
                       _saveGameSession();
                     });
                     _addGame(context);

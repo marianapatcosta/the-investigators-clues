@@ -64,11 +64,9 @@ class _NewGameState extends State<NewGame> {
     final players = List.generate(
       _numberOfPlayers.toInt(),
       (index) => Player(
-        name: index
-            .toString() /* _playersNames.length == _numberOfPlayers
+        name: _playersNames.length == _numberOfPlayers
             ? _playersNames[index]
-            : '' */
-        ,
+            : '',
       ),
     );
 
@@ -127,6 +125,7 @@ class _NewGameState extends State<NewGame> {
         appBar: AppBar(
           automaticallyImplyLeading: isScreenSmallerThanX(width, ScreenSize.l),
           title: Text(t.newGame),
+          centerTitle: false,
         ),
         body: SingleChildScrollView(
           child: Padding(

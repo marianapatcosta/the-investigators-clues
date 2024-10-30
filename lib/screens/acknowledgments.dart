@@ -29,6 +29,7 @@ class AcknowledgmentsScreen extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: isScreenSmallerThanX(width, ScreenSize.l),
           title: Text(t.acknowledgments),
+          centerTitle: false,
         ),
         body: SafeArea(
           child: SingleChildScrollView(

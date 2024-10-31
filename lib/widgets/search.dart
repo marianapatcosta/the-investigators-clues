@@ -8,11 +8,13 @@ class Search extends StatelessWidget {
     this.onChange,
     this.onClear,
     this.onSubmit,
-    this.width = 200,
+    this.width = 220,
+    this.height = 44,
   });
 
   final TextEditingController searchController;
   final double width;
+  final double height;
   final void Function(String inputValue)? onChange;
   final void Function(String inputValue)? onSubmit;
   final void Function()? onClear;
@@ -28,7 +30,8 @@ class Search extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 4),
-      height: 44,
+      height: height,
+      width: width,
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(8),
@@ -39,9 +42,7 @@ class Search extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: width,
-            height: 40,
+          Expanded(
             child: TextField(
               controller: searchController,
               maxLength: 20,
@@ -63,10 +64,18 @@ class Search extends StatelessWidget {
               onTapOutside: (event) {
                 FocusManager.instance.primaryFocus?.unfocus();
               },
+              style: theme.textTheme.bodyMedium,
             ),
           ),
-          if (searchController.text.trim().isNotEmpty)
-            IconButton(
+          Visibility(
+            visible: searchController.text.trim().isNotEmpty,
+            child: const SizedBox(
+              width: 4,
+            ),
+          ),
+          Visibility(
+            visible: searchController.text.trim().isNotEmpty,
+            child: IconButton(
               onPressed: onClear,
               icon: Icon(
                 Icons.highlight_off,
@@ -74,6 +83,7 @@ class Search extends StatelessWidget {
                 size: 24,
               ),
             ),
+          ),
         ],
       ),
     );

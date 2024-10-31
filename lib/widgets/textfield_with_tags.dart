@@ -69,6 +69,7 @@ class _TextfieldWithTagsState extends State<TextfieldWithTags> {
             child: TextField(
               controller: _controller,
               focusNode: _focusNode,
+              textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
                 helperText: _showHelperText ? helperText : '',
                 helperStyle: theme.textTheme.bodySmall!,
@@ -79,7 +80,8 @@ class _TextfieldWithTagsState extends State<TextfieldWithTags> {
                 ),
               ),
               onChanged: (tag) {
-                if (tag.split(',').isNotEmpty) {
+                if (tag.split(',').length > 1 &&
+                    tag.split(',').every((item) => item.trim().isNotEmpty)) {
                   setState(() {
                     for (final tag in tag.split(',')) {
                       onAddTag(tag.trim());

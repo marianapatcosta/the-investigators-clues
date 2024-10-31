@@ -51,6 +51,7 @@ class _EditNotesState extends State<EditNotes> {
               TextField(
                 controller: _notesController,
                 maxLength: 250,
+                textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(label: Text(t.notes)),
                 maxLines: 15,
               ),

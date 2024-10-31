@@ -31,25 +31,18 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen> {
   final _scrollController = ScrollController();
   bool _isLoading = false;
   bool _showOnlyFavorites = true;
-  List<Script> _filteredFavoriteScripts = kInitialFavoriteScripts;
+  List<Script> get _filteredFavoriteScripts {
+    return kInitialFavoriteScripts
+        .where((script) => script.name
+            .toLowerCase()
+            .contains(_searchController.text.trim().toLowerCase()))
+        .toList();
+  }
+
   List<Script> _fetchedScripts = [];
   String? _error;
   int _currentPage = 1;
   int _totalPages = 1;
-
-  void _filterFavoriteScripts(String inputValue) {
-    if (!_showOnlyFavorites) {
-      return;
-    }
-    final scriptsCopy = kInitialFavoriteScripts
-        .where((script) =>
-            script.name.toLowerCase().contains(inputValue.trim().toLowerCase()))
-        .toList();
-
-    setState(() {
-      _filteredFavoriteScripts = scriptsCopy;
-    });
-  }
 
   void toggleShowOnlyFavorites(bool newValue) {
     setState(() {
@@ -57,6 +50,11 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen> {
       _error = null;
 
       if (!_showOnlyFavorites) {
+        if (_fetchedScripts.isNotEmpty) {
+          setState(() {});
+          return;
+        }
+
         _isLoading = true;
         _fetchScripts('');
       }
@@ -113,11 +111,12 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen> {
   void _clearSearch() {
     setState(() {
       _searchController.clear();
-      if (_showOnlyFavorites) {
-        _filteredFavoriteScripts = kInitialFavoriteScripts;
-        return;
+      if (!_showOnlyFavorites) {
+        _isLoading = true;
+        _fetchScripts('');
+      } else {
+        _fetchedScripts = [];
       }
-      _fetchScripts('');
     });
   }
 
@@ -258,8 +257,9 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen> {
               showOnlyFavorites: _showOnlyFavorites,
               searchController: _searchController,
               toggleShowOnlyFavorites: toggleShowOnlyFavorites,
-              onChange:
-                  _showOnlyFavorites ? _filterFavoriteScripts : _fetchScripts,
+              onChange: _showOnlyFavorites
+                  ? (input) => setState(() {})
+                  : _fetchScripts,
               clearSearch: _clearSearch,
             ),
             SliverPadding(

@@ -64,9 +64,7 @@ class _NewGameState extends State<NewGame> {
     final players = List.generate(
       _numberOfPlayers.toInt(),
       (index) => Player(
-        name: _playersNames.length == _numberOfPlayers
-            ? _playersNames[index]
-            : '',
+        name: index < _playersNames.length ? _playersNames[index] : '',
       ),
     );
 

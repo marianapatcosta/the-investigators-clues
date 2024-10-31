@@ -51,6 +51,10 @@ class App extends ConsumerWidget {
           color: kDarkColorScheme.surfaceContainer,
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
+        chipTheme: ChipThemeData(
+          backgroundColor: kDarkColorScheme.surfaceContainer,
+          selectedColor: kDarkColorScheme.primary,
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               backgroundColor: kDarkColorScheme.primary,

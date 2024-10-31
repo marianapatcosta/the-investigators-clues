@@ -229,7 +229,7 @@ class _EditPlayerState extends State<EditPlayer> {
                             ? null
                             : (isChecked) {
                                 setState(() {
-                                  _hasGhostVote != _hasGhostVote;
+                                  _hasGhostVote = !_hasGhostVote;
                                 });
                               },
                       ),

@@ -121,6 +121,7 @@ class _InfoTokenComposeState extends State<InfoTokenCompose> {
             return Container(
               margin: const EdgeInsets.all(4),
               child: InkWell(
+                  customBorder: const CircleBorder(),
                   onTap: widget.infoToken.id == 'bluffs'
                       ? null
                       : () => _onSelectCharacter(context, index),

@@ -86,54 +86,51 @@ class NightOrderItem extends StatelessWidget {
           isNotInPlayOrDeadCharacter != null && isNotInPlayOrDeadCharacter!(id)
               ? 0.6
               : 1,
-      child: Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
+          Row(
             children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: imageSize,
-                    height: imageSize,
-                    child: CharacterImage(
-                      name: itemInfo['name']!,
-                      image: itemInfo['image']!,
-                      color: itemInfo['name']! == 'Dusk'
-                          ? theme.colorScheme.onSurface
-                          : null,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Text(itemInfo['name']!, style: theme.textTheme.titleSmall),
-                  if (isAliveCharacterWithoutAbility != null &&
-                      isAliveCharacterWithoutAbility!(id)) ...[
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Icon(
-                      Icons.warning,
-                      size: 20,
-                      color: Colors.red.shade600,
-                      semanticLabel: t.showSetupWarning,
-                    ),
-                    Text(t.noAbility,
-                        style: theme.textTheme.titleSmall!
-                            .copyWith(color: Colors.red.shade600)),
-                  ],
-                ],
-              ),
-              if (showDescription && itemInfo['description'] != null)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 4.0),
-                  child: Text(
-                    itemInfo['description']!,
-                    style: theme.textTheme.bodySmall!.copyWith(),
-                  ),
+              SizedBox(
+                width: imageSize,
+                height: imageSize,
+                child: CharacterImage(
+                  name: itemInfo['name']!,
+                  image: itemInfo['image']!,
+                  color: itemInfo['name']! == 'Dusk'
+                      ? theme.colorScheme.onSurface
+                      : null,
                 ),
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              Text(itemInfo['name']!, style: theme.textTheme.titleSmall),
+              if (isAliveCharacterWithoutAbility != null &&
+                  isAliveCharacterWithoutAbility!(id)) ...[
+                const SizedBox(
+                  width: 12,
+                ),
+                Icon(
+                  Icons.warning,
+                  size: 20,
+                  color: Colors.red.shade600,
+                  semanticLabel: t.showSetupWarning,
+                ),
+                Text(t.noAbility,
+                    style: theme.textTheme.titleSmall!
+                        .copyWith(color: Colors.red.shade600)),
+              ],
             ],
           ),
+          if (showDescription && itemInfo['description'] != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4.0),
+              child: Text(
+                itemInfo['description']!,
+                style: theme.textTheme.bodySmall!.copyWith(),
+              ),
+            ),
         ],
       ),
     );

@@ -90,40 +90,44 @@ class _DrawCharactersToPlayersWithNumbersScreenState
               const SizedBox(
                 height: 48,
               ),
-              Wrap(
-                spacing: 12,
-                runSpacing: 12,
-                children: [
-                  for (int index = 0;
-                      index < widget.scriptCharacters.length;
-                      index++)
-                    Semantics(
-                      button: true,
-                      label: '${t.select} item ${(index + 1).toString()}',
-                      child: InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: _selectedCharactersIndexes.contains(index)
-                            ? null
-                            : () {
-                                _onSelectToken(index);
-                              },
-                        child: _selectedCharactersIndexes.contains(index)
-                            ? ColorFiltered(
-                                colorFilter:
-                                    const ColorFilter.matrix(greyMatrix),
-                                child: TokenSlot(
-                                  size: size,
+              ConstrainedBox(
+                constraints:
+                    BoxConstraints(maxWidth: kBreakpoints[ScreenSize.md]!),
+                child: Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  children: [
+                    for (int index = 0;
+                        index < widget.scriptCharacters.length;
+                        index++)
+                      Semantics(
+                        button: true,
+                        label: '${t.select} item ${(index + 1).toString()}',
+                        child: InkWell(
+                          customBorder: const CircleBorder(),
+                          onTap: _selectedCharactersIndexes.contains(index)
+                              ? null
+                              : () {
+                                  _onSelectToken(index);
+                                },
+                          child: _selectedCharactersIndexes.contains(index)
+                              ? ColorFiltered(
+                                  colorFilter:
+                                      const ColorFilter.matrix(greyMatrix),
+                                  child: TokenSlot(
+                                    size: size,
+                                  ),
+                                )
+                              : CharacterToken(
+                                  tokenText: (index + 1).toString(),
+                                  tokenSize: isLargeScreen
+                                      ? TokenSize.large
+                                      : TokenSize.medium,
                                 ),
-                              )
-                            : CharacterToken(
-                                tokenText: (index + 1).toString(),
-                                tokenSize: isLargeScreen
-                                    ? TokenSize.large
-                                    : TokenSize.medium,
-                              ),
+                        ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 56,

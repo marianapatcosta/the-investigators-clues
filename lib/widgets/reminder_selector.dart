@@ -68,6 +68,7 @@ class _ReminderSelectorState extends State<ReminderSelector> {
                   button: true,
                   label: '${t.select} ${reminder.reminder}',
                   child: InkWell(
+                    customBorder: const CircleBorder(),
                     onTap: () {
                       widget.onSelectReminder(reminder);
                     },

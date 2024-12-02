@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/utils.dart';
 
 class FormActionBar extends StatelessWidget {
   const FormActionBar({
@@ -17,12 +15,9 @@ class FormActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final t = AppLocalizations.of(context);
-    final width = MediaQuery.of(context).size.width;
-    final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
 
     return Row(
-      mainAxisAlignment:
-          isLargeScreen ? MainAxisAlignment.end : MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           padding: const EdgeInsets.all(8.0),

@@ -117,8 +117,8 @@ class _StorytellerHelperState extends State<StorytellerHelper> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  height: 180,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 180),
                   child: DrawerHeader(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -157,6 +157,7 @@ class _StorytellerHelperState extends State<StorytellerHelper> {
                           ),
                         ),
                         const SizedBox(height: 16),
+                        const Spacer(),
                         Row(
                           children: [
                             ButtonTab(

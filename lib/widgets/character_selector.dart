@@ -58,6 +58,7 @@ class _CharacterSelectorState extends State<CharacterSelector> {
                   button: true,
                   label: '${t.select} ${character.name}',
                   child: InkWell(
+                    customBorder: const CircleBorder(),
                     onTap: () {
                       widget.onSelectCharacter(character);
                     },

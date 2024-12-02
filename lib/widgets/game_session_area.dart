@@ -188,6 +188,7 @@ class _GameSessionAreaState extends State<GameSessionArea> {
     );
   }
 
+  // TODO: Refactor code to display player:item widgets in ellipsis/circular shape
   double _dp(double radians, double radiusX, double radiusY) {
     return sqrt(
         pow(radiusX * sin(radians), 2) + pow(radiusY * cos(radians), 2));

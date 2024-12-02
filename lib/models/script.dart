@@ -43,7 +43,7 @@ class Script {
         final charInfo = charactersMap[character['id']];
 
         if (charInfo == null) {
-          if (!hasAllInfo(character)) {
+          if (!hasCharacterAllInfo(character)) {
             throw Error();
           }
 
@@ -92,8 +92,8 @@ class Script {
         .toList();
   }
 
-  bool hasAllInfo(Map<String, dynamic> characterInfo) {
-    const keys = ['id', 'name', 'team', 'ability', 'image'];
+  bool hasCharacterAllInfo(Map<String, dynamic> characterInfo) {
+    const keys = ['id', 'name', 'team', 'ability'];
     return keys.every((key) => characterInfo.containsKey(key));
   }
 

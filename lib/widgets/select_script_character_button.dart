@@ -102,6 +102,7 @@ class _SelectScriptCharacterButtonState
                     label:
                         '${widget.isSelected ? t.unselect : t.select} ${widget.character.name}',
                     child: InkWell(
+                      customBorder: const CircleBorder(),
                       onTap: _onToggleIsSelected,
                       child: widget.isSelected
                           ? CharacterToken(

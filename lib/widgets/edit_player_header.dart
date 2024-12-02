@@ -121,6 +121,7 @@ class EditPlayerHeader extends StatelessWidget {
                   button: true,
                   label: t.selectCharacter,
                   child: InkWell(
+                    customBorder: const CircleBorder(),
                     onTap: () => _onSelectCharacter(context),
                     onLongPress: toggleIsEvilEasterEgg,
                     child: Stack(

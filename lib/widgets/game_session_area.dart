@@ -188,12 +188,6 @@ class _GameSessionAreaState extends State<GameSessionArea> {
     );
   }
 
-  // TODO: Refactor code to display player:item widgets in ellipsis/circular shape
-  double _dp(double radians, double radiusX, double radiusY) {
-    return sqrt(
-        pow(radiusX * sin(radians), 2) + pow(radiusY * cos(radians), 2));
-  }
-
   List<Player> _getPlayers(BoxConstraints constraints) {
     final players = [...widget.gameSession.players];
     // checks if position was already set for players list
@@ -201,35 +195,19 @@ class _GameSessionAreaState extends State<GameSessionArea> {
       return players;
     }
 
-    final radiusX =
-        (constraints.maxWidth - kCharacterTokenSizeSmall - kPlayerNotesSize) /
-            2;
+    // Scaling the size of the ellipse
+    final radiusX = (constraints.maxWidth - kCharacterTokenSizeSmall - kPlayerNotesSize) /  2;
     final radiusY = (constraints.maxHeight - kCharacterTokenSizeSmall) / 2;
     final coordinates = [];
-    double precision = 0.001;
-    double offset = pi * 0.5;
-    double circ = 0.0;
-    for (double radians = 0 + offset;
-        radians < (pi * 2 + offset);
-        radians += precision) {
-      circ += _dp(radians, radiusX, radiusY);
-    }
-    double nextPoint = 0;
-    double run = 0.0;
-    for (double radians = 0 + offset;
-        radians < (pi * 2 + offset);
-        radians += precision) {
-      if ((players.length * run / circ) >= nextPoint) {
-        nextPoint++;
-        double x = radiusX + (cos(radians) * radiusX);
-        double y = radiusY + (sin(radians) * radiusY);
-        coordinates.add([x, y]);
-      }
-      run += _dp(radians, radiusX, radiusY);
-    }
 
-    for (int index = 0; index < widget.gameSession.players.length; index++) {
-      final [x, y] = coordinates[index];
+    double playersLength = players.length;
+
+    for (int index = 0; index < playersLength; index++) {
+      // can add offsets if we want to start drawing from pi/2 radians
+      final radians = index * pi * 2 / playersLength;
+      final double x = radiusX + (cos(radians) * radiusX);
+      final double y = radiusY + (sin(radians) * radiusY);
+      // can add offsets here to recenter?
       players[index].setX = x;
       players[index].setY = y;
     }

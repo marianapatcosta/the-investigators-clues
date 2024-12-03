@@ -8,7 +8,7 @@ import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/models/game_session.dart';
 import 'package:my_botc_notes/models/player.dart';
 import 'package:my_botc_notes/widgets/grimoire/storyteller_helper.dart';
-import 'package:my_botc_notes/widgets/game_session_area.dart';
+import 'package:my_botc_notes/widgets/grimoire/grimoire.dart';
 import 'package:my_botc_notes/screens/new_game.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/ui/button_tab.dart';

@@ -9,10 +9,10 @@ import 'package:my_botc_notes/models/game_session.dart';
 import 'package:my_botc_notes/models/player.dart';
 import 'package:my_botc_notes/models/reminder.dart';
 import 'package:my_botc_notes/utils.dart';
+import 'package:my_botc_notes/widgets/game_setup/game_setup_table.dart';
 import 'package:my_botc_notes/widgets/grimoire/bluffs.dart';
 import 'package:my_botc_notes/widgets/grimoire/edit_notes.dart';
 import 'package:my_botc_notes/widgets/grimoire/game_phase.dart';
-import 'package:my_botc_notes/widgets/game_setup/game_setup_table.dart';
 import 'package:my_botc_notes/widgets/grimoire/info_tokens/info_token_manager.dart';
 import 'package:my_botc_notes/widgets/grimoire/info_tokens/info_token_selector.dart';
 import 'package:my_botc_notes/widgets/grimoire/player_item.dart';
@@ -188,7 +188,6 @@ class _GameSessionAreaState extends State<GameSessionArea> {
     );
   }
 
-
   List<Player> _getPlayers(BoxConstraints constraints) {
     final players = [...widget.gameSession.players];
     // checks if position was already set for players list
@@ -197,11 +196,12 @@ class _GameSessionAreaState extends State<GameSessionArea> {
     }
 
     // Scaling the size of the ellipse
-    final radiusX = (constraints.maxWidth - kCharacterTokenSizeSmall - kPlayerNotesSize) /  2;
+    final radiusX =
+        (constraints.maxWidth - kCharacterTokenSizeSmall - kPlayerNotesSize) /
+            2;
     final radiusY = (constraints.maxHeight - kCharacterTokenSizeSmall) / 2;
-    final coordinates = [];
 
-    double playersLength = players.length;
+    int playersLength = players.length;
 
     for (int index = 0; index < playersLength; index++) {
       // can add offsets if we want to start drawing from pi/2 radians
@@ -384,6 +384,7 @@ class _GameSessionAreaState extends State<GameSessionArea> {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 child: isLargeScreen
                     ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ...bluffs,
                         ],

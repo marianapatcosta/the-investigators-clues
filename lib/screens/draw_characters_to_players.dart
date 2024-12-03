@@ -132,7 +132,7 @@ class _DrawCharactersToPlayersScreenState
                       height: 32,
                     ),
                   Text(
-                    t.drawYourCharacter,
+                    areAllCharactersDrawn ? t.allDone : t.drawYourCharacter,
                     style: theme.textTheme.titleLarge,
                   ),
                   SizedBox(
@@ -197,14 +197,12 @@ class _DrawCharactersToPlayersScreenState
                             minimumSize: const Size(120, 40),
                           ),
                           icon: _isDrawingCharacter
-                              ? const Icon(Icons.save)
+                              ? null
                               : const ImageIcon(
                                   AssetImage("assets/images/dice.png"),
                                   size: 20,
                                 ),
-                          label: _isDrawingCharacter
-                              ? const Text('...')
-                              : Text(t.draw),
+                          label: Text(_isDrawingCharacter ? t.drawing : t.draw),
                         ),
                 ],
               ),

@@ -1,5 +1,5 @@
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/layout.dart';
+import 'package:my_botc_notes/widgets/ui/layout.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/gestures.dart';
@@ -141,6 +141,26 @@ class AcknowledgmentsScreen extends StatelessWidget {
                                 .copyWith(height: 1.25),
                           ),
                           TextSpan(
+                            text: 'Clocktower.online',
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                height: 1.25),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => _launchInWebView(
+                                    Uri(
+                                      scheme: 'https',
+                                      host: 'clocktower.online',
+                                    ),
+                                  ),
+                          ),
+                          TextSpan(
+                            text: ' ${t.and} ',
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(height: 1.25),
+                          ),
+                          TextSpan(
                             text: 'Pocket Grimoire',
                             style: const TextStyle(
                                 color: Colors.blue,
@@ -213,6 +233,26 @@ class AcknowledgmentsScreen extends StatelessWidget {
                                   ),
                           ),
                           TextSpan(
+                            text: ' ${t.and} ',
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(height: 1.25),
+                          ),
+                          TextSpan(
+                            text: 'Flaticon',
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                height: 1.25),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => _launchInWebView(
+                                    Uri(
+                                      scheme: 'https',
+                                      host: 'flaticon.com',
+                                    ),
+                                  ),
+                          ),
+                          TextSpan(
                             text: '.',
                             style: theme.textTheme.bodyMedium!
                                 .copyWith(height: 1.25),
@@ -226,6 +266,26 @@ class AcknowledgmentsScreen extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: '${t.acknowledgmentsInfo} ',
+                            style: theme.textTheme.bodyMedium!
+                                .copyWith(height: 1.25),
+                          ),
+                          TextSpan(
+                            text: 'Clocktower.online',
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                height: 1.25),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => _launchInWebView(
+                                    Uri(
+                                      scheme: 'https',
+                                      host: 'clocktower.online',
+                                    ),
+                                  ),
+                          ),
+                          TextSpan(
+                            text: ' ${t.and} ',
                             style: theme.textTheme.bodyMedium!
                                 .copyWith(height: 1.25),
                           ),

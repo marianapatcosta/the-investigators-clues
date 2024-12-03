@@ -9,14 +9,14 @@ import 'package:my_botc_notes/models/game_session.dart';
 import 'package:my_botc_notes/models/player.dart';
 import 'package:my_botc_notes/models/reminder.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/bluffs.dart';
-import 'package:my_botc_notes/widgets/edit_notes.dart';
-import 'package:my_botc_notes/widgets/game_phase.dart';
-import 'package:my_botc_notes/widgets/game_setup_table.dart';
-import 'package:my_botc_notes/widgets/info_token_manager.dart';
-import 'package:my_botc_notes/widgets/info_token_selector.dart';
-import 'package:my_botc_notes/widgets/player_item.dart';
-import 'package:my_botc_notes/widgets/reminder_item.dart';
+import 'package:my_botc_notes/widgets/grimoire/bluffs.dart';
+import 'package:my_botc_notes/widgets/grimoire/edit_notes.dart';
+import 'package:my_botc_notes/widgets/grimoire/game_phase.dart';
+import 'package:my_botc_notes/widgets/game_setup/game_setup_table.dart';
+import 'package:my_botc_notes/widgets/grimoire/info_tokens/info_token_manager.dart';
+import 'package:my_botc_notes/widgets/grimoire/info_tokens/info_token_selector.dart';
+import 'package:my_botc_notes/widgets/grimoire/player_item.dart';
+import 'package:my_botc_notes/widgets/grimoire/reminder_item.dart';
 
 class GameSessionArea extends StatefulWidget {
   const GameSessionArea({
@@ -187,6 +187,7 @@ class _GameSessionAreaState extends State<GameSessionArea> {
       ),
     );
   }
+
 
   List<Player> _getPlayers(BoxConstraints constraints) {
     final players = [...widget.gameSession.players];

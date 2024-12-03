@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/dropdown_item.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/dropdown.dart';
-import 'package:my_botc_notes/widgets/layout.dart';
+import 'package:my_botc_notes/widgets/ui/dropdown.dart';
+import 'package:my_botc_notes/widgets/ui/layout.dart';
 import 'package:my_botc_notes/providers/settings_provider.dart';
 
 const themeDropdownOptions = [

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/layout.dart';
+import 'package:my_botc_notes/widgets/ui/layout.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/widgets/new_game_player_form.dart';
-import 'package:my_botc_notes/widgets/new_game_storyteller_form%20.dart';
+import 'package:my_botc_notes/widgets/game_setup/new_game_player_form.dart';
+import 'package:my_botc_notes/widgets/game_setup/new_game_storyteller_form%20.dart';
 
 class NewGame extends StatefulWidget {
   const NewGame({

@@ -8,10 +8,10 @@ import 'package:my_botc_notes/models/script.dart';
 import 'package:my_botc_notes/providers/favorite_scripts_provider.dart';
 import 'package:my_botc_notes/providers/settings_provider.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/layout.dart';
-import 'package:my_botc_notes/widgets/script_item.dart';
-import 'package:my_botc_notes/widgets/script_item_skeleton.dart';
-import 'package:my_botc_notes/widgets/scripts_list_app_bar.dart';
+import 'package:my_botc_notes/widgets/ui/layout.dart';
+import 'package:my_botc_notes/widgets/scripts/script_item.dart';
+import 'package:my_botc_notes/widgets/scripts/script_item_skeleton.dart';
+import 'package:my_botc_notes/widgets/scripts/scripts_list_app_bar.dart';
 
 const kScriptsPerPage = 10;
 const kScriptsPlaceholderNumber = 5;

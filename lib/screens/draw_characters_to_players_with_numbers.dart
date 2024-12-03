@@ -4,11 +4,11 @@ import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/models/player.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/character_token.dart';
-import 'package:my_botc_notes/widgets/form_action_bar.dart';
-import 'package:my_botc_notes/widgets/layout.dart';
-import 'package:my_botc_notes/widgets/show_drawn_character.dart';
-import 'package:my_botc_notes/widgets/token_slot.dart';
+import 'package:my_botc_notes/widgets/scripts/character_token.dart';
+import 'package:my_botc_notes/widgets/ui/form_action_bar.dart';
+import 'package:my_botc_notes/widgets/ui/layout.dart';
+import 'package:my_botc_notes/widgets/game_setup/show_drawn_character.dart';
+import 'package:my_botc_notes/widgets/ui/token_slot.dart';
 
 class DrawCharactersToPlayersWithNumbersScreen extends StatefulWidget {
   const DrawCharactersToPlayersWithNumbersScreen({
@@ -73,69 +73,74 @@ class _DrawCharactersToPlayersWithNumbersScreenState
         centerTitle: false,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          child: Column(
-            children: [
-              SizedBox(
-                width: isLargeScreen ? 300 : double.infinity,
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              Text(
-                t.drawYourCharacter,
-                style: theme.textTheme.titleLarge,
-              ),
-              const SizedBox(
-                height: 48,
-              ),
-              ConstrainedBox(
-                constraints:
-                    BoxConstraints(maxWidth: kBreakpoints[ScreenSize.md]!),
-                child: Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: [
-                    for (int index = 0;
-                        index < widget.scriptCharacters.length;
-                        index++)
-                      Semantics(
-                        button: true,
-                        label: '${t.select} item ${(index + 1).toString()}',
-                        child: InkWell(
-                          customBorder: const CircleBorder(),
-                          onTap: _selectedCharactersIndexes.contains(index)
-                              ? null
-                              : () {
-                                  _onSelectToken(index);
-                                },
-                          child: _selectedCharactersIndexes.contains(index)
-                              ? ColorFiltered(
-                                  colorFilter:
-                                      const ColorFilter.matrix(greyMatrix),
-                                  child: TokenSlot(
-                                    size: size,
-                                  ),
-                                )
-                              : CharacterToken(
-                                  tokenText: (index + 1).toString(),
-                                  tokenSize: isLargeScreen
-                                      ? TokenSize.large
-                                      : TokenSize.medium,
-                                ),
-                        ),
-                      ),
-                  ],
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: 16,
+              left: 16,
+              right: 16,
+              // to lift the modal up when keyboard is focused
+              bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 32,
                 ),
-              ),
-              const SizedBox(
-                height: 56,
-              ),
-              FormActionBar(
-                onSave: _onSave,
-              )
-            ],
+                Text(
+                  t.drawYourCharacter,
+                  style: theme.textTheme.titleLarge,
+                ),
+                const SizedBox(
+                  height: 48,
+                ),
+                ConstrainedBox(
+                  constraints:
+                      BoxConstraints(maxWidth: kBreakpoints[ScreenSize.md]!),
+                  child: Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: [
+                      for (int index = 0;
+                          index < widget.scriptCharacters.length;
+                          index++)
+                        Semantics(
+                          button: true,
+                          label: '${t.select} item ${(index + 1).toString()}',
+                          child: InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: _selectedCharactersIndexes.contains(index)
+                                ? null
+                                : () {
+                                    _onSelectToken(index);
+                                  },
+                            child: _selectedCharactersIndexes.contains(index)
+                                ? ColorFiltered(
+                                    colorFilter:
+                                        const ColorFilter.matrix(greyMatrix),
+                                    child: TokenSlot(
+                                      size: size,
+                                    ),
+                                  )
+                                : CharacterToken(
+                                    tokenText: (index + 1).toString(),
+                                    tokenSize: isLargeScreen
+                                        ? TokenSize.large
+                                        : TokenSize.medium,
+                                  ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 56,
+                ),
+                FormActionBar(
+                  onSave: _onSave,
+                )
+              ],
+            ),
           ),
         ),
       ),

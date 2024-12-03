@@ -4,9 +4,9 @@ import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/characters.dart';
 import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/character_item.dart';
-import 'package:my_botc_notes/widgets/layout.dart';
-import 'package:my_botc_notes/widgets/search.dart';
+import 'package:my_botc_notes/widgets/scripts/character_item.dart';
+import 'package:my_botc_notes/widgets/ui/layout.dart';
+import 'package:my_botc_notes/widgets/ui/search.dart';
 
 final kInitialCharactersByTeam = getCharactersByTeam(characters);
 

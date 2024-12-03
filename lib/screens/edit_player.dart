@@ -6,10 +6,10 @@ import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/models/player.dart';
 import 'package:my_botc_notes/models/reminder.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/edit_player_header.dart';
-import 'package:my_botc_notes/widgets/form_action_bar.dart';
-import 'package:my_botc_notes/widgets/layout.dart';
-import 'package:my_botc_notes/widgets/reminder_token.dart';
+import 'package:my_botc_notes/widgets/grimoire/edit_player_header.dart';
+import 'package:my_botc_notes/widgets/ui/form_action_bar.dart';
+import 'package:my_botc_notes/widgets/ui/layout.dart';
+import 'package:my_botc_notes/widgets/grimoire/reminder_token.dart';
 
 class EditPlayer extends StatefulWidget {
   const EditPlayer({

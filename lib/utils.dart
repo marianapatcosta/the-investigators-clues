@@ -6,8 +6,8 @@ import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/models/reminder.dart';
 import 'package:my_botc_notes/models/screen_metadata.dart';
 import 'package:my_botc_notes/models/script.dart';
-import 'package:my_botc_notes/widgets/character_selector.dart';
-import 'package:my_botc_notes/widgets/reminder_selector.dart';
+import 'package:my_botc_notes/widgets/game_setup/character_selector.dart';
+import 'package:my_botc_notes/widgets/grimoire/reminder_selector.dart';
 
 String getCapitalizedTeamTitle(String title) {
   return '${title[0].toUpperCase()}${title.substring(1)}${title.toLowerCase() == 'fabled' || title.toLowerCase() == 'townsfolk' ? '' : 's'}';

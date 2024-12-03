@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/script.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/layout.dart';
-import 'package:my_botc_notes/widgets/script_details_content.dart';
+import 'package:my_botc_notes/widgets/ui/layout.dart';
+import 'package:my_botc_notes/widgets/scripts/script_details_content.dart';
 
 class ScriptDetailsScreen extends StatelessWidget {
   const ScriptDetailsScreen({

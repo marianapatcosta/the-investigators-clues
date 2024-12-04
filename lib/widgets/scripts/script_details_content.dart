@@ -61,13 +61,14 @@ class ScriptDetailsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
 
     List<Widget> content = [
       for (final item in charactersByTeam.entries)
         CharactersList(characters: item.value, title: item.key)
     ];
 
-    if (width > 700) {
+    if (isLargeScreen) {
       content = [
         const SizedBox(
           height: 8,

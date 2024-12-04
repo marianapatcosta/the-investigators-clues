@@ -11,10 +11,11 @@ class TeamScriptTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       children: [
-        const Expanded(
-          child: Divider(thickness: 1),
+        Expanded(
+          child: Divider(thickness: 1, color: theme.colorScheme.onSurface),
         ),
         Container(
           padding: const EdgeInsets.only(left: 8, right: 8, top: 2),
@@ -24,10 +25,10 @@ class TeamScriptTitle extends StatelessWidget {
           ),
           child: Text(
             getCapitalizedTeamTitle(title),
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: theme.textTheme.titleMedium!.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+            ),
             textAlign: TextAlign.end,
           ),
         ),

@@ -44,11 +44,12 @@ class ModalContentWrapper extends StatelessWidget {
                   ],
                 )
               : SingleChildScrollView(
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         margin: const EdgeInsets.only(bottom: 20, top: 10),
+                        alignment: Alignment.center,
                         child: titleContent,
                       ),
                       content,

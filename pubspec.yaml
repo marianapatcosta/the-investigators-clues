@@ -86,7 +86,7 @@ flutter:
     - assets/images/top_leaf_3.png
     - assets/images/top_leaf_4.png
     - assets/images/top_leaf_5.png
-    - assets/images/clock.png
+    - assets/images/clockface.png
     - assets/images/shroud.png
     - assets/images/shroud-icon.png
     - assets/images/unknown.png
@@ -113,6 +113,8 @@ flutter:
     - assets/images/bag_outlined.png
     - assets/images/circle_one.png
     - assets/images/dice.png
+    - assets/images/clocktower.png
+    - assets/images/clock.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

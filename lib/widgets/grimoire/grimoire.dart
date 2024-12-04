@@ -196,18 +196,18 @@ class _GameSessionAreaState extends State<GameSessionArea> {
     }
 
     // Scaling the size of the ellipse
-    final radiusX =
-        (constraints.maxWidth - kCharacterTokenSizeSmall - kPlayerNotesSize) /
-            2;
+    final radiusX = (constraints.maxWidth - kCharacterTokenSizeSmall) / 2;
     final radiusY = (constraints.maxHeight - kCharacterTokenSizeSmall) / 2;
 
     int playersLength = players.length;
 
-    for (int index = 0; index < playersLength; index++) {
+    for (int index = 0; index < players.length; index++) {
       // can add offsets if we want to start drawing from pi/2 radians
-      final radians = index * pi * 2 / playersLength;
-      final double x = radiusX + (cos(radians) * radiusX);
-      final double y = radiusY + (sin(radians) * radiusY);
+      const offset =
+          pi / 2; // to align the first player at the bottom of the screen
+      final radians = (index * pi * 2) / playersLength;
+      final double x = radiusX + (cos(radians + offset) * radiusX);
+      final double y = radiusY + (sin(radians + offset) * radiusY);
       // can add offsets here to recenter?
       players[index].setX = x;
       players[index].setY = y;

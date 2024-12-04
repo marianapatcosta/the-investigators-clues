@@ -148,7 +148,7 @@ class CharacterToken extends StatelessWidget {
                   color: Colors.transparent,
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: AssetImage("assets/images/clock.png"),
+                    image: AssetImage("assets/images/clockface.png"),
                   ),
                 ),
               ),
@@ -238,9 +238,11 @@ class CharacterToken extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            top: sizes['imageTop']!,
+            top: 0,
             bottom: 0,
-            child: SizedBox(width: sizes['size'], child: Center(child: image)),
+            child: SizedBox(
+                width: sizes['size'],
+                child: Transform.scale(scale: 0.85, child: image)),
           ),
           Positioned(
             left: 0,

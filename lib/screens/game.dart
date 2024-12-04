@@ -116,31 +116,52 @@ class _GameScreenState extends State<GameScreen> {
 
     Widget content = SliverFillRemaining(
       hasScrollBody: false,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ImageIcon(const AssetImage("assets/images/game.png"),
-                size: 160, color: theme.colorScheme.primary),
-            const SizedBox(
-              height: 32,
-            ),
-            Text(
-              t.noGame,
-              style: theme.textTheme.bodyLarge!.copyWith(fontSize: 18),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                _addGame(context);
-              },
-              label: Text(t.addGame),
-              icon: const Icon(Icons.add),
-            )
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            height: 56,
+          ),
+          Stack(
+            children: [
+              Image(
+                image: const AssetImage("assets/images/clocktower.png"),
+                color: theme.colorScheme.primary,
+                width: 150,
+              ),
+              Positioned(
+                top: 50,
+                left: 0,
+                right: 0,
+                child: Transform.scale(
+                  scale: 0.55,
+                  child: Image(
+                    image: const AssetImage("assets/images/clock.png"),
+                    color: theme.colorScheme.onPrimary,
+                    width: 70,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          Text(
+            t.noGame,
+            style: theme.textTheme.bodyLarge!.copyWith(fontSize: 18),
+          ),
+          const SizedBox(
+            height: 48,
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              _addGame(context);
+            },
+            label: Text(t.addGame),
+            icon: const Icon(Icons.add),
+          )
+        ],
       ),
     );
 
@@ -333,11 +354,13 @@ class _GameScreenState extends State<GameScreen> {
                   showDeleteGameDialog(
                       context, '${t.gameSetupExists} ${t.deleteGameAreYouSure}',
                       () {
-                    setState(() {
-                      widget._gameSession = null;
-                      _saveGameSession();
-                    });
                     _addGame(context);
+                    Future.delayed(const Duration(milliseconds: 100), () async {
+                      setState(() {
+                        widget._gameSession = null;
+                        _saveGameSession();
+                      });
+                    });
                   });
                 },
                 foregroundColor: theme.colorScheme.surface,

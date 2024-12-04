@@ -136,12 +136,13 @@ class _PlayerItemState extends State<PlayerItem> {
     final t = AppLocalizations.of(context);
     final width = MediaQuery.of(context).size.width;
     final isPlayerOnRightSide = _offset.dx > width / 2;
-    final double additionInfoWidth = widget.showPlayersNotes
+    final double additionalInfoWidth = widget.showPlayersNotes
         ? kPlayerNotesSize
         : (widget.showPlayersVotesNominations ? kPlayerCheckboxesSize : 0);
 
     return Positioned(
-        left: _offset.dx,
+        left:
+            isPlayerOnRightSide ? _offset.dx - additionalInfoWidth : _offset.dx,
         top: _offset.dy,
         child: Semantics(
           button: true,
@@ -171,7 +172,7 @@ class _PlayerItemState extends State<PlayerItem> {
               widget.saveGameSession();
             },
             child: SizedBox(
-              width: kCharacterTokenSizeSmall + additionInfoWidth + 2,
+              width: kCharacterTokenSizeSmall + additionalInfoWidth + 2,
               child: Stack(
                 children: [
                   Align(

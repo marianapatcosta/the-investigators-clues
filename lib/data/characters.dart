@@ -777,7 +777,7 @@ const charactersJson = [
     "firstNightReminder": "",
     "otherNight": 58,
     "otherNightReminder":
-        "Nod 'yes' or shake head 'no' for whether the Demon voted today. Place the 'Demon not voted' marker (remove 'Demon voted', if any).",
+        "Nod 'yes' or shake head 'no' for whether the Demon voted today. Place the 'Demon not voted' reminder (remove 'Demon voted', if any).",
     "reminders": ["Demon voted", "Demon not voted"],
     "setup": false,
     "ability": "Each night*, you learn if a Demon voted today.",
@@ -1107,7 +1107,7 @@ const charactersJson = [
     "firstNightReminder": "",
     "otherNight": 9,
     "otherNightReminder":
-        "The previously protected and drunk players lose those markers. The Innkeeper points to two players. Those players are protected. One is drunk.",
+        "The previously protected and drunk players lose those reminders. The Innkeeper points to two players. Those players are protected. One is drunk.",
     "reminders": ["Protected", "Drunk"],
     "setup": false,
     "ability":
@@ -1150,7 +1150,7 @@ const charactersJson = [
     "firstNightReminder": "",
     "otherNight": 62,
     "otherNightReminder":
-        "If today was the Juggler's first day: Show the hand signal for the number (0, 1, 2, etc.) of 'Correct' markers. Remove markers.",
+        "If today was the Juggler's first day: Show the hand signal for the number (0, 1, 2, etc.) of 'Correct' reminders. Remove reminders.",
     "reminders": ["Correct"],
     "setup": false,
     "ability":
@@ -1234,7 +1234,7 @@ const charactersJson = [
     "team": "demon",
     "firstNight": 52,
     "firstNightReminder":
-        "Place the Leviathan 'Day 1' marker. Announce 'The Leviathan is in play; this is Day 1.'",
+        "Place the Leviathan 'Day 1' reminder. Announce 'The Leviathan is in play; this is Day 1.'",
     "otherNight": 72,
     "otherNightReminder": "Change the Leviathan Day reminder for the next day.",
     "reminders": [
@@ -1323,10 +1323,10 @@ const charactersJson = [
     "team": "outsider",
     "firstNight": 7,
     "firstNightReminder":
-        "If 7 or more players: Show the Lunatic a number of arbitrary 'Minions', players equal to the number of Minions in play. Show 3 character tokens of arbitrary good characters. If the token received by the Lunatic is a Demon that would wake tonight: Allow the Lunatic to do the Demon actions. Place their 'attack' markers. Wake the Demon. Show the Demon's real character token. Show them the Lunatic player. If the Lunatic attacked players: Show the real demon each marked player. Remove any Lunatic 'attack' markers.",
+        "If 7 or more players: Show the Lunatic a number of arbitrary 'Minions', players equal to the number of Minions in play. Show 3 character tokens of arbitrary good characters. If the token received by the Lunatic is a Demon that would wake tonight: Allow the Lunatic to do the Demon actions. Place their 'attack' reminders. Wake the Demon. Show the Demon's real character token. Show them the Lunatic player. If the Lunatic attacked players: Show the real demon each marked player. Remove any Lunatic 'attack' reminders.",
     "otherNight": 21,
     "otherNightReminder":
-        "Allow the Lunatic to do the actions of the Demon. Place their 'attack' markers. If the Lunatic selected players: Wake the Demon. Show the 'attack' marker, then point to each marked player. Remove any Lunatic 'attack' markers.",
+        "Allow the Lunatic to do the actions of the Demon. Place their 'attack' reminders. If the Lunatic selected players: Wake the Demon. Show the 'attack' reminder, then point to each marked player. Remove any Lunatic 'attack' reminders.",
     "reminders": ["Attack 1", "Attack 2", "Attack 3"],
     "setup": false,
     "ability":
@@ -1634,10 +1634,10 @@ const charactersJson = [
     "team": "townsfolk",
     "firstNight": 2,
     "firstNightReminder":
-        "The Philosopher either shows a 'no' head signal, or points to a good character on their sheet. If they chose a character: Swap the out-of-play character token with the Philosopher token. Or, if the character is in play, place the drunk marker by that player and the Not the Philosopher token by the Philosopher.",
+        "The Philosopher either shows a 'no' head signal, or points to a good character on their sheet. If they chose a character: Swap the out-of-play character token with the Philosopher token. Or, if the character is in play, place the drunk reminder by that player and the Not the Philosopher token by the Philosopher.",
     "otherNight": 2,
     "otherNightReminder":
-        "If the Philosopher has not used their ability: the Philosopher either shows a 'no' head signal, or points to a good character on their sheet. If they chose a character: Swap the out-of-play character token with the Philosopher token. Or, if the character is in play, place the drunk marker by that player and the Not the Philosopher token by the Philosopher.",
+        "If the Philosopher has not used their ability: the Philosopher either shows a 'no' head signal, or points to a good character on their sheet. If they chose a character: Swap the out-of-play character token with the Philosopher token. Or, if the character is in play, place the drunk reminder by that player and the Not the Philosopher token by the Philosopher.",
     "reminders": ["Drunk", "Is the Philosopher"],
     "setup": false,
     "ability":
@@ -2205,7 +2205,7 @@ const charactersJson = [
     "firstNightReminder": "",
     "otherNight": 59,
     "otherNightReminder":
-        "Nod 'yes' or shake head 'no' for whether a Minion nominated today. Place the 'Minion not nominated' marker (remove 'Minion nominated', if any).",
+        "Nod 'yes' or shake head 'no' for whether a Minion nominated today. Place the 'Minion not nominated' reminder (remove 'Minion nominated', if any).",
     "reminders": ["Minions not nominated", "Minion nominated"],
     "setup": false,
     "ability": "Each night*, you learn if a Minion nominated today.",
@@ -2374,6 +2374,27 @@ const charactersJson = [
         "Each night, choose a player: if they nominate tomorrow, they die. If just 3 players live, you lose this ability.",
   },
   {
+    "id": "xaan",
+    "name": "Xaan",
+    "edition": "",
+    "team": "minion",
+    "firstNight": 27,
+    "firstNightReminder":
+        "Mark the Xaan with the 'NIGHT 1' reminder. If X is 1, mark the Xaan with the 'X' reminder token.",
+    "otherNight": 13,
+    "otherNightReminder":
+        "Change the Xaan reminder token to the relevant night. If it is night X, mark the Xaan with the 'X' reminder token.",
+    "reminders": [
+      "Night 1",
+      "Night 2",
+      "Night 3",
+      "X",
+    ],
+    "setup": true,
+    "ability":
+        "On night X, all Townsfolk are poisoned until dusk. [X Outsiders].",
+  },
+  {
     "id": "yaggababble",
     "name": "Yaggababble",
     "edition": "",
@@ -2382,7 +2403,7 @@ const charactersJson = [
     "firstNightReminder": "Show the Yaggababble their secret phrase.",
     "otherNight": 35,
     "otherNightReminder":
-        "Choose a number of players up to the total number of times the Yaggababble said their secret phrase publicly, those players die.",
+        "Choose a number of players up to the total number of times the Yaggababble said their secret phrase publicly; those players die.",
     "reminders": ["Dead"],
     "setup": false,
     "ability":

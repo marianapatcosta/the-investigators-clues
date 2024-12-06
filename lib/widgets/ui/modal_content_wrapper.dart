@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ModalContentWrapper extends StatelessWidget {
   const ModalContentWrapper({
@@ -15,6 +16,7 @@ class ModalContentWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final t = AppLocalizations.of(context);
 
     final titleContent = title != null
         ? Text(
@@ -23,11 +25,32 @@ class ModalContentWrapper extends StatelessWidget {
           )
         : const SizedBox();
 
+    final header = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const SizedBox(
+          width: 40,
+        ),
+        titleContent,
+        SizedBox(
+            width: 40,
+            child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.close,
+                semanticLabel: t.close,
+              ),
+            )),
+      ],
+    );
+
     return Padding(
         padding: EdgeInsets.only(
             top: 16,
-            left: 16,
-            right: 16,
+            left: 4,
+            right: 4,
             // to lift the modal up when keyboard is focused
             bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SizedBox(
@@ -38,19 +61,17 @@ class ModalContentWrapper extends StatelessWidget {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(bottom: 20, top: 10),
-                      child: titleContent,
+                      child: header,
                     ),
                     content,
                   ],
                 )
               : SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         margin: const EdgeInsets.only(bottom: 20, top: 10),
-                        alignment: Alignment.center,
-                        child: titleContent,
+                        child: header,
                       ),
                       content,
                     ],

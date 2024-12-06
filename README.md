@@ -12,7 +12,7 @@ This application is not affiliated with The Pandemonium Institute.<br/> All role
   - Manually ou randomly select bluff for Demon and Lunatic, if in play (Storyteller mode only);
   - Allow player to draw their character (Storyteller mode only);
   - Register information about each player (e.g. name, specific notes, are they dead?, do they have ghost vote, character, did they vote/nominate?);
-  - Add/delete travellers and fabled;
+  - Add/delete players, travellers and fabled;
   - Track the global number of alive players, ghost votes, number of votes required to successfully execute and number of players per team;
   - Save general notes about the game and write/show some token to the other players or Storyteller;
   - Track current game phase;

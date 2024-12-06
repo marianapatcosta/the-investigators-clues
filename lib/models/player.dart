@@ -11,6 +11,7 @@ class Player {
     this.hasGhostVote = true,
     this.characterId,
     this.isEvilEasterEgg = false,
+    this.isTraveller = false,
     this.x,
     this.y,
     this.reminders,
@@ -23,6 +24,7 @@ class Player {
   bool hasGhostVote;
   String? characterId;
   bool isEvilEasterEgg;
+  bool isTraveller;
   double? x;
   double? y;
   List<Reminder>? reminders;
@@ -81,6 +83,7 @@ class Player {
         hasGhostVote = json['hasGhostVote'] as bool,
         characterId = json['characterId'] as String?,
         isEvilEasterEgg = json['isEvilEasterEgg'] as bool,
+        isTraveller = json['isTraveller'] as bool,
         x = json['x'] as double?,
         y = json['y'] as double?,
         reminders = json['reminders'] == null
@@ -98,6 +101,7 @@ class Player {
       'hasGhostVote': hasGhostVote,
       'characterId': characterId,
       'isEvilEasterEgg': isEvilEasterEgg,
+      'isTraveller': isTraveller,
       'x': x,
       'y': y,
       'reminders': reminders?.map((reminder) => reminder.toJson()).toList(),

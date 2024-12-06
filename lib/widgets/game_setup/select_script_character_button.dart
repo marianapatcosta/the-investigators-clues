@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/widgets/scripts/character_token.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SelectScriptCharacterButton extends StatefulWidget {
   const SelectScriptCharacterButton({
@@ -40,11 +40,10 @@ class _SelectScriptCharacterButtonState
 
   void _onToggleIsSelected() {
     if (widget.isSelected) {
-      widget.updateIsSelected(0);
       _frequency = 1;
+      widget.updateIsSelected(0);
       return;
     }
-
     widget.updateIsSelected(1);
   }
 
@@ -150,10 +149,14 @@ class _SelectScriptCharacterButtonState
                         width: 40,
                         child: IconButton(
                           padding: const EdgeInsets.all(0),
-                          onPressed: _frequency <= 1
+                          onPressed: _frequency <= 0
                               ? null
                               : () {
                                   setState(() {
+                                    if (_frequency == 1) {
+                                      _onToggleIsSelected();
+                                      return;
+                                    }
                                     _frequency -= 1;
                                     widget.updateIsSelected(_frequency);
                                   });
@@ -161,7 +164,7 @@ class _SelectScriptCharacterButtonState
                           icon: Icon(
                             Icons.remove,
                             size: 20,
-                            semanticLabel: t.removeCharacter,
+                            semanticLabel: t.decrement,
                           ),
                         ),
                       ),
@@ -182,7 +185,7 @@ class _SelectScriptCharacterButtonState
                           icon: Icon(
                             Icons.add,
                             size: 20,
-                            semanticLabel: '$t.add ${widget.character.name}',
+                            semanticLabel: t.increment,
                           ),
                         ),
                       ),

@@ -196,7 +196,7 @@ void selectToken(
 
 void selectCharacter(BuildContext context, List<Character> characters,
     void Function(Character? character) select,
-    [showUnknownCharacter = false, availableCharacters]) {
+    [bool showUnknownCharacter = false, List<Character>? availableCharacters]) {
   selectToken(
     context,
     (ctx) => CharacterSelector(

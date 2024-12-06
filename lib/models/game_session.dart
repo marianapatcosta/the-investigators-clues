@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:my_botc_notes/data/characters.dart';
+import 'package:my_botc_notes/data/game_setup.dart';
 import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/models/custom_info_token.dart';
 import 'package:my_botc_notes/models/game_setup.dart';
@@ -11,7 +10,6 @@ import 'package:my_botc_notes/models/script.dart';
 
 class GameSession {
   GameSession({
-    required this.gameSetup,
     required this.script,
     required this.players,
     this.isStorytellerMode = false,
@@ -19,12 +17,10 @@ class GameSession {
     this.lunaticBluffs,
   });
 
-  final GameSetup gameSetup;
   final Script script;
   final List<Player> players;
   List<Character?>? demonBluffs;
   List<Character?>? lunaticBluffs;
-
   bool isStorytellerMode;
 
   String gamePhase = 'N1';
@@ -33,6 +29,14 @@ class GameSession {
   String? _playerInfoToken;
   List<CustomInfoToken>? _customInfoTokensSimplified;
   Character? _fabled;
+
+  GameSetup get gameSetup {
+    final playersNumber = players.where((player) => !player.isTraveller).length;
+    final travellersNumber = players.length - playersNumber;
+    final gameSetup = gameSetups[playersNumber.round().toString()]!;
+    gameSetup.setTraveller = travellersNumber;
+    return gameSetup;
+  }
 
   String? get notes {
     return _notes;
@@ -217,8 +221,7 @@ class GameSession {
   }
 
   GameSession.fromJson(Map<String, dynamic> json)
-      : gameSetup = GameSetup.fromJson(json['gameSetup']),
-        players = List.from(json['players'])
+      : players = List.from(json['players'])
             .map((item) => Player.fromJson(item))
             .toList(),
         script = Script.fromJson(json['script']),
@@ -246,7 +249,6 @@ class GameSession {
 
   Map<String, dynamic> toJson() {
     return {
-      'gameSetup': gameSetup.toJson(),
       'players': players.map((player) => player.toJson()).toList(),
       'script': script.toJson(),
       'gamePhase': gamePhase,

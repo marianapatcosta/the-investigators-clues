@@ -22,6 +22,7 @@ class ShowToken extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
+    print(6666);
 
     return ModalContentWrapper(
       title: title,

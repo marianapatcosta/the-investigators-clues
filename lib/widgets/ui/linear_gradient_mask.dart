@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class LinearGradientMask extends StatelessWidget {
-  const LinearGradientMask(
-      {super.key, required this.colors, required this.child, this.stops});
+  const LinearGradientMask({
+    super.key,
+    required this.colors,
+    required this.child,
+    this.stops,
+  });
 
   final List<Color> colors;
   final Widget child;
@@ -11,13 +15,13 @@ class LinearGradientMask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
-      shaderCallback: (bounds) => LinearGradient(
+      shaderCallback: (shader) => LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
         colors: colors,
         stops: stops ?? const [0.2, 1],
         tileMode: TileMode.mirror,
-      ).createShader(bounds),
+      ).createShader(shader),
       child: child,
     );
   }

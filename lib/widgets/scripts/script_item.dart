@@ -66,45 +66,45 @@ class ScriptItem extends ConsumerWidget {
                       script.author!,
                     )
                   : null,
-              trailing: IconButton(
-                onPressed: canNotBeRemovedFromFavorites
-                    ? null
-                    : () {
-                        ref
-                            .read(favoriteScriptsProvider.notifier)
-                            .toggleScriptFavoriteStatus(context, script);
+              trailing: canNotBeRemovedFromFavorites
+                  ? null
+                  : IconButton(
+                      onPressed: canNotBeRemovedFromFavorites
+                          ? null
+                          : () {
+                              ref
+                                  .read(favoriteScriptsProvider.notifier)
+                                  .toggleScriptFavoriteStatus(context, script);
 
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(isFavorite
-                                ? t.scriptRemovedFromFavorites(script.name)
-                                : t.scriptAddedToFavorites(script.name)),
-                          ),
-                        );
-                      },
-                icon: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  transitionBuilder: (child, animation) {
-                    return RotationTransition(
-                      turns:
-                          Tween<double>(begin: 0.5, end: 1).animate(animation),
-                      child: child,
-                    );
-                  },
-                  key: ValueKey(isFavorite),
-                  child: isFavorite
-                      ? Opacity(
-                          opacity: canNotBeRemovedFromFavorites ? 0.5 : 1,
-                          child: Icon(
-                            Icons.star,
-                            semanticLabel: t.removeFromFavorites,
-                          ),
-                        )
-                      : Icon(Icons.star_border,
-                          semanticLabel: t.addToFavorites),
-                ),
-              ),
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(isFavorite
+                                      ? t.scriptRemovedFromFavorites(
+                                          script.name)
+                                      : t.scriptAddedToFavorites(script.name)),
+                                ),
+                              );
+                            },
+                      icon: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        transitionBuilder: (child, animation) {
+                          return RotationTransition(
+                            turns: Tween<double>(begin: 0.5, end: 1)
+                                .animate(animation),
+                            child: child,
+                          );
+                        },
+                        key: ValueKey(isFavorite),
+                        child: isFavorite
+                            ? Icon(
+                                Icons.star,
+                                semanticLabel: t.removeFromFavorites,
+                              )
+                            : Icon(Icons.star_border,
+                                semanticLabel: t.addToFavorites),
+                      ),
+                    ),
             ),
           ),
         ),

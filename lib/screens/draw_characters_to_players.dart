@@ -141,13 +141,20 @@ class _DrawCharactersToPlayersScreenState
                   AnimatedBuilder(
                       key: _shakeState,
                       animation: _animationController,
-                      child: Transform.rotate(
-                        angle: areAllCharactersDrawn ? 3 : 0,
-                        child: Image(
-                          image: const AssetImage('assets/images/bag.png'),
-                          color: theme.colorScheme.primary,
-                          width: 170,
-                          fit: BoxFit.cover,
+                      child: Semantics(
+                        button: true,
+                        label: _isDrawingCharacter ? t.drawing : t.draw,
+                        child: InkWell(
+                          onTap: _onSelectToken,
+                          child: Transform.rotate(
+                            angle: areAllCharactersDrawn ? 3 : 0,
+                            child: Image(
+                              image: const AssetImage('assets/images/bag.png'),
+                              color: theme.colorScheme.primary,
+                              width: 170,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
                       builder: (ctx, child) {
@@ -190,20 +197,7 @@ class _DrawCharactersToPlayersScreenState
                           ),
                           icon: const Icon(Icons.save),
                           label: Text(t.save))
-                      : ElevatedButton.icon(
-                          onPressed:
-                              _isDrawingCharacter ? null : _onSelectToken,
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(120, 40),
-                          ),
-                          icon: _isDrawingCharacter
-                              ? null
-                              : const ImageIcon(
-                                  AssetImage("assets/images/dice.png"),
-                                  size: 20,
-                                ),
-                          label: Text(_isDrawingCharacter ? t.drawing : t.draw),
-                        ),
+                      : const SizedBox(),
                 ],
               ),
             ),

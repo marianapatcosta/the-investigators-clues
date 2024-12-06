@@ -36,21 +36,4 @@ class GameSetup {
     }
     return 0;
   }
-
-  GameSetup.fromJson(Map<String, dynamic> json)
-      : townsfolk = json['townsfolk'] as int,
-        outsider = json['outsider'] as int,
-        minion = json['minion'] as int,
-        demon = json['demon'] as int,
-        traveller = json['traveller'] as int?;
-
-  Map<String, dynamic> toJson() {
-    return {
-      'townsfolk': townsfolk,
-      'outsider': outsider,
-      'minion': minion,
-      'demon': demon,
-      'traveller': traveller,
-    };
-  }
 }

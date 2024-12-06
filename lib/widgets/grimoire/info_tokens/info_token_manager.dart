@@ -76,9 +76,6 @@ class _InfoTokenManagerState extends State<InfoTokenManager> {
                         onCancel: () {
                           setState(() {
                             _isEditMode = false;
-                            if (_infoToken == '') {
-                              Navigator.pop(context);
-                            }
                           });
                         },
                       ),

@@ -69,7 +69,6 @@ class _NewGamePlayerFormState extends ConsumerState<NewGamePlayerForm> {
               name: index < _playersNames.length ? _playersNames[index] : '',
             ));
     Navigator.of(context).pop(GameSession(
-      gameSetup: gameSetup,
       script: _selectedScript!,
       players: players,
     ));

@@ -86,6 +86,7 @@ flutter:
     - assets/images/top_leaf_3.png
     - assets/images/top_leaf_4.png
     - assets/images/top_leaf_5.png
+    - assets/images/top_leaf_6.png
     - assets/images/clockface.png
     - assets/images/shroud.png
     - assets/images/shroud-icon.png
@@ -112,7 +113,6 @@ flutter:
     - assets/images/bag.png
     - assets/images/bag_outlined.png
     - assets/images/circle_one.png
-    - assets/images/dice.png
     - assets/images/clocktower.png
     - assets/images/clock.png
 

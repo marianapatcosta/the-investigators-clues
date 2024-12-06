@@ -7,18 +7,24 @@ class NumberSlider extends StatelessWidget {
     required this.onChange,
     this.min = 0,
     this.max = 1,
+    this.divisions,
     this.title,
+    this.roundDisplayValue = true,
   });
 
   final double value;
   final void Function(double) onChange;
   final double? min;
   final double? max;
+  final int? divisions;
   final String? title;
+  final bool roundDisplayValue;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final label =
+        roundDisplayValue ? value.round().toString() : value.toStringAsFixed(1);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,8 +45,8 @@ class NumberSlider extends StatelessWidget {
                   value: value,
                   min: min!,
                   max: max!,
-                  divisions: (max! - min!).toInt(),
-                  label: value.round().toString(),
+                  divisions: divisions ?? (max! - min!).toInt(),
+                  label: label,
                   onChanged: (double newValue) {
                     onChange(newValue);
                   },
@@ -49,7 +55,7 @@ class NumberSlider extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 12),
-              child: Text(value.round().toString()),
+              child: Text(label),
             )
           ],
         ),

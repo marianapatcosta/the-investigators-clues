@@ -25,7 +25,10 @@ class FavoriteScriptsNotifier extends Notifier<List<Script>> {
           .map((item) => Script.fromJson(item))
           .toList();
 
-      state = [...kInitialFavoriteScripts, ...cachedScripts];
+      state = [
+        ...cachedScripts,
+        ...kInitialFavoriteScripts,
+      ];
     }
   }
 

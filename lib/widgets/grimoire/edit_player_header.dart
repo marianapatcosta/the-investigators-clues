@@ -76,9 +76,12 @@ class EditPlayerHeader extends StatelessWidget {
                 .toList()
             : sessionCharacters
                 .where((character) => character.team != Team.traveller)
-                .toList(),
-        selectPlayerCharacter,
-        !isStorytellerMode);
+                .toList(), (character) {
+      if (isEvilEasterEgg) {
+        toggleIsEvilEasterEgg();
+      }
+      selectPlayerCharacter(character);
+    }, !isStorytellerMode);
   }
 
   void _openShowPlayer(BuildContext context) async {

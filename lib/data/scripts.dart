@@ -220,22 +220,20 @@ const favoriteScriptsInfo = [
     "pk": 13123,
     "name": "Quebra-Dados Homebrew",
     "author": "Tom\u00e1s",
-    "logo": "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/_meta.png",
-    "almanac":
-        "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/almanac.html",
+    "logo": "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/_meta.png",
+    "almanac": "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/almanac.html",
     "content": [
       {
         "id": "_meta",
         "name": "Quebra-Dados Homebrew",
         "author": "Tom\u00e1s",
-        "logo": "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/_meta.png",
-        "almanac":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/almanac.html"
+        "logo": "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/_meta.png",
+        "almanac": "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/almanac.html"
       },
       {
         "id": "joana_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/joana_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/joana_quebradados.png",
         "firstNightReminder":
             "Show a character token in play. Point to two players, one of which is that character.",
         "otherNightReminder":
@@ -252,7 +250,7 @@ const favoriteScriptsInfo = [
       {
         "id": "christian_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/christian_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/christian_quebradados.png",
         "firstNightReminder":
             "Show 1 good & 1 evil character that are both in-play or not at all.",
         "reminders": ["Good", "Evil"],
@@ -266,7 +264,7 @@ const favoriteScriptsInfo = [
       {
         "id": "joorocha_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/joorocha_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/joorocha_quebradados.png",
         "otherNightReminder":
             "If this is the second night: Ask Jo\u00e3o Rocha to name a player and guess their role. If successful, mark both players with Cannot Die. If wrong, he dies. Don't forget to replace cannot die token",
         "reminders": ["Cannot Die"],
@@ -284,7 +282,7 @@ const favoriteScriptsInfo = [
       {
         "id": "ana_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/ana_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/ana_quebradados.png",
         "firstNightReminder":
             "Wake up Ana and ask her to choose a number up to 5. ",
         "otherNightReminder":
@@ -301,7 +299,7 @@ const favoriteScriptsInfo = [
       {
         "id": "anamartins_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/anamartins_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/anamartins_quebradados.png",
         "firstNightReminder":
             "Wake up Ana Martins and ask her to choose a player. Give her a thumbs up if the player was drunk or poisoned last night or thumbs down if not.",
         "otherNightReminder":
@@ -317,7 +315,7 @@ const favoriteScriptsInfo = [
       {
         "id": "joosantos_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/joosantos_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/joosantos_quebradados.png",
         "firstNightReminder":
             "Wake Jo\u00e3o Santos and point to an alive player you think it makes no sense to execute.",
         "otherNightReminder":
@@ -334,7 +332,7 @@ const favoriteScriptsInfo = [
       {
         "id": "irina_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/irina_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/irina_quebradados.png",
         "otherNightReminder":
             "If no one was executed: Wake up Irina and show her a new in-play character.",
         "reminders": ["Shown"],
@@ -348,7 +346,7 @@ const favoriteScriptsInfo = [
       {
         "id": "ivan_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/ivan_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/ivan_quebradados.png",
         "firstNightReminder":
             "Wake Ivan and point to a player who is contributing the most to his team.",
         "otherNightReminder":
@@ -365,7 +363,7 @@ const favoriteScriptsInfo = [
       {
         "id": "ehdi_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/ehdi_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/ehdi_quebradados.png",
         "otherNightReminder":
             "Wake up Ehdi and show the hand signal for the number (0, 1, 2, etc.) of evil players who publicly asked for beers today.",
         "reminders": ["Evil Claim"],
@@ -380,7 +378,7 @@ const favoriteScriptsInfo = [
       {
         "id": "yurii_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/yurii_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/yurii_quebradados.png",
         "otherNightReminder":
             "If Yurii nominated himself and he's still alive: Show him the role of any of his living neighbors.",
         "reminders": ["Nominated"],
@@ -394,7 +392,7 @@ const favoriteScriptsInfo = [
       {
         "id": "csar_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/csar_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/csar_quebradados.png",
         "otherNightReminder":
             "If C\u00e9sar's ability causes him to wake tonight: Wake C\u00e9sar and run their ability.",
         "reminders": ["?", "Drunk"],
@@ -408,7 +406,7 @@ const favoriteScriptsInfo = [
       {
         "id": "david_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/david_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/david_quebradados.png",
         "reminders": ["Safe"],
         "name": "David",
         "team": "townsfolk",
@@ -419,7 +417,7 @@ const favoriteScriptsInfo = [
       {
         "id": "duarte_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/duarte_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/duarte_quebradados.png",
         "otherNightReminder":
             "If chosen by the Demon: Wake Duarte and ask him and the demon to privately play roshambo (rock \\\"fist\\\", scissors \\\"two fingers\\\" or paper \\\"flat hand\\\"). If they both chose the same, play again. Play until someone wins. Kill Duarte if he loses and a minion if he wins.",
         "reminders": ["Dead"],
@@ -433,7 +431,7 @@ const favoriteScriptsInfo = [
       {
         "id": "marco_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/marco_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/marco_quebradados.png",
         "name": "Marco",
         "team": "townsfolk",
         "ability":
@@ -443,7 +441,7 @@ const favoriteScriptsInfo = [
       {
         "id": "eduardo_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/eduardo_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/eduardo_quebradados.png",
         "firstNightReminder":
             "Wake up Eduardo and ask him to choose a townsfolk role.",
         "reminders": ["Is Eduardo"],
@@ -457,7 +455,7 @@ const favoriteScriptsInfo = [
       {
         "id": "hugo_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/hugo_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/hugo_quebradados.png",
         "firstNightReminder":
             "Wake up Hugo and point to a player and an evil character.",
         "reminders": ["Mad", "Poisoned"],
@@ -471,7 +469,7 @@ const favoriteScriptsInfo = [
       {
         "id": "drunkehdi_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/drunkehdi_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/drunkehdi_quebradados.png",
         "otherNightReminder":
             "Choose which player that asked for beers is drunk. Wake up Drunk Ehdi and tell any number from 0 to the number of players that asked for beers.",
         "reminders": ["Drunk"],
@@ -486,7 +484,7 @@ const favoriteScriptsInfo = [
       {
         "id": "walid_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/walid_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/walid_quebradados.png",
         "otherNightReminder":
             "If the demon died when there are 5 or more players alive choose if you want to wake up Walid. If so, show him he's evil and the demon. Wake up the previous demon and show him he is Walid and good.",
         "reminders": ["Is Walid"],
@@ -500,7 +498,7 @@ const favoriteScriptsInfo = [
       {
         "id": "francisco_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/francisco_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/francisco_quebradados.png",
         "firstNightReminder":
             "Wake up Francisco and ask him to point at a player. Mark them as poisoned.",
         "otherNightReminder":
@@ -520,7 +518,7 @@ const favoriteScriptsInfo = [
       {
         "id": "bruno_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/bruno_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/bruno_quebradados.png",
         "otherNightReminder":
             "If this is the second night: Ask Bruno to name a player and guess their role. If successful, they become poisoned until they die. Mark players Bruno nominated as Poisoned.",
         "reminders": ["Poisoned"],
@@ -538,7 +536,7 @@ const favoriteScriptsInfo = [
       {
         "id": "lo_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/lo_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/lo_quebradados.png",
         "firstNightReminder":
             "Wake up L\u00e9o and ask him to choose a character and the information they will receive.",
         "otherNightReminder":
@@ -558,7 +556,7 @@ const favoriteScriptsInfo = [
       {
         "id": "mariana_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/mariana_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/mariana_quebradados.png",
         "setup": true,
         "name": "Mariana",
         "team": "minion",
@@ -569,7 +567,7 @@ const favoriteScriptsInfo = [
       {
         "id": "isak_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/isak_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/isak_quebradados.png",
         "firstNightReminder":
             "Wake up Isak and ask him to choose a player. That player register as evil until the end of the game.",
         "otherNightReminder": "Wake up Isak and ask him to kill a player.",
@@ -588,7 +586,7 @@ const favoriteScriptsInfo = [
       {
         "id": "maria_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/maria_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/maria_quebradados.png",
         "firstNightReminder":
             "If Maria hasn't used her ability, wake up Maria and ask her to use her ability. If so, ask her to point at another evil player. They will switch roles.",
         "otherNightReminder":
@@ -608,7 +606,7 @@ const favoriteScriptsInfo = [
       {
         "id": "toms_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/toms_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/toms_quebradados.png",
         "otherNightReminder":
             "Wake up Tom\u00e1s and ask him to kill a player. If he kills a minion, ask him to point to another player. Show him that player's character.",
         "reminders": ["Dead", "Keeps ability", "Learn"],
@@ -626,7 +624,7 @@ const favoriteScriptsInfo = [
       {
         "id": "quebradados_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/quebradados_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/quebradados_quebradados.png",
         "otherNightReminder":
             "Wake up Quebra-Dados and ask them to point at any player that asked for beers. They become evil, and learn it.. If no one asked for beers, ask them to point at any player and choose a minion role. Wake them and tell them they are evil and that role, and show them who is their demon.",
         "reminders": ["Dead"],
@@ -644,7 +642,7 @@ const favoriteScriptsInfo = [
       {
         "id": "judas_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/judas_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/judas_quebradados.png",
         "firstNightReminder":
             "Ask Judas and ask him to point at a player. Mark them with the Traitor token.",
         "reminders": ["Traitor", "Won"],
@@ -661,7 +659,7 @@ const favoriteScriptsInfo = [
       {
         "id": "chairnazi_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/chairnazi_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/chairnazi_quebradados.png",
         "firstNightReminder":
             "Chair nazi points to a player. Put the Chair nazi's 'Can't vote' reminder by the chosen player's character token.",
         "otherNightReminder":
@@ -681,7 +679,7 @@ const favoriteScriptsInfo = [
       {
         "id": "barkingdog_quebradados",
         "image":
-            "https:\/\/www.bloodstar.xyz\/p\/Toli\/Quebra-Dados\/barkingdog_quebradados.png",
+            "https://www.bloodstar.xyz/p/Toli/Quebra-Dados/barkingdog_quebradados.png",
         "firstNightReminder":
             "Barking dog points to a player. Put the Barking dog's 'Can't talk' reminder by the chosen player's character token. Wake the chosen player and show them \"This character selected you\" and point to the Barking dog's role.",
         "otherNightReminder":

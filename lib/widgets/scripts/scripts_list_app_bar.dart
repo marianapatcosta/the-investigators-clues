@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
+import 'package:my_botc_notes/styles.dart';
 import 'package:my_botc_notes/utils.dart';
+import 'package:my_botc_notes/widgets/ui/button_tab.dart';
 import 'package:my_botc_notes/widgets/ui/search.dart';
 
 const double kRowHeight = 44;
@@ -20,14 +22,13 @@ class ScriptsListAppBar extends StatelessWidget {
   final bool showOnlyFavorites;
   final bool areFiltersDisabled;
   final TextEditingController searchController;
-  final ValueChanged<bool> toggleShowOnlyFavorites;
+  final void Function() toggleShowOnlyFavorites;
   final void Function(String)? onChange;
   final void Function() clearSearch;
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
 
     return SliverAppBar(
@@ -38,7 +39,7 @@ class ScriptsListAppBar extends StatelessWidget {
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(40),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
           child: IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,37 +48,39 @@ class ScriptsListAppBar extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(
-                      height: kRowHeight,
-                      child: Opacity(
-                        opacity: showOnlyFavorites ? 1 : 0.7,
-                        child: FilterChip(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 8),
-                          selected: showOnlyFavorites,
-                          label: Icon(
-                            showOnlyFavorites
-                                ? Icons.favorite
-                                : Icons.favorite_outline,
-                            size: 20,
-                            color: showOnlyFavorites
-                                ? theme.colorScheme.surface
-                                : null,
-                          ),
-                          showCheckmark: false,
-                          onSelected: areFiltersDisabled
-                              ? null
-                              : toggleShowOnlyFavorites,
-                        ),
+                    ButtonTab(
+                      childLabel: Icon(
+                        showOnlyFavorites
+                            ? Icons.favorite
+                            : Icons.favorite_outline,
+                        size: 20,
+                        color: showOnlyFavorites
+                            ? kDarkColorScheme.primary
+                            : Colors.white,
                       ),
+                      isSelected: showOnlyFavorites,
+                      isSmallSize: true,
+                      onPressed:
+                          areFiltersDisabled ? null : toggleShowOnlyFavorites,
+                    ),
+                    const SizedBox(width: 6),
+                    ButtonTab(
+                      label: t.all,
+                      isSelected: !showOnlyFavorites,
+                      isSmallSize: true,
+                      onPressed:
+                          areFiltersDisabled ? null : toggleShowOnlyFavorites,
                     ),
                   ],
                 ),
-                Search(
-                  searchController: searchController,
-                  height: kRowHeight,
-                  onChange: onChange,
-                  onClear: clearSearch,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Search(
+                    searchController: searchController,
+                    height: kRowHeight,
+                    onChange: onChange,
+                    onClear: clearSearch,
+                  ),
                 )
               ],
             ),

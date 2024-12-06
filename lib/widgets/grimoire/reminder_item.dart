@@ -13,17 +13,17 @@ class ReminderItem extends StatefulWidget {
     required this.reminder,
     required this.constraints,
     required this.sessionCharacters,
+    this.tokenSize = TokenSize.small,
+    this.reminderTokenScale = 1,
     required this.removeReminder,
     required this.saveGameSession,
-    this.isDead = false,
-    this.tokenSize = TokenSize.small,
   });
 
   final Reminder reminder;
   final BoxConstraints constraints;
   final List<Character> sessionCharacters;
-  final bool isDead;
   final TokenSize tokenSize;
+  final double reminderTokenScale;
   final void Function() removeReminder;
   final void Function() saveGameSession;
 
@@ -117,18 +117,13 @@ class _ReminderItemState extends State<ReminderItem> {
             widget.reminder.y = _offset.dy;
             widget.saveGameSession();
           },
-          child: widget.isDead
-              ? ColorFiltered(
-                  colorFilter: const ColorFilter.matrix(greyMatrix),
-                  child: ReminderToken(
-                    reminder: widget.reminder,
-                    character: widget.character,
-                  ),
-                )
-              : ReminderToken(
-                  reminder: widget.reminder,
-                  character: widget.character,
-                ),
+          child: Transform.scale(
+            scale: widget.reminderTokenScale,
+            child: ReminderToken(
+              reminder: widget.reminder,
+              character: widget.character,
+            ),
+          ),
         ),
       ),
     );

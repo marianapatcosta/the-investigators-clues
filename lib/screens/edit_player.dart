@@ -221,7 +221,11 @@ class _EditPlayerState extends State<EditPlayer> {
       body: SizedBox(
         height: double.infinity,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 36),
+          padding: EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: 36,
+              bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Column(
             children: [
               EditPlayerHeader(
@@ -236,6 +240,9 @@ class _EditPlayerState extends State<EditPlayer> {
                   removePlayer: widget.removePlayer,
                   toggleIsEvilEasterEgg: () {
                     setState(() {
+                      if (!_isEvilEasterEgg && _character != null) {
+                        _character = null;
+                      }
                       _isEvilEasterEgg = !_isEvilEasterEgg;
                     });
                   },

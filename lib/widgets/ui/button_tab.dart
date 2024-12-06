@@ -6,14 +6,18 @@ import 'package:my_botc_notes/utils.dart';
 class ButtonTab extends StatelessWidget {
   const ButtonTab({
     super.key,
-    required this.label,
+    this.label = '',
+    this.childLabel,
+    this.isSmallSize = false,
     required this.isSelected,
     required this.onPressed,
   });
 
   final String label;
+  final Widget? childLabel;
   final bool isSelected;
-  final void Function() onPressed;
+  final bool isSmallSize;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class ButtonTab extends StatelessWidget {
     return Transform.translate(
       offset: Offset(0, isScreenBiggerThanX(width, ScreenSize.md) ? 3 : 1),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: isSmallSize ? 0 : 16),
         decoration: BoxDecoration(
           border: isSelected
               ? Border(
@@ -40,13 +44,16 @@ class ButtonTab extends StatelessWidget {
             alignment: Alignment.bottomCenter,
           ),
           onPressed: onPressed,
-          child: Text(
-            label,
-            style: theme.textTheme.titleSmall!.copyWith(
-                color: color,
-                fontSize: 20,
-                fontWeight: isSelected ? FontWeight.w900 : FontWeight.normal),
-          ),
+          child: childLabel != null
+              ? childLabel!
+              : Text(
+                  label,
+                  style: theme.textTheme.titleSmall!.copyWith(
+                      color: color,
+                      fontSize: 20,
+                      fontWeight:
+                          isSelected ? FontWeight.w900 : FontWeight.normal),
+                ),
         ),
       ),
     );

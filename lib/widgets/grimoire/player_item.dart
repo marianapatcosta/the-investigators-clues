@@ -21,6 +21,7 @@ class PlayerItem extends StatefulWidget {
     required this.isStorytellerMode,
     this.showPlayersNotes = false,
     this.showPlayersVotesNominations = false,
+    this.playerTokenScale = 1,
     required this.removePlayer,
     required this.updateParent,
     required this.saveGameSession,
@@ -34,6 +35,7 @@ class PlayerItem extends StatefulWidget {
   final bool isStorytellerMode;
   final bool showPlayersNotes;
   final bool showPlayersVotesNominations;
+  final double playerTokenScale;
   final void Function() removePlayer;
   final void Function() updateParent;
   final void Function() saveGameSession;
@@ -171,128 +173,132 @@ class _PlayerItemState extends State<PlayerItem> {
               widget.player.setY = _offset.dy;
               widget.saveGameSession();
             },
-            child: SizedBox(
-              width: kCharacterTokenSizeSmall + additionalInfoWidth + 2,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: isPlayerOnRightSide
-                        ? Alignment.topRight
-                        : Alignment.topLeft,
-                    child: Column(
-                      children: [
-                        Hero(
-                          tag: id,
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: Stack(
-                              children: [
-                                isDead
-                                    ? ColorFiltered(
-                                        colorFilter: const ColorFilter.matrix(
-                                            greyMatrix),
-                                        child: CharacterToken(
+            child: Transform.scale(
+              scale: widget.playerTokenScale,
+              child: SizedBox(
+                width: kCharacterTokenSizeSmall + additionalInfoWidth + 2,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: isPlayerOnRightSide
+                          ? Alignment.topRight
+                          : Alignment.topLeft,
+                      child: Column(
+                        children: [
+                          Hero(
+                            tag: id,
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: Stack(
+                                children: [
+                                  isDead
+                                      ? ColorFiltered(
+                                          colorFilter: const ColorFilter.matrix(
+                                              greyMatrix),
+                                          child: CharacterToken(
+                                            character: widget.character,
+                                            isEvilEasterEgg: isEvilEasterEgg,
+                                          ),
+                                        )
+                                      : CharacterToken(
                                           character: widget.character,
                                           isEvilEasterEgg: isEvilEasterEgg,
                                         ),
-                                      )
-                                    : CharacterToken(
-                                        character: widget.character,
-                                        isEvilEasterEgg: isEvilEasterEgg,
+                                  if (isDead)
+                                    const Positioned(
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      top: 0,
+                                      child: Image(
+                                        image: AssetImage(
+                                            'assets/images/shroud.png'),
                                       ),
-                                if (isDead)
-                                  const Positioned(
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    top: 0,
-                                    child: Image(
-                                      image: AssetImage(
-                                          'assets/images/shroud.png'),
                                     ),
-                                  ),
-                                if (isDead && hasGhostVote)
-                                  Positioned(
-                                    left: 0,
-                                    right: -30,
-                                    top: 5,
-                                    child: Tooltip(
-                                      message: t.hasGhostVote,
-                                      child: const GhostVoteToken(),
+                                  if (isDead && hasGhostVote)
+                                    Positioned(
+                                      left: 0,
+                                      right: -30,
+                                      top: 5,
+                                      child: Tooltip(
+                                        message: t.hasGhostVote,
+                                        child: const GhostVoteToken(),
+                                      ),
                                     ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        if (widget.player.name != '')
-                          Card(
-                            margin: const EdgeInsets.symmetric(vertical: 4),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 4),
-                              child: Text(
-                                widget.player.name,
-                                style: theme.textTheme.bodyMedium,
+                                ],
                               ),
                             ),
-                          )
-                      ],
-                    ),
-                  ),
-                  if (widget.showPlayersVotesNominations)
-                    Positioned(
-                      top: 15,
-                      left: isPlayerOnRightSide ? 0 : null,
-                      right: isPlayerOnRightSide ? null : 0,
-                      child: PlayerVotedNominated(
-                        didPlayerVote: votedToday,
-                        didPlayerNominate: nominatedToday,
-                        onDidPlayerVoteChange: (newValue) {
-                          setState(() {
-                            widget.player.setVotedToday = newValue ?? false;
-                          });
-                        },
-                        onDidPlayerNominateChange: (newValue) {
-                          setState(() {
-                            widget.player.setNominatedToday = newValue ?? false;
-                          });
-                        },
-                      ),
-                    ),
-                  if (widget.showPlayersNotes && notes != '')
-                    Align(
-                        alignment: isPlayerOnRightSide
-                            ? Alignment.topLeft
-                            : Alignment.topRight,
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: kPlayerNotesSize,
                           ),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Card(
-                              margin: const EdgeInsets.all(0),
+                          if (widget.player.name != '')
+                            Card(
+                              margin: const EdgeInsets.symmetric(vertical: 4),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 6.0, vertical: 4),
+                                    horizontal: 8.0, vertical: 4),
                                 child: Text(
-                                  notes,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 4,
-                                  style: theme.textTheme.bodySmall,
+                                  widget.player.name,
+                                  style: theme.textTheme.bodyMedium,
+                                ),
+                              ),
+                            )
+                        ],
+                      ),
+                    ),
+                    if (widget.showPlayersVotesNominations)
+                      Positioned(
+                        top: 15,
+                        left: isPlayerOnRightSide ? 0 : null,
+                        right: isPlayerOnRightSide ? null : 0,
+                        child: PlayerVotedNominated(
+                          didPlayerVote: votedToday,
+                          didPlayerNominate: nominatedToday,
+                          onDidPlayerVoteChange: (newValue) {
+                            setState(() {
+                              widget.player.setVotedToday = newValue ?? false;
+                            });
+                          },
+                          onDidPlayerNominateChange: (newValue) {
+                            setState(() {
+                              widget.player.setNominatedToday =
+                                  newValue ?? false;
+                            });
+                          },
+                        ),
+                      ),
+                    if (widget.showPlayersNotes && notes != '')
+                      Align(
+                          alignment: isPlayerOnRightSide
+                              ? Alignment.topLeft
+                              : Alignment.topRight,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: kPlayerNotesSize,
+                            ),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Card(
+                                margin: const EdgeInsets.all(0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 6.0, vertical: 4),
+                                  child: Text(
+                                    notes,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 4,
+                                    style: theme.textTheme.bodySmall,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ))
-                ],
+                          ))
+                  ],
+                ),
               ),
             ),
           ),

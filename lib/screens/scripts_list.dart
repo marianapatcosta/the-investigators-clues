@@ -47,7 +47,7 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen> {
   int _currentPage = 1;
   int _totalPages = 1;
 
-  void toggleShowOnlyFavorites(bool newValue) {
+  void toggleShowOnlyFavorites() {
     setState(() {
       _showOnlyFavorites = !_showOnlyFavorites;
       _error = null;

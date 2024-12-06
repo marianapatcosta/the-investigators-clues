@@ -183,7 +183,6 @@ class RulesScreen extends StatelessWidget {
 
 class _TextListItem extends StatelessWidget {
   const _TextListItem({
-    super.key,
     this.title,
     this.hasIndentation = false,
     required this.description,

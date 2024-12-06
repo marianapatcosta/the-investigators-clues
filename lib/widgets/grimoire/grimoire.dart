@@ -18,12 +18,14 @@ import 'package:my_botc_notes/widgets/grimoire/info_tokens/info_token_selector.d
 import 'package:my_botc_notes/widgets/grimoire/player_item.dart';
 import 'package:my_botc_notes/widgets/grimoire/reminder_item.dart';
 
-class GameSessionArea extends StatefulWidget {
-  const GameSessionArea({
+class Grimoire extends StatefulWidget {
+  const Grimoire({
     super.key,
     required this.gameSession,
     this.showPlayersNotes = false,
     this.showPlayersVotesNominations = false,
+    this.playerTokenScale = 1,
+    this.reminderTokenScale = 1,
     required this.saveGameSession,
     required this.updateParent,
   });
@@ -31,16 +33,18 @@ class GameSessionArea extends StatefulWidget {
   final GameSession gameSession;
   final bool showPlayersNotes;
   final bool showPlayersVotesNominations;
+  final double playerTokenScale;
+  final double reminderTokenScale;
   final void Function() saveGameSession;
   final void Function() updateParent;
 
   @override
-  State<GameSessionArea> createState() {
-    return _GameSessionAreaState();
+  State<Grimoire> createState() {
+    return _GrimoireState();
   }
 }
 
-class _GameSessionAreaState extends State<GameSessionArea> {
+class _GrimoireState extends State<Grimoire> {
   bool get isLunaticInPlay {
     if (!widget.gameSession.isStorytellerMode) {
       return false;
@@ -345,6 +349,7 @@ class _GameSessionAreaState extends State<GameSessionArea> {
                     showPlayersNotes: widget.showPlayersNotes,
                     showPlayersVotesNominations:
                         widget.showPlayersVotesNominations,
+                    playerTokenScale: widget.playerTokenScale,
                     removePlayer: () {
                       _onRemovePlayer(player);
                     },
@@ -360,6 +365,7 @@ class _GameSessionAreaState extends State<GameSessionArea> {
                           reminder: reminder,
                           constraints: constraints,
                           sessionCharacters: sessionCharacters,
+                          reminderTokenScale: widget.reminderTokenScale,
                           removeReminder: () =>
                               _onRemoveReminder(player, reminder),
                           saveGameSession: widget.saveGameSession),

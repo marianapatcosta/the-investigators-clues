@@ -11,6 +11,7 @@ import 'package:my_botc_notes/widgets/grimoire/storyteller_helper.dart';
 import 'package:my_botc_notes/widgets/grimoire/grimoire.dart';
 import 'package:my_botc_notes/screens/new_game.dart';
 import 'package:my_botc_notes/utils.dart';
+import 'package:my_botc_notes/widgets/grimoire/token_scaler.dart';
 import 'package:my_botc_notes/widgets/ui/button_tab.dart';
 import 'package:my_botc_notes/widgets/grimoire/game_menu.dart';
 import 'package:my_botc_notes/widgets/ui/layout.dart';
@@ -20,6 +21,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 const kGameSession = 'gameSession';
 
 const kNewPlayerOffset = 50.0;
+double kMinScale = 0.5;
+double kMaxScale = 2;
 
 enum GameTab {
   setup,
@@ -34,11 +37,9 @@ final gameTabsMetadata = {
 final scaffoldKey = GlobalKey<ScaffoldState>();
 
 class GameScreen extends StatefulWidget {
-  GameScreen({
+  const GameScreen({
     super.key,
   });
-
-  GameSession? _gameSession;
 
   @override
   State<GameScreen> createState() {
@@ -47,8 +48,11 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  GameSession? gameSession;
   bool _showPlayersNotes = false;
   bool _showPlayersVotesNominations = false;
+  double _playerTokenScale = 1;
+  double _reminderTokenScale = 1;
 
   void _addGame(
     BuildContext context,
@@ -65,7 +69,7 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     setState(() {
-      widget._gameSession = newGameSession;
+      gameSession = newGameSession;
     });
     _saveGameSession();
   }
@@ -84,8 +88,7 @@ class _GameScreenState extends State<GameScreen> {
 
     if (gameSessionString != null) {
       setState(() {
-        widget._gameSession =
-            GameSession.fromJson(json.decode(gameSessionString));
+        gameSession = GameSession.fromJson(json.decode(gameSessionString));
       });
     }
   }
@@ -93,12 +96,99 @@ class _GameScreenState extends State<GameScreen> {
   void _saveGameSession() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     final encodedSession = jsonEncode(
-      widget._gameSession?.toJson(),
+      gameSession?.toJson(),
     );
     await preferences.setString(
       kGameSession,
       encodedSession,
     );
+  }
+
+  void _onAddPlayer(List<Character> playerCharacters, [isTraveller = false]) {
+    selectCharacter(context, playerCharacters, (character) {
+      setState(() {
+        gameSession!.players.add(
+          Player(
+            characterId: character?.id,
+            x: kNewPlayerOffset,
+            y: kNewPlayerOffset,
+            isTraveller: isTraveller,
+          ),
+        );
+      });
+      _saveGameSession();
+    }, true);
+  }
+
+  List<Character> _getAllCharactersFromTeam(Team team) {
+    final existingCharacters =
+        characters.where((character) => character.team == team).toList();
+    final homebrew = [];
+    if (gameSession!.script.hasHomebrewCharacters) {
+      for (final character in gameSession!.script.characters
+          .where((character) => character.team == team)
+          .toList()) {
+        if (existingCharacters
+            .where((item) => item.id == character.id)
+            .isEmpty) {
+          homebrew.add(character);
+        }
+      }
+    }
+
+    return [...homebrew, ...existingCharacters];
+  }
+
+  void _onAddTraveller() {
+    final travellers = _getAllCharactersFromTeam(Team.traveller);
+    _onAddPlayer(travellers, true);
+  }
+
+  void _onAddFabled() {
+    final fabled = _getAllCharactersFromTeam(Team.fabled);
+
+    selectCharacter(context, fabled, (character) {
+      if (character != null) {
+        setState(() {
+          gameSession!.setFabled = character;
+        });
+      }
+      _saveGameSession();
+    });
+  }
+
+  void _onScaleTokens() {
+    final width = MediaQuery.of(context).size.width;
+
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        useSafeArea: true,
+        constraints: BoxConstraints(
+          maxWidth: isScreenBiggerThanX(width, ScreenSize.md)
+              ? kBreakpoints[ScreenSize.md]!
+              : double.infinity,
+        ),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setModalState) {
+            return TokenScaler(
+              minScaleValue: kMinScale,
+              maxScaleValue: kMaxScale,
+              onUpdatePlayerTokenScale: (value) {
+                setState(() {
+                  _playerTokenScale = value;
+                });
+              },
+              onUpdateReminderTokenScale: (value) {
+                setState(() {
+                  _reminderTokenScale = value;
+                });
+              },
+            );
+          });
+        });
   }
 
   @override
@@ -122,27 +212,10 @@ class _GameScreenState extends State<GameScreen> {
           const SizedBox(
             height: 56,
           ),
-          Stack(
-            children: [
-              Image(
-                image: const AssetImage("assets/images/clocktower.png"),
-                color: theme.colorScheme.primary,
-                width: 150,
-              ),
-              Positioned(
-                top: 50,
-                left: 0,
-                right: 0,
-                child: Transform.scale(
-                  scale: 0.55,
-                  child: Image(
-                    image: const AssetImage("assets/images/clock.png"),
-                    color: theme.colorScheme.onPrimary,
-                    width: 70,
-                  ),
-                ),
-              ),
-            ],
+          Image(
+            image: const AssetImage("assets/images/clocktower.png"),
+            color: theme.colorScheme.onSurface,
+            width: 150,
           ),
           const SizedBox(
             height: 32,
@@ -165,17 +238,19 @@ class _GameScreenState extends State<GameScreen> {
       ),
     );
 
-    if (widget._gameSession != null && _gameTab == GameTab.scriptDetails) {
+    if (gameSession != null && _gameTab == GameTab.scriptDetails) {
       content = ScriptDetailsContent(
-          script: widget._gameSession!.script,
-          sessionCharacters: widget._gameSession!.sessionCharacters);
+          script: gameSession!.script,
+          sessionCharacters: gameSession!.sessionCharacters);
     }
 
-    if (widget._gameSession != null && _gameTab == GameTab.setup) {
-      content = GameSessionArea(
-          gameSession: widget._gameSession!,
+    if (gameSession != null && _gameTab == GameTab.setup) {
+      content = Grimoire(
+          gameSession: gameSession!,
           showPlayersNotes: _showPlayersNotes,
           showPlayersVotesNominations: _showPlayersVotesNominations,
+          playerTokenScale: _playerTokenScale,
+          reminderTokenScale: _reminderTokenScale,
           saveGameSession: _saveGameSession,
           updateParent: () => setState(() {}));
     }
@@ -192,12 +267,10 @@ class _GameScreenState extends State<GameScreen> {
                 Container()
               ], // hide default hamburger menu for open drawer
               title: Text(
-                widget._gameSession == null
-                    ? t.game
-                    : widget._gameSession!.script.name,
+                gameSession == null ? t.game : gameSession!.script.name,
               ),
               centerTitle: false,
-              bottom: widget._gameSession == null
+              bottom: gameSession == null
                   ? null
                   : PreferredSize(
                       preferredSize: const Size.fromHeight(20),
@@ -224,12 +297,12 @@ class _GameScreenState extends State<GameScreen> {
                               ),
                             ),
                           ),
-                          if (widget._gameSession != null &&
-                              widget._gameSession!.isStorytellerMode &&
-                              _gameTab == GameTab.setup)
-                            Wrap(
-                              spacing: 4,
-                              children: [
+                          Wrap(
+                            spacing: 4,
+                            children: [
+                              if (gameSession != null &&
+                                  gameSession!.isStorytellerMode &&
+                                  _gameTab == GameTab.setup)
                                 IconButton(
                                   icon: const ImageIcon(
                                       AssetImage(
@@ -239,101 +312,53 @@ class _GameScreenState extends State<GameScreen> {
                                   onPressed: () =>
                                       scaffoldKey.currentState?.openEndDrawer(),
                                 ),
-                                GameMenu(
-                                  showPlayersNotes: _showPlayersNotes,
-                                  showPlayersVotesNominations:
-                                      _showPlayersVotesNominations,
-                                  menuActions: {
-                                    MenuItem.addTraveller: () {
-                                      final travellers = characters
+                              GameMenu(
+                                showPlayersNotes: _showPlayersNotes,
+                                showPlayersVotesNominations:
+                                    _showPlayersVotesNominations,
+                                menuActions: {
+                                  MenuItem.addPlayer: () => _onAddPlayer(
+                                      gameSession!.script.characters
                                           .where((character) =>
-                                              character.team == Team.traveller)
-                                          .toList();
-                                      final homebrewTravellers = [];
-                                      if (widget._gameSession!.script
-                                          .hasHomebrewCharacters) {
-                                        for (final traveller in widget
-                                            ._gameSession!.script.characters
-                                            .where((character) =>
-                                                character.team ==
-                                                Team.traveller)
-                                            .toList()) {
-                                          if (travellers
-                                              .where((item) =>
-                                                  item.id == traveller.id)
-                                              .isEmpty) {
-                                            homebrewTravellers.add(traveller);
-                                          }
-                                        }
+                                              character.team !=
+                                                  Team.traveller &&
+                                              character.team != Team.fabled)
+                                          .toList()),
+                                  MenuItem.addTraveller: _onAddTraveller,
+                                  MenuItem.addFabled: _onAddFabled,
+                                  MenuItem.showPlayersNotes: () {
+                                    setState(() {
+                                      if (!_showPlayersNotes &&
+                                          _showPlayersVotesNominations) {
+                                        _showPlayersVotesNominations = false;
                                       }
-                                      selectCharacter(context, [
-                                        ...homebrewTravellers,
-                                        ...travellers
-                                      ], (character) {
-                                        setState(() {
-                                          widget._gameSession!.players.add(
-                                            Player(
-                                              characterId: character?.id,
-                                              x: kNewPlayerOffset,
-                                              y: kNewPlayerOffset,
-                                            ),
-                                          );
-                                          widget._gameSession!.gameSetup
-                                              .setTraveller = (widget
-                                                      ._gameSession!
-                                                      .gameSetup
-                                                      .traveller ??
-                                                  0) +
-                                              1;
-                                        });
-                                        _saveGameSession();
-                                      });
-                                    },
-                                    MenuItem.addFabled: () {
-                                      selectCharacter(
-                                        context,
-                                        characters
-                                            .where((character) =>
-                                                character.team == Team.fabled)
-                                            .toList(),
-                                        (character) {
-                                          setState(() {
-                                            widget._gameSession!.setFabled =
-                                                character!;
-                                            _saveGameSession();
-                                          });
-                                        },
-                                      );
-                                    },
-                                    MenuItem.showPlayersNotes: () {
-                                      setState(() {
-                                        if (!_showPlayersNotes &&
-                                            _showPlayersVotesNominations) {
-                                          _showPlayersVotesNominations = false;
-                                        }
-                                        _showPlayersNotes = !_showPlayersNotes;
-                                      });
-                                    },
-                                    MenuItem.showVotesNominations: () {
-                                      setState(() {
-                                        if (!_showPlayersVotesNominations &&
-                                            _showPlayersNotes) {
-                                          _showPlayersNotes = false;
-                                        }
-                                        _showPlayersVotesNominations =
-                                            !_showPlayersVotesNominations;
-                                      });
-                                    },
-                                    MenuItem.delete: () {
-                                      setState(() {
-                                        widget._gameSession = null;
-                                        _saveGameSession();
-                                      });
-                                    },
+                                      _showPlayersNotes = !_showPlayersNotes;
+                                    });
                                   },
-                                ),
-                              ],
-                            ),
+                                  MenuItem.showVotesNominations: () {
+                                    setState(() {
+                                      if (!_showPlayersVotesNominations &&
+                                          _showPlayersNotes) {
+                                        _showPlayersNotes = false;
+                                      }
+                                      _showPlayersVotesNominations =
+                                          !_showPlayersVotesNominations;
+                                    });
+                                  },
+                                  MenuItem.scaleTokens: _onScaleTokens,
+                                  MenuItem.delete: () {
+                                    showDeleteGameDialog(
+                                        context, t.deleteGameAreYouSure, () {
+                                      setState(() {
+                                        gameSession = null;
+                                        _saveGameSession();
+                                      });
+                                    });
+                                  },
+                                },
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -346,7 +371,7 @@ class _GameScreenState extends State<GameScreen> {
             ? null
             : FloatingActionButton.small(
                 onPressed: () {
-                  if (widget._gameSession == null) {
+                  if (gameSession == null) {
                     _addGame(context);
                     return;
                   }
@@ -357,7 +382,7 @@ class _GameScreenState extends State<GameScreen> {
                     _addGame(context);
                     Future.delayed(const Duration(milliseconds: 100), () async {
                       setState(() {
-                        widget._gameSession = null;
+                        gameSession = null;
                         _saveGameSession();
                       });
                     });
@@ -369,19 +394,19 @@ class _GameScreenState extends State<GameScreen> {
                 child: const Icon(Icons.add),
               ),
         endDrawer: _gameTab == GameTab.setup &&
-                widget._gameSession != null &&
-                widget._gameSession!.isStorytellerMode
+                gameSession != null &&
+                gameSession!.isStorytellerMode
             ? StorytellerHelper(
-                characters: widget._gameSession!.sessionCharacters,
-                inPlayCharactersIds: widget._gameSession!.inPlayCharactersIds,
+                characters: gameSession!.sessionCharacters,
+                inPlayCharactersIds: gameSession!.inPlayCharactersIds,
                 alivePlayersCharactersIds:
-                    widget._gameSession!.alivePlayersCharactersIds,
-                alivePlayersWithoutAbilityCharactersIds: widget
-                    ._gameSession!.alivePlayersWithoutAbilityCharactersIds,
-                gamePhase: widget._gameSession!.gamePhase,
+                    gameSession!.alivePlayersCharactersIds,
+                alivePlayersWithoutAbilityCharactersIds:
+                    gameSession!.alivePlayersWithoutAbilityCharactersIds,
+                gamePhase: gameSession!.gamePhase,
                 hasHomebrewCharacters:
-                    widget._gameSession!.script.hasHomebrewCharacters,
-                jinxes: widget._gameSession!.script.jinxes,
+                    gameSession!.script.hasHomebrewCharacters,
+                jinxes: gameSession!.script.jinxes,
               )
             : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,

@@ -243,7 +243,6 @@ class _NewGameStorytellerFormState
 
     Navigator.of(context).pop(
       GameSession(
-          gameSetup: gameSetup,
           script: _selectedScript!,
           players: _players!,
           isStorytellerMode: true,

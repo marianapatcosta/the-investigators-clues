@@ -92,7 +92,7 @@ const botcWikiUrl = 'https://wiki.bloodontheclocktower.com';
 
 const kScriptsDatabaseUrl = 'botc-scripts.azurewebsites.net';
 
-const kCharactersTokensPath = 'assets/images/character_tokens_off';
+const kCharactersTokensPath = 'assets/images/character_tokens';
 
 final kInitialFavoriteScripts = mapInfoToScripts(favoriteScriptsInfo);
 
@@ -188,7 +188,7 @@ final infoTokens = [
     bold: 'infoToken5Bold',
     regularPart2: 'infoToken5RegularPart2',
     imageName: "eye",
-    tokenSlots: [null, null, null],
+    tokenSlots: [null, null],
   ),
   InfoToken(
     id: 'you-are',

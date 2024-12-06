@@ -76,8 +76,8 @@ class _DrawCharactersToPlayersWithNumbersScreenState
         child: Padding(
           padding: EdgeInsets.only(
               top: 16,
-              left: 16,
-              right: 16,
+              left: 4,
+              right: 4,
               // to lift the modal up when keyboard is focused
               bottom: MediaQuery.of(context).viewInsets.bottom),
           child: SingleChildScrollView(

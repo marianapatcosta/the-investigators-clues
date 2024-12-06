@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/characters.dart';
+import 'package:my_botc_notes/data/night_order.dart';
 import 'package:my_botc_notes/widgets/scripts/character_image.dart';
 
 const double imageSize = 40;
@@ -29,34 +30,10 @@ class NightOrderItem extends StatelessWidget {
   final bool Function(String orderId)? isAliveCharacterWithoutAbility;
 
   Map<String, String> get itemInfo {
-    if (id == 'DUSK') {
-      return {
-        'name': 'Dusk',
-        "image": "assets/images/dusk.png",
-      };
-    }
+    final nonCharacterInfo = nightOrderNonCharacterInfo[id];
 
-    if (id == 'DAWN') {
-      return {
-        'name': 'Dawn',
-        "image": "assets/images/dawn.png",
-      };
-    }
-    if (id == 'MINION') {
-      return {
-        'name': 'Minion setup',
-        "image": "assets/images/minion.png",
-        "description":
-            "Minions learn who each other are and who their demon is.",
-      };
-    }
-    if (id == 'DEMON') {
-      return {
-        'name': 'Demon setup',
-        "image": "assets/images/demon.png",
-        "description":
-            "Demon learns who are their minions and receives 3 not-in-play characters.",
-      };
+    if (nonCharacterInfo != null) {
+      return nonCharacterInfo;
     }
 
     if (name != null && image != null && description != null) {

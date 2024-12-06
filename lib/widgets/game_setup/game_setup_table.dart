@@ -5,6 +5,8 @@ import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/models/game_setup.dart';
 import 'package:my_botc_notes/widgets/game_setup/game_setup_table_item.dart';
 import 'package:my_botc_notes/widgets/game_setup/game_setup_teams.dart';
+import 'package:my_botc_notes/widgets/grimoire/info_tokens/show_token.dart';
+import 'package:my_botc_notes/widgets/scripts/character_token.dart';
 
 const double gameSetupIconSize = 20;
 
@@ -25,6 +27,25 @@ class GameSetupTable extends StatelessWidget {
   final int numberOfGhostVotes;
   final int numberOfVotesRequiredToExecute;
   final Character? fabled;
+
+  void _openShowFabled(BuildContext context) async {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      constraints: const BoxConstraints(
+        maxWidth: double.infinity,
+      ),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      builder: (ctx) => ShowToken(
+        token: CharacterToken(
+          character: fabled,
+          tokenSize: TokenSize.large,
+        ),
+        tokenText: fabled?.ability,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,14 +102,21 @@ class GameSetupTable extends StatelessWidget {
         GameSetupTeams(
             gameSetup: gameSetup, gameSetupIconSize: gameSetupIconSize),
         if (fabled != null)
-          GameSetupTableItem(
-            text: fabled!.name,
-            tooltipMessage: 'Fabled',
-            icon: Icon(
-              Icons.person,
-              size: gameSetupIconSize,
-              color: teamsColors[Team.fabled] as Color,
-              semanticLabel: '${fabled!.name} fabled',
+          Semantics(
+            button: true,
+            label: '${t.show} ${fabled!.name}',
+            child: InkWell(
+              onTap: () => _openShowFabled(context),
+              child: GameSetupTableItem(
+                text: fabled!.name,
+                tooltipMessage: 'Fabled',
+                icon: Icon(
+                  Icons.person,
+                  size: gameSetupIconSize,
+                  color: teamsColors[Team.fabled] as Color,
+                  semanticLabel: '${fabled!.name} fabled',
+                ),
+              ),
             ),
           )
       ],

@@ -265,13 +265,6 @@ List<String> getOrderIds(List<Character> characters) {
 
 List<dynamic> getFirstNightOrder(
     List<Character> characters, bool hasHomebrewCharacters) {
-  final hasFirstNightOrder =
-      characters.any((character) => character.firstNight != 0);
-
-  if (!hasFirstNightOrder) {
-    return [];
-  }
-
   if (hasHomebrewCharacters) {
     return characters.where((character) => character.firstNight != 0).toList()
       ..sort((characterA, characterB) =>
@@ -285,13 +278,6 @@ List<dynamic> getFirstNightOrder(
 
 List<dynamic> getOtherNightsOrder(
     List<Character> characters, bool hasHomebrewCharacters) {
-  final hasOtherNightOrder =
-      characters.any((character) => character.otherNight != 0);
-
-  if (!hasOtherNightOrder) {
-    return [];
-  }
-
   if (hasHomebrewCharacters) {
     return characters.where((character) => character.otherNight != 0).toList()
       ..sort((characterA, characterB) =>

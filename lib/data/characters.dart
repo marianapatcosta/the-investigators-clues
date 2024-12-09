@@ -19,12 +19,14 @@ const charactersJson = [
     "name": "Alchemist",
     "edition": "",
     "team": "townsfolk",
-    "firstNightReminder": "Show the Alchemist a not-in-play Minion token",
+    "firstNightReminder":
+        "Show the Alchemist the 'You are' token and the character token of a Minion",
     "otherNightReminder": "",
     "reminders": [],
     "remindersGlobal": ["Is the Alchemist"],
     "setup": false,
-    "ability": "You have a not-in-play Minion ability.",
+    "ability":
+        "You have a Minion ability. When using this, the Storyteller may prompt you to choose differently.",
   },
   {
     "id": "alhadikhia",

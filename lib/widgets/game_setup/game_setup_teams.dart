@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/game_setup.dart';
+import 'package:my_botc_notes/models/index.dart' show GameSetup, Team;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/game_setup/game_setup_table_item.dart';
+import 'package:my_botc_notes/widgets/index.dart' show GameSetupTableItem;
 
 Map<Team, String?> mapGameSetupToWidgetData(GameSetup gameSetup) {
   return {

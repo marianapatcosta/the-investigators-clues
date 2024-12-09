@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/game_setup.dart';
-import 'package:my_botc_notes/widgets/game_setup/game_setup_teams.dart';
-import 'package:my_botc_notes/widgets/ui/number_slider.dart';
+import 'package:my_botc_notes/models/index.dart' show GameSetup;
+import 'package:my_botc_notes/widgets/index.dart'
+    show GameSetupTeams, NumberSlider;
 
 class NumberPlayersSlider extends StatelessWidget {
   const NumberPlayersSlider({

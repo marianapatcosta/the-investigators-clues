@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_text/circular_text.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/reminder.dart';
+import 'package:my_botc_notes/models/index.dart' show Character, Reminder;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/scripts/character_image.dart';
+import 'package:my_botc_notes/widgets/index.dart' show CharacterImage;
 
-final tokenSizes = {
+final _tokenSizes = {
   TokenSize.small: {
     'size': kReminderTokenSizeSmall,
     'fontSize': 40.0,
@@ -38,7 +37,7 @@ class ReminderToken extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sizes = tokenSizes[tokenSize]!;
+    final sizes = _tokenSizes[tokenSize]!;
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);

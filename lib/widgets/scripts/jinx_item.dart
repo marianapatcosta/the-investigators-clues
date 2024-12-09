@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/widgets/scripts/character_image.dart';
+import 'package:my_botc_notes/widgets/index.dart' show CharacterImage;
 
-const double imageSize = 40;
+const double _jinxImageSize = 40;
 
 class JinxItem extends StatelessWidget {
   const JinxItem({
@@ -21,16 +21,16 @@ class JinxItem extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: imageSize,
-            height: imageSize,
+            width: _jinxImageSize,
+            height: _jinxImageSize,
             child: CharacterImage(
               name: charactersMap[characterId]!.name,
               image: charactersMap[characterId]!.image,
             ),
           ),
           SizedBox(
-            width: imageSize,
-            height: imageSize,
+            width: _jinxImageSize,
+            height: _jinxImageSize,
             child: CharacterImage(
               name: charactersMap[jinx['id']]!.name,
               image: charactersMap[jinx['id']]!.image,

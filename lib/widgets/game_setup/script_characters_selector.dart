@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/game_setup.dart';
+import 'package:my_botc_notes/models/index.dart'
+    show Character, GameSetup, Team;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/form_action_bar.dart';
-import 'package:my_botc_notes/widgets/game_setup/game_setup_table.dart';
-import 'package:my_botc_notes/widgets/game_setup/game_setup_table_item.dart';
-import 'package:my_botc_notes/widgets/ui/modal_content_wrapper.dart';
-import 'package:my_botc_notes/widgets/game_setup/select_script_character_button.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show
+        FormActionBar,
+        GameSetupTableItem,
+        ModalContentWrapper,
+        SelectScriptCharacterButton;
+
+const double _gameSetupIconSize = 20;
 
 class ScriptCharactersSelector extends StatefulWidget {
   const ScriptCharactersSelector({
@@ -226,7 +229,7 @@ class _ScriptCharactersSelectorState extends State<ScriptCharactersSelector> {
                         item.key == Team.townsfolk
                             ? Icons.people
                             : Icons.person,
-                        size: gameSetupIconSize,
+                        size: _gameSetupIconSize,
                         color: teamsColors[item.key] as Color,
                         semanticLabel:
                             '${selectedCharactersByTeam[item.key]!.length} / ${charactersByTeam[item.key]!.length} ${item.key}',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/widgets/ui/modal_content_wrapper.dart';
+import 'package:my_botc_notes/widgets/index.dart' show ModalContentWrapper;
 
 class ShowToken extends StatelessWidget {
   const ShowToken({
@@ -22,7 +22,6 @@ class ShowToken extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    print(6666);
 
     return ModalContentWrapper(
       title: title,

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/script.dart';
-import 'package:my_botc_notes/providers/favorite_scripts_provider.dart';
-import 'package:my_botc_notes/screens/script_details.dart';
+import 'package:my_botc_notes/models/index.dart' show Script;
+import 'package:my_botc_notes/providers/index.dart'
+    show favoriteScriptsProvider;
+import 'package:my_botc_notes/screens/index.dart' show ScriptDetailsScreen;
 
 class ScriptItem extends ConsumerWidget {
   const ScriptItem({

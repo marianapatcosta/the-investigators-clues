@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/player.dart';
+import 'package:my_botc_notes/models/index.dart' show Character, Player;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/scripts/character_token.dart';
+import 'package:my_botc_notes/widgets/index.dart' show CharacterToken;
 
 class ShowDrawnCharacter extends StatefulWidget {
   const ShowDrawnCharacter({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/layout.dart';
+import 'package:my_botc_notes/widgets/index.dart' show Layout;
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({

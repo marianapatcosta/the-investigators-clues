@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/reminder.dart';
-import 'package:my_botc_notes/widgets/grimoire/reminder_token.dart';
-import 'package:my_botc_notes/widgets/grimoire/info_tokens/show_token.dart';
+import 'package:my_botc_notes/data/index.dart' show charactersMap;
+import 'package:my_botc_notes/models/index.dart' show Character, Reminder;
+import 'package:my_botc_notes/widgets/index.dart' show ReminderToken, ShowToken;
 
 class ReminderItem extends StatefulWidget {
   const ReminderItem({

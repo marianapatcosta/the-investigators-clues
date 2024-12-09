@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:my_botc_notes/widgets/ui/form_action_bar.dart';
-import 'package:my_botc_notes/widgets/ui/modal_content_wrapper.dart';
-import 'package:my_botc_notes/widgets/grimoire/info_tokens/show_token.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show FormActionBar, ModalContentWrapper, ShowToken;
 
 class InfoTokenManager extends StatefulWidget {
   const InfoTokenManager({

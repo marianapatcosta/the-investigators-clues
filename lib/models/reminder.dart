@@ -1,6 +1,4 @@
-import 'package:uuid/uuid.dart';
-
-const uuid = Uuid();
+import 'package:my_botc_notes/constants.dart';
 
 class Reminder {
   Reminder({

@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/data/game_setup.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/game_session.dart';
-import 'package:my_botc_notes/models/game_setup.dart';
-import 'package:my_botc_notes/models/player.dart';
-import 'package:my_botc_notes/models/script.dart';
-import 'package:my_botc_notes/providers/favorite_scripts_provider.dart';
-import 'package:my_botc_notes/screens/draw_characters_to_players.dart';
-import 'package:my_botc_notes/screens/draw_characters_to_players_with_numbers.dart';
+import 'package:my_botc_notes/data/index.dart' show gameSetups;
+import 'package:my_botc_notes/models/index.dart'
+    show Character, GameSession, GameSetup, Player, Script, Team;
+import 'package:my_botc_notes/providers/index.dart'
+    show favoriteScriptsProvider;
+import 'package:my_botc_notes/screens/index.dart'
+    show
+        DrawCharactersToPlayersScreen,
+        DrawCharactersToPlayersWithNumbersScreen;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/game_setup/characters_manager.dart';
-import 'package:my_botc_notes/widgets/ui/form_action_bar.dart';
-import 'package:my_botc_notes/widgets/game_setup/number_players_slider.dart';
-import 'package:my_botc_notes/widgets/game_setup/script_selector.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show CharactersManager, FormActionBar, NumberPlayersSlider, ScriptSelector;
 
 class NewGameStorytellerForm extends ConsumerStatefulWidget {
   const NewGameStorytellerForm({

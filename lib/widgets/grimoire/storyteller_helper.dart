@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/jinx.dart.dart';
+import 'package:my_botc_notes/models/index.dart' show Character, Jinx;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/button_tab.dart';
-import 'package:my_botc_notes/widgets/scripts/jinxes.dart';
-import 'package:my_botc_notes/widgets/scripts/night_order_list.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show ButtonTab, Jinxes, NightOrderList;
 
 class StorytellerHelper extends StatefulWidget {
   const StorytellerHelper({

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/widgets/scripts/character_token.dart';
-import 'package:my_botc_notes/widgets/ui/modal_content_wrapper.dart';
-import 'package:my_botc_notes/widgets/ui/show_more_button.dart';
+import 'package:my_botc_notes/models/index.dart' show Character;
+import 'package:my_botc_notes/widgets/index.dart'
+    show CharacterToken, ModalContentWrapper, ShowMoreButton;
 
 class CharacterSelector extends StatefulWidget {
   const CharacterSelector({

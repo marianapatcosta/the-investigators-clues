@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/text_tag.dart';
+import 'package:my_botc_notes/widgets/index.dart' show TextTag;
 
 const List<String> _textSeparators = [','];
-const int kDefaultHelperMaxLines = 4;
+const int _defaultHelperMaxLines = 4;
 
 class TextfieldWithTags extends StatefulWidget {
   const TextfieldWithTags({
@@ -15,7 +15,7 @@ class TextfieldWithTags extends StatefulWidget {
     required this.onRemoveTag,
     this.helperText,
     this.hintText,
-    this.helperMaxLines = kDefaultHelperMaxLines,
+    this.helperMaxLines = _defaultHelperMaxLines,
   });
 
   final List<String> tags;

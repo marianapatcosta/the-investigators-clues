@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:my_botc_notes/widgets/ui/modal_content_wrapper.dart';
-import 'package:my_botc_notes/widgets/ui/number_slider.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show ModalContentWrapper, NumberSlider;
 
 const double kTitleWidth = 130;
 

@@ -3,10 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/styles.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/button_tab.dart';
-import 'package:my_botc_notes/widgets/ui/search.dart';
+import 'package:my_botc_notes/widgets/index.dart' show ButtonTab, Search;
 
-const double kRowHeight = 44;
+const double _rowHeight = 44;
 
 class ScriptsListAppBar extends StatelessWidget {
   const ScriptsListAppBar({
@@ -77,7 +76,7 @@ class ScriptsListAppBar extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Search(
                     searchController: searchController,
-                    height: kRowHeight,
+                    height: _rowHeight,
                     onChange: onChange,
                     onClear: clearSearch,
                   ),

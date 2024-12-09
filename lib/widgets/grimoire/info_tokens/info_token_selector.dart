@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/custom_info_token.dart';
-import 'package:my_botc_notes/models/info_token.dart';
-import 'package:my_botc_notes/models/reminder.dart';
+import 'package:my_botc_notes/data/index.dart' show charactersMap;
+import 'package:my_botc_notes/models/index.dart'
+    show Character, CustomInfoToken, InfoToken, Reminder;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/grimoire/info_tokens/add_custom_info_token.dart';
-import 'package:my_botc_notes/widgets/scripts/character_token.dart';
-import 'package:my_botc_notes/widgets/grimoire/info_tokens/info_token_compose.dart';
-import 'package:my_botc_notes/widgets/ui/modal_content_wrapper.dart';
-import 'package:my_botc_notes/widgets/grimoire/reminder_token.dart';
-import 'package:my_botc_notes/widgets/grimoire/info_tokens/show_token.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show
+        AddCustomInfoToken,
+        CharacterToken,
+        InfoTokenCompose,
+        ModalContentWrapper,
+        ReminderToken,
+        ShowToken;
 
-const kButtonMaxWidth = 300.0;
-const kWidthFactor = 0.42;
-const kSpacing = 8.0;
-const kMaxCustomInfoTokens = 6;
+const _buttonMaxWidth = 300.0;
+const _widthFactor = 0.42;
+const _spacing = 8.0;
+const _maxCustomInfoTokens = 6;
 
 class InfoTokenSelector extends StatefulWidget {
   const InfoTokenSelector({
@@ -117,7 +117,7 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
   }
 
   void _onSelectAddCustomToken(BuildContext context) {
-    if (_customInfoTokens.length >= kMaxCustomInfoTokens) {
+    if (_customInfoTokens.length >= _maxCustomInfoTokens) {
       final t = AppLocalizations.of(context);
       showDialog(
         context: context,
@@ -127,7 +127,7 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
             style: const TextStyle(fontFamily: 'Dumbledore'),
           ),
           content:
-              Text(t.tooManyCustomInfoTokensDescription(kMaxCustomInfoTokens)),
+              Text(t.tooManyCustomInfoTokensDescription(_maxCustomInfoTokens)),
           actions: [
             TextButton(
                 onPressed: () {
@@ -236,8 +236,8 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
     final width = MediaQuery.of(context).size.width;
     Widget infoTokenButton(InfoToken infoToken, [int? customInfoTokenIndex]) =>
         Container(
-          width: width * kWidthFactor,
-          constraints: const BoxConstraints(maxWidth: kButtonMaxWidth),
+          width: width * _widthFactor,
+          constraints: const BoxConstraints(maxWidth: _buttonMaxWidth),
           child: ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
@@ -278,7 +278,7 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
           child: Wrap(
             alignment: WrapAlignment.center,
             runSpacing: 8,
-            spacing: kSpacing,
+            spacing: _spacing,
             children: [
               for (final infoToken in infoTokens) ...[
                 infoTokenButton(infoToken),
@@ -310,12 +310,12 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
               ],
               if (_customInfoTokens.length % 2 != 0)
                 Container(
-                  width: width * kWidthFactor,
-                  constraints: const BoxConstraints(maxWidth: kButtonMaxWidth),
+                  width: width * _widthFactor,
+                  constraints: const BoxConstraints(maxWidth: _buttonMaxWidth),
                 ),
               Container(
-                width: width * kWidthFactor,
-                constraints: const BoxConstraints(maxWidth: kButtonMaxWidth),
+                width: width * _widthFactor,
+                constraints: const BoxConstraints(maxWidth: _buttonMaxWidth),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(55)),
@@ -332,8 +332,8 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
                 ),
               ),
               Container(
-                width: width * kWidthFactor,
-                constraints: const BoxConstraints(maxWidth: kButtonMaxWidth),
+                width: width * _widthFactor,
+                constraints: const BoxConstraints(maxWidth: _buttonMaxWidth),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(55)),
@@ -350,9 +350,9 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
                 ),
               ),
               Container(
-                width: width * kWidthFactor * 2 + kSpacing,
+                width: width * _widthFactor * 2 + _spacing,
                 constraints: const BoxConstraints(
-                    maxWidth: kButtonMaxWidth * 2 + kSpacing),
+                    maxWidth: _buttonMaxWidth * 2 + _spacing),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shadowColor: Colors.transparent,

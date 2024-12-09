@@ -1,12 +1,14 @@
-import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/data/game_setup.dart';
+import 'package:my_botc_notes/data/index.dart' show charactersMap, gameSetups;
 import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/custom_info_token.dart';
-import 'package:my_botc_notes/models/game_setup.dart';
-import 'package:my_botc_notes/models/info_token.dart';
-import 'package:my_botc_notes/models/player.dart';
-import 'package:my_botc_notes/models/reminder.dart';
-import 'package:my_botc_notes/models/script.dart';
+import 'package:my_botc_notes/models/index.dart'
+    show
+        Character,
+        CustomInfoToken,
+        GameSetup,
+        InfoToken,
+        Player,
+        Reminder,
+        Script;
 
 class GameSession {
   GameSession({

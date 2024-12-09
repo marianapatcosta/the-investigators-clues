@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_botc_notes/widgets/ui/linear_gradient_mask.dart';
+import 'package:my_botc_notes/widgets/index.dart' show LinearGradientMask;
 
 class GameSetupTableItem extends StatelessWidget {
   const GameSetupTableItem({

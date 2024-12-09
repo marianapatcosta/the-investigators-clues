@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:my_botc_notes/widgets/ui/layout.dart';
+import 'package:my_botc_notes/widgets/index.dart' show Layout;
 
 class GeneralErrorScreen extends StatelessWidget {
   const GeneralErrorScreen({

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/dropdown_item.dart';
-import 'package:my_botc_notes/models/script.dart';
+import 'package:my_botc_notes/models/index.dart' show DropdownItem, Script;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/game_setup/custom_script_form.dart';
-import 'package:my_botc_notes/widgets/ui/dropdown_search.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show CustomScriptForm, DropdownSearch;
 
 class ScriptSelector extends StatefulWidget {
   const ScriptSelector({

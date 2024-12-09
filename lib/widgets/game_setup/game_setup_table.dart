@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/game_setup.dart';
-import 'package:my_botc_notes/widgets/game_setup/game_setup_table_item.dart';
-import 'package:my_botc_notes/widgets/game_setup/game_setup_teams.dart';
-import 'package:my_botc_notes/widgets/grimoire/info_tokens/show_token.dart';
-import 'package:my_botc_notes/widgets/scripts/character_token.dart';
+import 'package:my_botc_notes/models/index.dart'
+    show Character, GameSetup, Team;
+import 'package:my_botc_notes/widgets/index.dart'
+    show CharacterToken, GameSetupTableItem, GameSetupTeams, ShowToken;
 
-const double gameSetupIconSize = 20;
+const double _gameSetupIconSize = 20;
 
 class GameSetupTable extends StatelessWidget {
   const GameSetupTable({
@@ -63,7 +61,7 @@ class GameSetupTable extends StatelessWidget {
               tooltipMessage: t.nPlayers(numberOfPlayers),
               icon: Icon(
                 Icons.groups,
-                size: gameSetupIconSize,
+                size: _gameSetupIconSize,
                 color: Colors.green.shade800,
                 semanticLabel: t.nPlayers(numberOfPlayers),
               ),
@@ -73,7 +71,7 @@ class GameSetupTable extends StatelessWidget {
               tooltipMessage: t.nAlivePlayers(numberOfAlivePlayers),
               icon: Icon(
                 Icons.favorite,
-                size: gameSetupIconSize,
+                size: _gameSetupIconSize,
                 color: Colors.red.shade600,
                 semanticLabel: t.nAlivePlayers(numberOfAlivePlayers),
               ),
@@ -83,7 +81,7 @@ class GameSetupTable extends StatelessWidget {
               tooltipMessage: t.nVotesToExecute(numberOfVotesRequiredToExecute),
               icon: Icon(
                 Icons.check_box,
-                size: gameSetupIconSize,
+                size: _gameSetupIconSize,
                 semanticLabel:
                     t.nVotesToExecute(numberOfVotesRequiredToExecute),
               ),
@@ -93,14 +91,14 @@ class GameSetupTable extends StatelessWidget {
               tooltipMessage: t.nGhostVotes(numberOfGhostVotes),
               image: ImageIcon(
                 const AssetImage("assets/images/shroud-icon.png"),
-                size: gameSetupIconSize,
+                size: _gameSetupIconSize,
                 semanticLabel: t.nGhostVotes(numberOfGhostVotes),
               ),
             ),
           ],
         ),
         GameSetupTeams(
-            gameSetup: gameSetup, gameSetupIconSize: gameSetupIconSize),
+            gameSetup: gameSetup, gameSetupIconSize: _gameSetupIconSize),
         if (fabled != null)
           Semantics(
             button: true,
@@ -112,7 +110,7 @@ class GameSetupTable extends StatelessWidget {
                 tooltipMessage: 'Fabled',
                 icon: Icon(
                   Icons.person,
-                  size: gameSetupIconSize,
+                  size: _gameSetupIconSize,
                   color: teamsColors[Team.fabled] as Color,
                   semanticLabel: '${fabled!.name} fabled',
                 ),

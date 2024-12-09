@@ -1,0 +1,16 @@
+export 'about.dart';
+export 'acknowledgments.dart';
+export 'character_details.dart';
+export 'characters_list.dart';
+export 'draw_characters_to_players_with_numbers.dart';
+export 'draw_characters_to_players.dart';
+export 'edit_player.dart';
+export 'game.dart';
+export 'general_error.dart';
+export 'more.dart';
+export 'new_game.dart';
+export 'rules.dart';
+export 'script_details.dart';
+export 'scripts_list.dart';
+export 'settings.dart';
+export 'tabs.dart';

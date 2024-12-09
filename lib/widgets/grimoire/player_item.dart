@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/player.dart';
-import 'package:my_botc_notes/models/reminder.dart';
-import 'package:my_botc_notes/widgets/scripts/character_token.dart';
-import 'package:my_botc_notes/screens/edit_player.dart';
-import 'package:my_botc_notes/widgets/grimoire/ghost_vote_token.dart';
-import 'package:my_botc_notes/widgets/grimoire/player_voted_nominated.dart';
+import 'package:my_botc_notes/data/index.dart' show charactersMap;
+import 'package:my_botc_notes/models/index.dart'
+    show Character, Player, Reminder;
+import 'package:my_botc_notes/widgets/index.dart'
+    show CharacterToken, GhostVoteToken, PlayerVotedNominated;
+import 'package:my_botc_notes/screens/index.dart' show EditPlayer;
 
 class PlayerItem extends StatefulWidget {
   const PlayerItem({

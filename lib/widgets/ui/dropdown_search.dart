@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_botc_notes/models/dropdown_item.dart';
+import 'package:my_botc_notes/models/index.dart' show DropdownItem;
 
 class DropdownSearch<T extends Object> extends StatelessWidget {
   const DropdownSearch({

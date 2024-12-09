@@ -1,10 +1,10 @@
-import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/layout.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/constants.dart';
+import 'package:my_botc_notes/utils.dart';
+import 'package:my_botc_notes/widgets/ui/layout.dart';
 
 class AcknowledgmentsScreen extends StatelessWidget {
   const AcknowledgmentsScreen({

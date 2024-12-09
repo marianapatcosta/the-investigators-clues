@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/info_token.dart';
+import 'package:my_botc_notes/models/index.dart' show InfoToken;
 import 'package:my_botc_notes/utils.dart';
 
 const textShadows = <Shadow>[

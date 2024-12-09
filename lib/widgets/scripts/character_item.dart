@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/screens/character_details.dart';
-import 'package:my_botc_notes/widgets/scripts/character_image.dart';
+import 'package:my_botc_notes/data/index.dart' show charactersMap;
+import 'package:my_botc_notes/models/index.dart' show Character;
+import 'package:my_botc_notes/screens/index.dart' show CharacterDetailsScreen;
+import 'package:my_botc_notes/widgets/index.dart' show CharacterImage;
 
 class CharacterItem extends StatelessWidget {
   const CharacterItem({

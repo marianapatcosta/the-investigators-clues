@@ -1,3 +1,4 @@
+import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/data/scripts.dart';
 import 'package:my_botc_notes/models/character.dart';
@@ -13,6 +14,8 @@ import 'package:my_botc_notes/screens/rules.dart';
 import 'package:my_botc_notes/screens/scripts_list.dart';
 import 'package:my_botc_notes/screens/settings.dart';
 import 'package:my_botc_notes/utils.dart';
+
+const uuid = Uuid();
 
 enum ScreenSize { sm, md, l, xl }
 
@@ -30,9 +33,9 @@ const kBreakpoints = {
 };
 
 final screensMetadata = [
-  ScreenMetadata(
+  const ScreenMetadata(
     titleKey: 'game',
-    image: const AssetImage("assets/images/game.png"),
+    image: AssetImage("assets/images/game.png"),
     screen: GameScreen(),
   ),
   const ScreenMetadata(

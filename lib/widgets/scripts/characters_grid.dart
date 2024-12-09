@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_botc_notes/models/character.dart';
+import 'package:my_botc_notes/models/index.dart' show Character;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/scripts/character_item.dart';
-import 'package:my_botc_notes/widgets/scripts/team_script_title.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show CharacterItem, TeamScriptTitle;
 
 class CharactersGrid extends StatelessWidget {
   const CharactersGrid({

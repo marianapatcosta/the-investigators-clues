@@ -5,9 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/widgets/scripts/character_image.dart';
+import 'package:my_botc_notes/widgets/index.dart' show CharacterImage, Layout;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/layout.dart';
 
 class CharacterDetailsScreen extends StatefulWidget {
   const CharacterDetailsScreen({

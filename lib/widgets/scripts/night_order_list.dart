@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/widgets/scripts/night_order_item.dart';
+import 'package:my_botc_notes/models/index.dart' show Character;
+import 'package:my_botc_notes/widgets/index.dart' show NightOrderItem;
 
 class NightOrderList extends StatelessWidget {
   const NightOrderList({

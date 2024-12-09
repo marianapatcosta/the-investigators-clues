@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/dropdown_item.dart';
-import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/dropdown.dart';
-import 'package:my_botc_notes/widgets/ui/layout.dart';
+import 'package:my_botc_notes/models/index.dart' show DropdownItem;
 import 'package:my_botc_notes/providers/settings_provider.dart';
+import 'package:my_botc_notes/utils.dart';
+import 'package:my_botc_notes/widgets/index.dart' show Dropdown, Layout;
 
 const themeDropdownOptions = [
   {'label': 'lightTheme', 'value': ThemeMode.light},

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/data/night_order.dart';
-import 'package:my_botc_notes/widgets/scripts/character_image.dart';
+import 'package:my_botc_notes/data/index.dart'
+    show charactersMap, nightOrderNonCharacterInfo;
+import 'package:my_botc_notes/widgets/index.dart' show CharacterImage;
 
-const double imageSize = 40;
+const double _nightOrderImageSize = 40;
 
 class NightOrderItem extends StatelessWidget {
   const NightOrderItem({
@@ -69,8 +69,8 @@ class NightOrderItem extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: imageSize,
-                height: imageSize,
+                width: _nightOrderImageSize,
+                height: _nightOrderImageSize,
                 child: CharacterImage(
                   name: itemInfo['name']!,
                   image: itemInfo['image']!,

@@ -1,7 +1,5 @@
-import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/data/jinxes.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/jinx.dart.dart';
+import 'package:my_botc_notes/data/index.dart' show charactersMap, jinxesMap;
+import 'package:my_botc_notes/models/index.dart' show Character, Jinx;
 
 const kOfficialAuthor = 'The Pandemonium Institute';
 
@@ -58,8 +56,8 @@ class Script {
           ability: charInfo.ability,
           setup: charInfo.setup,
           bagDisabled: charInfo.bagDisabled,
-          firstNight: charInfo.firstNight ?? 0,
-          otherNight: charInfo.otherNight ?? 0,
+          firstNight: charInfo.firstNight,
+          otherNight: charInfo.otherNight,
           firstNightReminder: charInfo.firstNightReminder,
           otherNightReminder: charInfo.otherNightReminder,
           reminders: charInfo.reminders,

@@ -1,22 +1,25 @@
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/game_session.dart';
-import 'package:my_botc_notes/models/player.dart';
-import 'package:my_botc_notes/widgets/grimoire/storyteller_helper.dart';
-import 'package:my_botc_notes/widgets/grimoire/grimoire.dart';
+import 'package:my_botc_notes/data/index.dart' show characters;
+import 'package:my_botc_notes/models/index.dart'
+    show Character, GameSession, Player, Team;
+import 'package:my_botc_notes/widgets/index.dart'
+    show
+        ButtonTab,
+        GameMenu,
+        Grimoire,
+        Layout,
+        MenuItem,
+        ScriptDetailsContent,
+        StorytellerHelper,
+        TokenScaler;
+
 import 'package:my_botc_notes/screens/new_game.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/grimoire/token_scaler.dart';
-import 'package:my_botc_notes/widgets/ui/button_tab.dart';
-import 'package:my_botc_notes/widgets/grimoire/game_menu.dart';
-import 'package:my_botc_notes/widgets/ui/layout.dart';
-import 'package:my_botc_notes/widgets/scripts/script_details_content.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 const kGameSession = 'gameSession';
 

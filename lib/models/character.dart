@@ -1,5 +1,5 @@
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/jinx.dart.dart';
+import 'package:my_botc_notes/models/jinx.dart';
 import 'package:my_botc_notes/utils.dart';
 
 enum Team {
@@ -83,8 +83,8 @@ class Character {
         setup = json['setup'] as bool?,
         bagDisabled =
             json['bagDisabled'] != null ? json['bagDisabled'] as bool : false,
-        firstNight = json['firstNight'] ?? 0,
-        otherNight = json['otherNight'] ?? 0,
+        firstNight = json['firstNight'],
+        otherNight = json['otherNight'],
         firstNightReminder = json['firstNightReminder'] as String?,
         otherNightReminder = json['otherNightReminder'] as String?,
         reminders = json['reminders'] == null

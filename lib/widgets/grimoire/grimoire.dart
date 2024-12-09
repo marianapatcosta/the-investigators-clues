@@ -3,20 +3,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/custom_info_token.dart';
-import 'package:my_botc_notes/models/game_session.dart';
-import 'package:my_botc_notes/models/player.dart';
-import 'package:my_botc_notes/models/reminder.dart';
+import 'package:my_botc_notes/models/index.dart'
+    show Character, CustomInfoToken, GameSession, Player, Reminder;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/game_setup/game_setup_table.dart';
-import 'package:my_botc_notes/widgets/grimoire/bluffs.dart';
-import 'package:my_botc_notes/widgets/grimoire/edit_notes.dart';
-import 'package:my_botc_notes/widgets/grimoire/game_phase.dart';
-import 'package:my_botc_notes/widgets/grimoire/info_tokens/info_token_manager.dart';
-import 'package:my_botc_notes/widgets/grimoire/info_tokens/info_token_selector.dart';
-import 'package:my_botc_notes/widgets/grimoire/player_item.dart';
-import 'package:my_botc_notes/widgets/grimoire/reminder_item.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show
+        Bluffs,
+        EditNotes,
+        GamePhase,
+        GameSetupTable,
+        Grimoire,
+        InfoTokenSelector,
+        InfoTokenManager,
+        PlayerItem,
+        ReminderItem;
 
 class Grimoire extends StatefulWidget {
   const Grimoire({

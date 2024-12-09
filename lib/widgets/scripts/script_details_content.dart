@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/script.dart';
-import 'package:my_botc_notes/screens/character_details.dart';
+import 'package:my_botc_notes/models/index.dart' show Character, Script;
+import 'package:my_botc_notes/screens/index.dart' show CharacterDetailsScreen;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/scripts/characters_grid.dart';
-import 'package:my_botc_notes/widgets/scripts/characters_list.dart';
-import 'package:my_botc_notes/widgets/scripts/jinxes.dart';
-import 'package:my_botc_notes/widgets/scripts/night_order.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show CharactersGrid, CharactersList, Jinxes, NightOrder;
 
 class ScriptDetailsContent extends StatelessWidget {
   const ScriptDetailsContent({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_botc_notes/models/jinx.dart.dart';
-import 'package:my_botc_notes/widgets/scripts/jinx_item.dart';
+import 'package:my_botc_notes/models/index.dart' show Jinx;
+import 'package:my_botc_notes/widgets/index.dart' show JinxItem;
 
 class Jinxes extends StatelessWidget {
   const Jinxes({

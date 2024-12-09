@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/script.dart';
-import 'package:my_botc_notes/utils.dart';
+import 'package:my_botc_notes/models/index.dart' show Script;
 
-const int kDefaultHelperMaxLines = 2;
+const int _defaultHelperMaxLines = 2;
 
 class CustomScriptForm extends StatefulWidget {
   const CustomScriptForm({
@@ -14,7 +12,7 @@ class CustomScriptForm extends StatefulWidget {
     required this.onSelectScript,
     this.helperText,
     this.hintText,
-    this.helperMaxLines = kDefaultHelperMaxLines,
+    this.helperMaxLines = _defaultHelperMaxLines,
   });
 
   final void Function(Script?) onSelectScript;
@@ -137,8 +135,6 @@ class _CustomScriptFormState extends State<CustomScriptForm> {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final width = MediaQuery.of(context).size.width;
-    final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
 
     final CustomScriptForm(:helperMaxLines, :helperText, :hintText) = widget;
 

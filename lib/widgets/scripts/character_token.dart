@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_circular_text/circular_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
+import 'package:my_botc_notes/data/night_order.dart';
 import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/widgets/scripts/character_image.dart';
 
-final tokenSizes = {
+final _tokenSizes = {
   TokenSize.small: {
     'size': kCharacterTokenSizeSmall,
     'fontSize': 34.0,
@@ -51,12 +52,20 @@ class CharacterToken extends StatelessWidget {
       return false;
     }
 
+    if (nightOrder['firstNight']!.contains(character!.id)) {
+      return true;
+    }
+
     return character!.firstNight != null && character!.firstNight! > 0;
   }
 
   bool get showRightLeaf {
     if (character == null) {
       return false;
+    }
+
+    if (nightOrder['otherNight']!.contains(character!.id)) {
+      return true;
     }
 
     return character!.otherNight != null && character!.otherNight! > 0;
@@ -118,7 +127,7 @@ class CharacterToken extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final t = AppLocalizations.of(context);
-    final sizes = tokenSizes[tokenSize]!;
+    final sizes = _tokenSizes[tokenSize]!;
 
     return Stack(
       children: [

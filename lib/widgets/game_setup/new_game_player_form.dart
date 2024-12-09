@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/data/game_setup.dart';
-import 'package:my_botc_notes/models/game_session.dart';
-import 'package:my_botc_notes/models/game_setup.dart';
-import 'package:my_botc_notes/models/player.dart';
-import 'package:my_botc_notes/models/script.dart';
-import 'package:my_botc_notes/providers/favorite_scripts_provider.dart';
+import 'package:my_botc_notes/data/index.dart' show gameSetups;
+import 'package:my_botc_notes/models/index.dart'
+    show GameSession, GameSetup, Player, Script;
+import 'package:my_botc_notes/providers/index.dart'
+    show favoriteScriptsProvider;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/form_action_bar.dart';
-import 'package:my_botc_notes/widgets/game_setup/number_players_slider.dart';
-import 'package:my_botc_notes/widgets/game_setup/script_selector.dart';
-import 'package:my_botc_notes/widgets/ui/textfield_with_tags.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show FormActionBar, NumberPlayersSlider, ScriptSelector, TextfieldWithTags;
 
 class NewGamePlayerForm extends ConsumerStatefulWidget {
   const NewGamePlayerForm({

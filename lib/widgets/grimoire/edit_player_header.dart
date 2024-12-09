@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/data/characters.dart';
-import 'package:my_botc_notes/models/character.dart';
+import 'package:my_botc_notes/data/index.dart' show characters;
+import 'package:my_botc_notes/models/index.dart' show Character, Team;
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/scripts/character_token.dart';
-import 'package:my_botc_notes/widgets/grimoire/ghost_vote_token.dart';
-import 'package:my_botc_notes/widgets/grimoire/info_tokens/show_token.dart';
+import 'package:my_botc_notes/widgets/index.dart'
+    show CharacterToken, GhostVoteToken, ShowToken;
 
 class EditPlayerHeader extends StatelessWidget {
   const EditPlayerHeader({

@@ -1,7 +1,5 @@
+import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/reminder.dart';
-import 'package:uuid/uuid.dart';
-
-const uuid = Uuid();
 
 class Player {
   Player({

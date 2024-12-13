@@ -26,9 +26,9 @@ class ReminderItem extends StatefulWidget {
   final void Function() saveGameSession;
 
   Character? get character {
-    return charactersMap[reminder.tokenId] ??
+    return charactersMap[reminder.characterId] ??
         sessionCharacters
-            .where((character) => character.id == reminder.tokenId)
+            .where((character) => character.id == reminder.characterId)
             .toList()
             .firstOrNull;
   }
@@ -82,7 +82,7 @@ class _ReminderItemState extends State<ReminderItem> {
 
   @override
   Widget build(BuildContext context) {
-    final Reminder(:id, tokenId: characterId, :reminder) = widget.reminder;
+    final Reminder(:id, characterId: characterId, :reminder) = widget.reminder;
     final t = AppLocalizations.of(context);
 
     return Positioned(

@@ -39,7 +39,7 @@
   "draw": "Draw", 
   "drawing": "Drawing...", 
   "drawCharacters": "Draw characters", 
-  "drawYourCharacter": "Draw your character!", 
+  "drawYourCharacter": "Grab your character from the bag!", 
   "edit": "Edit", 
   "editGeneralNotes": "Edit general notes", 
   "editInfoToken": "Edit info token", 
@@ -117,6 +117,7 @@
   "jsonInvalidFormat": "Invalid JSON format. Please click on info tip to check the acceptable formats.",
   "language": "Language",
   "lightTheme": "Light",
+  "lockScroll": "Lock scroll",
   "lunaticBluffs": "Lunatic bluffs", 
   "more": "More",
   "nameOfPlayer": "Player''s name",
@@ -167,6 +168,7 @@
         }
     }
   },
+  "openStorytellerHelper": "open storyteller helper",
   "order": "Order",
   "otherNights": "Other Nights",
   "pasteJson": "Paste JSON custom script from the clipboard",
@@ -177,6 +179,7 @@
   "playerVoted": "Player voted?",
   "proceedAnyway": "Do you still want to proceed?",
   "reminders": "Reminders",
+  "reminderAdded": "{name} reminder was added.",
   "reminderTokens": "Reminder tokens",
   "removeCharacter": "Remove character",
   "removeCustomInfoToken": "Token {name} was removed.",
@@ -284,6 +287,7 @@
   "tooManyScripts": "Too many saved scripts",
   "tooManyScriptsDescription": "You can only save {scriptsNumber} additional scripts. Please remove some favorite scripts before saving new ones.",
   "unknown": "Unknown",
+  "unlockScroll": "Unlock scroll",
   "unselect": "Unselect",
   "updateGamePhase": "Update game phase",
   "yes": "Yes"

@@ -164,7 +164,7 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
     final List<Reminder> otherReminders = [];
 
     for (final reminder in widget.sessionReminders) {
-      if (widget.inPlayCharactersIds.contains(reminder.tokenId)) {
+      if (widget.inPlayCharactersIds.contains(reminder.characterId)) {
         inPlayCharactersReminders.add(reminder);
       } else {
         otherReminders.add(reminder);
@@ -204,9 +204,9 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
   void _openShowReminder(BuildContext context, Reminder reminder) async {
     Navigator.of(context).pop();
 
-    final character = charactersMap[reminder.tokenId] ??
+    final character = charactersMap[reminder.characterId] ??
         widget.sessionCharacters
-            .where((character) => character.id == reminder.tokenId)
+            .where((character) => character.id == reminder.characterId)
             .toList()
             .firstOrNull;
 

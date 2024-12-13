@@ -70,11 +70,31 @@ class _GrimoireState extends State<Grimoire> {
     widget.saveGameSession();
   }
 
-  void _onRemoveReminder(Player player, Reminder reminder) {
+  void _onRemoveReminder(Reminder reminder) {
+    final updatedReminders = widget.gameSession.inPlayReminders!
+        .where((sessionReminder) => sessionReminder.id != reminder.id)
+        .toList();
     setState(() {
-      player.reminders!.remove(reminder);
+      widget.gameSession.setInPlayReminders = updatedReminders;
     });
     widget.saveGameSession();
+  }
+
+  void _onAddReminder(Reminder reminder) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+
+    setState(() {
+      final t = AppLocalizations.of(context);
+      final reminders = widget.gameSession.inPlayReminders ?? [];
+
+      widget.gameSession.setInPlayReminders = [...reminders, reminder];
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(t.reminderAdded(reminder.reminder)),
+        ),
+      );
+    });
   }
 
   void _onSaveCustomInfoToken(CustomInfoToken customInfoToken) {
@@ -256,7 +276,8 @@ class _GrimoireState extends State<Grimoire> {
       :sessionCharacters,
       :reminders,
       :demonBluffs,
-      :lunaticBluffs
+      :lunaticBluffs,
+      :inPlayReminders,
     ) = widget.gameSession;
 
     final bluffs = isStorytellerMode
@@ -368,19 +389,20 @@ class _GrimoireState extends State<Grimoire> {
                 updateParent: widget.updateParent,
                 saveGameSession: widget.saveGameSession,
                 constraints: constraints,
+                addReminder: _onAddReminder,
               ),
-              if (isStorytellerMode &&
-                  player.reminders != null &&
-                  player.reminders!.isNotEmpty)
-                for (final reminder in player.reminders!)
-                  ReminderItem(
-                      reminder: reminder,
-                      constraints: constraints,
-                      sessionCharacters: sessionCharacters,
-                      reminderTokenScale: widget.reminderTokenScale,
-                      removeReminder: () => _onRemoveReminder(player, reminder),
-                      saveGameSession: widget.saveGameSession),
             ],
+            if (isStorytellerMode &&
+                inPlayReminders != null &&
+                inPlayReminders.isNotEmpty)
+              for (final reminder in inPlayReminders)
+                ReminderItem(
+                    reminder: reminder,
+                    constraints: constraints,
+                    sessionCharacters: sessionCharacters,
+                    reminderTokenScale: widget.reminderTokenScale,
+                    removeReminder: () => _onRemoveReminder(reminder),
+                    saveGameSession: widget.saveGameSession),
           ]),
         ),
         if (isStorytellerMode)

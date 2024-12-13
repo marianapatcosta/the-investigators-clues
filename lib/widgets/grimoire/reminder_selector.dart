@@ -29,7 +29,7 @@ class ReminderSelector extends StatefulWidget {
 class _ReminderSelectorState extends State<ReminderSelector> {
   Character? _getCharacter(String tokenId) {
     if (kGeneralReminders
-        .where((reminder) => reminder.tokenId == tokenId)
+        .where((reminder) => reminder.characterId == tokenId)
         .isNotEmpty) {
       return null;
     }
@@ -72,7 +72,7 @@ class _ReminderSelectorState extends State<ReminderSelector> {
                     },
                     child: ReminderToken(
                       reminder: reminder,
-                      character: _getCharacter(reminder.tokenId),
+                      character: _getCharacter(reminder.characterId),
                     ),
                   ),
                 ),

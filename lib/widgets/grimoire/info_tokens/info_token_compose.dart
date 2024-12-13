@@ -40,7 +40,7 @@ class _InfoTokenComposeState extends State<InfoTokenCompose> {
       ...widget.sessionCharacters,
       null,
       ...kGeneralReminders,
-      Reminder(tokenId: 'arrow', reminder: ''),
+      Reminder(characterId: 'arrow', reminder: ''),
     ];
   }
 

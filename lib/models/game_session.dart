@@ -17,12 +17,14 @@ class GameSession {
     this.isStorytellerMode = false,
     this.demonBluffs,
     this.lunaticBluffs,
+    this.inPlayReminders,
   });
 
   final Script script;
   final List<Player> players;
   List<Character?>? demonBluffs;
   List<Character?>? lunaticBluffs;
+  List<Reminder>? inPlayReminders;
   bool isStorytellerMode;
 
   String gamePhase = 'N1';
@@ -124,9 +126,10 @@ class GameSession {
       if (character != null &&
           character.reminders != null &&
           character.reminders!.any((reminder) => reminder == 'No ability') &&
-          player.reminders != null &&
-          player.reminders!
-              .any((reminder) => reminder.reminder == 'No ability')) {
+          inPlayReminders != null &&
+          inPlayReminders!.any((reminder) =>
+              reminder.characterId == character.id &&
+              reminder.reminder == 'No ability')) {
         ids.add(player.characterId!);
       }
     }
@@ -152,7 +155,7 @@ class GameSession {
               ? []
               : character.reminders!
                   .map<Reminder>((reminder) => Reminder(
-                        tokenId: character.id,
+                        characterId: character.id,
                         reminder: reminder,
                       ))
                   .toList();
@@ -162,7 +165,7 @@ class GameSession {
           ? []
           : character.remindersGlobal!
               .map<Reminder>((reminder) => Reminder(
-                    tokenId: character.id,
+                    characterId: character.id,
                     reminder: reminder,
                   ))
               .toList();
@@ -222,6 +225,10 @@ class GameSession {
     isStorytellerMode = newIsStorytellerMode;
   }
 
+  set setInPlayReminders(List<Reminder>? value) {
+    inPlayReminders = value;
+  }
+
   GameSession.fromJson(Map<String, dynamic> json)
       : players = List.from(json['players'])
             .map((item) => Player.fromJson(item))
@@ -247,6 +254,11 @@ class GameSession {
             ? null
             : List.from(json['lunaticBluffs'])
                 .map((item) => item == null ? null : Character.fromJson(item))
+                .toList(),
+        inPlayReminders = json['inPlayReminders'] == null
+            ? null
+            : List.from(json['inPlayReminders'])
+                .map((item) => Reminder.fromJson(item))
                 .toList();
 
   Map<String, dynamic> toJson() {
@@ -264,6 +276,8 @@ class GameSession {
           demonBluffs?.map((character) => character?.toJson()).toList(),
       'lunaticBluffs':
           lunaticBluffs?.map((character) => character?.toJson()).toList(),
+      'inPlayReminders':
+          inPlayReminders?.map((reminder) => reminder.toJson()).toList()
     };
   }
 }

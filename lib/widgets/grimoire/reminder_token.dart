@@ -43,19 +43,19 @@ class ReminderToken extends StatelessWidget {
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
 
     Widget image() {
-      if (reminder.tokenId == 'evil') {
+      if (reminder.characterId == 'evil') {
         return const Image(
           image: AssetImage('assets/images/evil.png'),
         );
       }
 
-      if (reminder.tokenId == 'good') {
+      if (reminder.characterId == 'good') {
         return const Image(
           image: AssetImage('assets/images/good.png'),
         );
       }
 
-      if (reminder.tokenId == 'arrow') {
+      if (reminder.characterId == 'arrow') {
         return Image(
           image: AssetImage(
               'assets/images/arrow_${isLargeScreen ? 'right' : 'down'}.png'),

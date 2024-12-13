@@ -115,6 +115,8 @@ flutter:
     - assets/images/circle_one.png
     - assets/images/clocktower.png
     - assets/images/clock.png
+    - assets/images/lock.png
+    - assets/images/unlock.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

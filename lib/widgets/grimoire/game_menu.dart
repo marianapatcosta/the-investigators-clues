@@ -5,9 +5,7 @@ enum MenuItem {
   addPlayer,
   addTraveller,
   addFabled,
-  showPlayersNotes,
-  showVotesNominations,
-  scaleTokens,
+  grimoireSettings,
   delete,
 }
 
@@ -57,27 +55,10 @@ class GameMenu extends StatelessWidget {
           ),
         ),
         PopupMenuItem<MenuItem>(
-          value: MenuItem.showPlayersNotes,
+          value: MenuItem.grimoireSettings,
           child: ListTile(
-            leading: const Icon(Icons.edit_note),
-            title: Text(
-                showPlayersNotes ? t.hidePlayersNotes : t.showPlayersNotes),
-          ),
-        ),
-        PopupMenuItem<MenuItem>(
-          value: MenuItem.showVotesNominations,
-          child: ListTile(
-            leading: const Icon(Icons.check_box_outlined),
-            title: Text(showPlayersVotesNominations
-                ? t.hidePlayersVotesNominations
-                : t.showPlayersVotesNominations),
-          ),
-        ),
-        PopupMenuItem<MenuItem>(
-          value: MenuItem.scaleTokens,
-          child: ListTile(
-            leading: const Icon(Icons.zoom_in_map_outlined),
-            title: Text(t.scaleToken),
+            leading: const Icon(Icons.settings),
+            title: Text(t.grimoireSettings),
           ),
         ),
         const PopupMenuDivider(),

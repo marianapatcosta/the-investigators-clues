@@ -33,7 +33,11 @@ class NightOrderItem extends StatelessWidget {
     final nonCharacterInfo = nightOrderNonCharacterInfo[id];
 
     if (nonCharacterInfo != null) {
-      return nonCharacterInfo;
+      return {
+        'name': nonCharacterInfo.name,
+        "image": nonCharacterInfo.image,
+        "description": nonCharacterInfo.firstNightReminder ?? '',
+      };
     }
 
     if (name != null && image != null && description != null) {

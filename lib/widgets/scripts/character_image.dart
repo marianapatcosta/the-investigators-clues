@@ -25,6 +25,10 @@ class CharacterImage extends StatelessWidget {
               image,
             ),
             placeholder: const AssetImage('assets/images/botc_logo.png'),
+            imageErrorBuilder: (context, error, stackTrace) {
+              return Image.asset('assets/images/botc_logo.png',
+                  fit: BoxFit.cover);
+            },
             fit: BoxFit.cover,
           )
         : Image.asset(
@@ -32,6 +36,10 @@ class CharacterImage extends StatelessWidget {
             fit: BoxFit.cover,
             semanticLabel: name,
             color: color,
+            errorBuilder: (context, error, stackTrace) {
+              return Image.asset('assets/images/botc_logo.png',
+                  fit: BoxFit.cover);
+            },
           );
   }
 }

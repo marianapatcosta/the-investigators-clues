@@ -16,7 +16,7 @@ import 'package:my_botc_notes/widgets/index.dart'
         MenuItem,
         ScriptDetailsContent,
         StorytellerHelper,
-        TokenScaler;
+        GrimoireSettings;
 
 import 'package:my_botc_notes/screens/new_game.dart';
 import 'package:my_botc_notes/utils.dart';
@@ -54,8 +54,11 @@ class _GameScreenState extends State<GameScreen> {
   GameSession? gameSession;
   bool _showPlayersNotes = false;
   bool _showPlayersVotesNominations = false;
+  bool _showGamePhase = true;
+  bool _showGameSetup = true;
   double _playerTokenScale = 1;
   double _reminderTokenScale = 1;
+  bool _isScrollLocked = false;
 
   void _addGame(
     BuildContext context,
@@ -160,7 +163,7 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
-  void _onScaleTokens() {
+  void _onOpenGrimoireSettings() {
     final width = MediaQuery.of(context).size.width;
 
     showModalBottomSheet(
@@ -176,9 +179,13 @@ class _GameScreenState extends State<GameScreen> {
         builder: (context) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState) {
-            return TokenScaler(
-              minScaleValue: kMinScale,
-              maxScaleValue: kMaxScale,
+            return GrimoireSettings(
+              playerTokenScale: _playerTokenScale,
+              reminderTokenScale: _reminderTokenScale,
+              showPlayersNotes: _showPlayersNotes,
+              showPlayersVotesNominations: _showPlayersVotesNominations,
+              showGamePhase: _showGamePhase,
+              showGameSetup: _showGameSetup,
               onUpdatePlayerTokenScale: (value) {
                 setState(() {
                   _playerTokenScale = value;
@@ -187,6 +194,32 @@ class _GameScreenState extends State<GameScreen> {
               onUpdateReminderTokenScale: (value) {
                 setState(() {
                   _reminderTokenScale = value;
+                });
+              },
+              onUpdateShowPlayersNotes: () {
+                setState(() {
+                  if (!_showPlayersNotes && _showPlayersVotesNominations) {
+                    _showPlayersVotesNominations = false;
+                  }
+                  _showPlayersNotes = !_showPlayersNotes;
+                });
+              },
+              onUpdateShowVotesNominations: () {
+                setState(() {
+                  if (!_showPlayersVotesNominations && _showPlayersNotes) {
+                    _showPlayersNotes = false;
+                  }
+                  _showPlayersVotesNominations = !_showPlayersVotesNominations;
+                });
+              },
+              onUpdateShowGamePhase: () {
+                setState(() {
+                  _showGamePhase = !_showGamePhase;
+                });
+              },
+              onUpdateShowGameSetup: () {
+                setState(() {
+                  _showGameSetup = !_showGameSetup;
                 });
               },
             );
@@ -248,22 +281,29 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     if (gameSession != null && _gameTab == GameTab.setup) {
-      content = Grimoire(
-          gameSession: gameSession!,
-          showPlayersNotes: _showPlayersNotes,
-          showPlayersVotesNominations: _showPlayersVotesNominations,
-          playerTokenScale: _playerTokenScale,
-          reminderTokenScale: _reminderTokenScale,
-          saveGameSession: _saveGameSession,
-          updateParent: () => setState(() {}));
+      content = SliverToBoxAdapter(
+          child: Grimoire(
+              gameSession: gameSession!,
+              showPlayersNotes: _showPlayersNotes,
+              showPlayersVotesNominations: _showPlayersVotesNominations,
+              showGamePhase: _showGamePhase,
+              showGameSetup: _showGameSetup,
+              playerTokenScale: _playerTokenScale,
+              reminderTokenScale: _reminderTokenScale,
+              saveGameSession: _saveGameSession,
+              updateParent: () => setState(() {})));
     }
 
     return Layout(
       child: Scaffold(
         key: scaffoldKey,
         body: CustomScrollView(
+          physics: _isScrollLocked && _gameTab == GameTab.setup
+              ? const NeverScrollableScrollPhysics()
+              : null,
           slivers: [
             SliverAppBar(
+              expandedHeight: kTabsAppBarHeight,
               automaticallyImplyLeading:
                   isScreenSmallerThanX(width, ScreenSize.l),
               actions: <Widget>[
@@ -305,7 +345,36 @@ class _GameScreenState extends State<GameScreen> {
                             children: [
                               if (gameSession != null &&
                                   gameSession!.isStorytellerMode &&
-                                  _gameTab == GameTab.setup)
+                                  _gameTab == GameTab.setup) ...[
+                                IconButton(
+                                    icon: AnimatedSwitcher(
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        transitionBuilder: (child, animation) {
+                                          return ScaleTransition(
+                                            scale:
+                                                Tween<double>(begin: 0, end: 1)
+                                                    .animate(animation),
+                                            child: child,
+                                          );
+                                        },
+                                        child: _isScrollLocked
+                                            ? const ImageIcon(
+                                                key: ValueKey('scroll-locked'),
+                                                AssetImage(
+                                                    "assets/images/lock.png"),
+                                                size: 20,
+                                                color: Colors.white)
+                                            : const ImageIcon(
+                                                key:
+                                                    ValueKey('scroll-unlocked'),
+                                                AssetImage(
+                                                    "assets/images/unlock.png"),
+                                                size: 20,
+                                                color: Colors.white)),
+                                    onPressed: () => setState(() {
+                                          _isScrollLocked = !_isScrollLocked;
+                                        })),
                                 IconButton(
                                   icon: const ImageIcon(
                                       AssetImage(
@@ -315,6 +384,7 @@ class _GameScreenState extends State<GameScreen> {
                                   onPressed: () =>
                                       scaffoldKey.currentState?.openEndDrawer(),
                                 ),
+                              ],
                               GameMenu(
                                 showPlayersNotes: _showPlayersNotes,
                                 showPlayersVotesNominations:
@@ -329,26 +399,8 @@ class _GameScreenState extends State<GameScreen> {
                                           .toList()),
                                   MenuItem.addTraveller: _onAddTraveller,
                                   MenuItem.addFabled: _onAddFabled,
-                                  MenuItem.showPlayersNotes: () {
-                                    setState(() {
-                                      if (!_showPlayersNotes &&
-                                          _showPlayersVotesNominations) {
-                                        _showPlayersVotesNominations = false;
-                                      }
-                                      _showPlayersNotes = !_showPlayersNotes;
-                                    });
-                                  },
-                                  MenuItem.showVotesNominations: () {
-                                    setState(() {
-                                      if (!_showPlayersVotesNominations &&
-                                          _showPlayersNotes) {
-                                        _showPlayersNotes = false;
-                                      }
-                                      _showPlayersVotesNominations =
-                                          !_showPlayersVotesNominations;
-                                    });
-                                  },
-                                  MenuItem.scaleTokens: _onScaleTokens,
+                                  MenuItem.grimoireSettings:
+                                      _onOpenGrimoireSettings,
                                   MenuItem.delete: () {
                                     showDeleteGameDialog(
                                         context, t.deleteGameAreYouSure, () {

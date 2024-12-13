@@ -1,3 +1,5 @@
+import 'package:my_botc_notes/models/index.dart';
+
 const nightOrder = {
   "firstNight": [
     "DUSK",
@@ -165,31 +167,4 @@ const nightOrder = {
     "DAWN",
     "leviathan"
   ]
-};
-
-const nightOrderNonCharacterInfo = {
-  "DUSK": {
-    "id": "DUSK",
-    "name": "Dusk",
-    "image": "assets/images/dusk.png",
-  },
-  "MINION": {
-    "id": "MINION",
-    "name": "Minion setup",
-    "image": "assets/images/minion.png",
-    "description":
-        "If 7 or more players are in play, wake the Minions to let them know each other. Show the 'This is your Demon' token and point to the Demon.",
-  },
-  "DEMON": {
-    "id": "DEMON",
-    "name": "Demon setup",
-    "image": "assets/images/demon.png",
-    "description":
-        "If 7 or more players are in play, wake the Demon, show the 'These are your Minions' token and point to all Minions. Show 'These characters are not in play' token and 3 not in play character tokens.",
-  },
-  "DAWN": {
-    "id": "DAWN",
-    "name": "Dawn",
-    "image": "assets/images/dawn.png",
-  },
 };

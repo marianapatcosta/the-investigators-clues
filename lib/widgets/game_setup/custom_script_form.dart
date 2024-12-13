@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -99,7 +100,6 @@ class _CustomScriptFormState extends State<CustomScriptForm> {
 
     try {
       final jsonArray = json.decode(jsonScript);
-
       final isJsonFormatValid = jsonArray is List<dynamic> &&
           jsonArray.isNotEmpty &&
           jsonArray.every((item) =>
@@ -117,13 +117,15 @@ class _CustomScriptFormState extends State<CustomScriptForm> {
       final scriptContent = contentFirstItem['id'] == '_meta'
           ? ([...jsonArray]..removeAt(0))
           : jsonArray;
-
       widget.onSelectScript(Script(
-          id: meta != null && meta['pk'] != null && meta['pk'] is int
-              ? meta['pk']
-              : 999999,
-          name: meta != null && meta['name'] != null ? meta['name'] : 'Unknown',
-          content: scriptContent));
+        id: meta != null && meta['pk'] != null && meta['pk'] is int
+            ? meta['pk']
+            : Random().nextInt(500),
+        name: meta != null && meta['name'] != null ? meta['name'] : 'Unknown',
+        content: scriptContent,
+        almanacUrl:
+            meta != null && meta['almanac'] != null ? meta['almanac'] : null,
+      ));
     } catch (e) {
       setState(() {
         _showErrorText = true;

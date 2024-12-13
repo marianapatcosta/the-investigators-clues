@@ -251,84 +251,79 @@ class _EditPlayerState extends State<EditPlayer> {
               const SizedBox(
                 height: 32,
               ),
-              if (!isLargeScreen)
-                TextField(
-                  controller: _nameController,
-                  maxLength: 20,
-                  decoration: InputDecoration(label: Text(t.nameOfPlayer)),
-                  onTapOutside: (PointerDownEvent event) {
-                    FocusScope.of(context).unfocus();
-                  },
-                ),
-              const SizedBox(
-                height: 32,
-              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (isLargeScreen)
-                    Expanded(
-                      flex: 1,
-                      child: TextField(
-                        controller: _nameController,
-                        maxLength: 20,
-                        decoration:
-                            InputDecoration(label: Text(t.nameOfPlayer)),
-                      ),
-                    ),
-                  if (isLargeScreen)
-                    const SizedBox(
-                      width: 32,
-                    ),
                   Expanded(
-                    flex: 1,
-                    child: Row(
+                    child: TextField(
+                      controller: _nameController,
+                      maxLength: 20,
+                      decoration: InputDecoration(label: Text(t.nameOfPlayer)),
+                      onTapOutside: (PointerDownEvent event) {
+                        FocusScope.of(context).unfocus();
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 24,
+                  ),
+                  Expanded(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: CheckboxListTile(
-                            title: Text(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
                               t.shroud,
                               style: theme.textTheme.titleMedium,
                             ),
-                            value: _isDead,
-                            contentPadding: const EdgeInsets.all(0),
-                            onChanged: (bool? newValue) {
-                              setState(() {
-                                _isDead = newValue ?? false;
-                              });
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 32,
-                        ),
-                        Expanded(
-                          child: CheckboxListTile(
-                            title: Text(
-                              t.ghostVote,
-                              style: theme.textTheme.titleMedium,
+                            const SizedBox(
+                              width: 8,
                             ),
-                            value: _hasGhostVote,
-                            contentPadding: const EdgeInsets.all(0),
-                            onChanged: !_isDead
-                                ? null
-                                : (bool? newValue) {
-                                    setState(() {
-                                      _hasGhostVote = newValue ?? false;
-                                    });
-                                  },
-                          ),
+                            Checkbox(
+                              value: _isDead,
+                              onChanged: (bool? newValue) {
+                                setState(() {
+                                  _isDead = newValue ?? false;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Opacity(
+                              opacity: _isDead ? 1 : 0.75,
+                              child: Text(
+                                t.ghostVote,
+                                style: theme.textTheme.titleMedium,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Checkbox(
+                              value: _hasGhostVote,
+                              onChanged: !_isDead
+                                  ? null
+                                  : (bool? newValue) {
+                                      setState(() {
+                                        _hasGhostVote = newValue ?? false;
+                                      });
+                                    },
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(
-                height: 28,
+                height: 12,
               ),
-              if (!isLargeScreen)
+              if (!isLargeScreen) ...[
                 TextField(
                   controller: _notesController,
                   maxLength: 250,
@@ -336,10 +331,10 @@ class _EditPlayerState extends State<EditPlayer> {
                   maxLines: 3,
                   autocorrect: false,
                 ),
-              if (!isLargeScreen)
                 const SizedBox(
                   height: 28,
-                ),
+                )
+              ],
               if (!isLargeScreen) remindersWidget,
               if (isLargeScreen)
                 Row(

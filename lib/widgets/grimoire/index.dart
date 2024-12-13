@@ -11,5 +11,5 @@ export 'reminder_item.dart';
 export 'reminder_selector.dart';
 export 'reminder_token.dart';
 export 'storyteller_helper.dart';
-export 'token_scaler.dart';
+export 'grimoire_settings.dart';
 export 'info_tokens/index.dart';

@@ -18,12 +18,18 @@ import 'package:my_botc_notes/widgets/index.dart'
         PlayerItem,
         ReminderItem;
 
+const _tabsAndAppBarOffset = 3 * kTabsAppBarHeight;
+const _bottomPlayerNamerOffset = 30;
+const double _minGrimoireHeight = 600;
+
 class Grimoire extends StatefulWidget {
   const Grimoire({
     super.key,
     required this.gameSession,
     this.showPlayersNotes = false,
     this.showPlayersVotesNominations = false,
+    this.showGamePhase = true,
+    this.showGameSetup = true,
     this.playerTokenScale = 1,
     this.reminderTokenScale = 1,
     required this.saveGameSession,
@@ -33,6 +39,8 @@ class Grimoire extends StatefulWidget {
   final GameSession gameSession;
   final bool showPlayersNotes;
   final bool showPlayersVotesNominations;
+  final bool showGamePhase;
+  final bool showGameSetup;
   final double playerTokenScale;
   final double reminderTokenScale;
   final void Function() saveGameSession;
@@ -192,7 +200,7 @@ class _GrimoireState extends State<Grimoire> {
     );
   }
 
-  List<Player> _getPlayers(BoxConstraints constraints) {
+  List<Player> _getPlayers(double width, double height) {
     final players = [...widget.gameSession.players];
     // checks if position was already set for players list
     if (players.first.x != null) {
@@ -200,19 +208,18 @@ class _GrimoireState extends State<Grimoire> {
     }
 
     // Scaling the size of the ellipse
-    final radiusX = (constraints.maxWidth - kCharacterTokenSizeSmall) / 2;
-    final radiusY = (constraints.maxHeight - kCharacterTokenSizeSmall) / 2;
+    final radiusX = (width - kCharacterTokenSizeSmall) / 2;
+    final radiusY =
+        (height - _bottomPlayerNamerOffset - kCharacterTokenSizeSmall) / 2;
 
     int playersLength = players.length;
 
     for (int index = 0; index < players.length; index++) {
-      // can add offsets if we want to start drawing from pi/2 radians
       const offset =
           pi / 2; // to align the first player at the bottom of the screen
       final radians = (index * pi * 2) / playersLength;
       final double x = radiusX + (cos(radians + offset) * radiusX);
       final double y = radiusY + (sin(radians + offset) * radiusY);
-      // can add offsets here to recenter?
       players[index].setX = x;
       players[index].setY = y;
     }
@@ -225,7 +232,14 @@ class _GrimoireState extends State<Grimoire> {
     final t = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
+    final grimoirreWidth = width < kBreakpoints[ScreenSize.xl]!
+        ? width
+        : kBreakpoints[ScreenSize.xl]!;
+    final grimoireHeight = height < _minGrimoireHeight
+        ? _minGrimoireHeight
+        : height - _tabsAndAppBarOffset;
 
     final GameSession(
       :players,
@@ -272,107 +286,102 @@ class _GrimoireState extends State<Grimoire> {
           ]
         : [];
 
-    return SliverToBoxAdapter(
-        child: Column(
-      children: [
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Column(children: [
         SizedBox(
-          height: 600,
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              final players = _getPlayers(constraints);
-
-              return Stack(children: [
-                Column(
+          height: grimoireHeight,
+          child: Stack(children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (widget.showGamePhase)
+                  GamePhase(
+                      gamePhase: gamePhase,
+                      onUpdateGamePhase: _updateGamePhase),
+                if (widget.showGameSetup)
+                  GameSetupTable(
+                    gameSetup: gameSetup,
+                    numberOfPlayers: numberOfPlayers,
+                    numberOfAlivePlayers: numberOfAlivePlayers,
+                    numberOfGhostVotes: numberOfGhostVotes,
+                    numberOfVotesRequiredToExecute:
+                        numberOfVotesRequiredToExecute,
+                    fabled: fabled,
+                  ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GamePhase(
-                        gamePhase: gamePhase,
-                        onUpdateGamePhase: _updateGamePhase),
-                    GameSetupTable(
-                      gameSetup: gameSetup,
-                      numberOfPlayers: numberOfPlayers,
-                      numberOfAlivePlayers: numberOfAlivePlayers,
-                      numberOfGhostVotes: numberOfGhostVotes,
-                      numberOfVotesRequiredToExecute:
-                          numberOfVotesRequiredToExecute,
-                      fabled: fabled,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton.icon(
-                          onPressed: () => _openNotes(width),
-                          label: Text(
-                            t.notes,
-                            style: theme.textTheme.titleSmall!.copyWith(
-                              color: theme.colorScheme.onSurface,
-                            ),
-                          ),
-                          iconAlignment: IconAlignment.end,
-                          icon: Icon(
-                            Icons.edit_note,
-                            color: theme.colorScheme.onSurface,
-                          ),
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                          ),
+                    TextButton.icon(
+                      onPressed: () => _openNotes(width),
+                      label: Text(
+                        t.notes,
+                        style: theme.textTheme.titleSmall!.copyWith(
+                          color: theme.colorScheme.onSurface,
                         ),
-                        TextButton.icon(
-                          onPressed: _openInfoTokens,
-                          label: Text(
-                            'Tokens',
-                            style: theme.textTheme.titleSmall!.copyWith(
-                              color: theme.colorScheme.onSurface,
-                            ),
-                          ),
-                          iconAlignment: IconAlignment.end,
-                          icon: Icon(
-                            Icons.info_outline,
-                            color: theme.colorScheme.onSurface,
-                          ),
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 4),
-                          ),
-                        )
-                      ],
+                      ),
+                      iconAlignment: IconAlignment.end,
+                      icon: Icon(
+                        Icons.edit_note,
+                        color: theme.colorScheme.onSurface,
+                      ),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                      ),
                     ),
+                    TextButton.icon(
+                      onPressed: _openInfoTokens,
+                      label: Text(
+                        'Tokens',
+                        style: theme.textTheme.titleSmall!.copyWith(
+                          color: theme.colorScheme.onSurface,
+                        ),
+                      ),
+                      iconAlignment: IconAlignment.end,
+                      icon: Icon(
+                        Icons.info_outline,
+                        color: theme.colorScheme.onSurface,
+                      ),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                      ),
+                    )
                   ],
                 ),
-                for (final player in players) ...[
-                  PlayerItem(
-                    key: ValueKey(player.id),
-                    player: player,
-                    inPlayCharactersIds: inPlayCharactersIds,
-                    sessionCharacters: sessionCharacters,
-                    sessionReminders: reminders,
-                    isStorytellerMode: isStorytellerMode,
-                    showPlayersNotes: widget.showPlayersNotes,
-                    showPlayersVotesNominations:
-                        widget.showPlayersVotesNominations,
-                    playerTokenScale: widget.playerTokenScale,
-                    removePlayer: () {
-                      _onRemovePlayer(player);
-                    },
-                    updateParent: widget.updateParent,
-                    saveGameSession: widget.saveGameSession,
-                    constraints: constraints,
-                  ),
-                  if (isStorytellerMode &&
-                      player.reminders != null &&
-                      player.reminders!.isNotEmpty)
-                    for (final reminder in player.reminders!)
-                      ReminderItem(
-                          reminder: reminder,
-                          constraints: constraints,
-                          sessionCharacters: sessionCharacters,
-                          reminderTokenScale: widget.reminderTokenScale,
-                          removeReminder: () =>
-                              _onRemoveReminder(player, reminder),
-                          saveGameSession: widget.saveGameSession),
-                ],
-              ]);
-            },
-          ),
+              ],
+            ),
+            for (final player
+                in _getPlayers(grimoirreWidth, grimoireHeight)) ...[
+              PlayerItem(
+                key: ValueKey(player.id),
+                player: player,
+                inPlayCharactersIds: inPlayCharactersIds,
+                sessionCharacters: sessionCharacters,
+                sessionReminders: reminders,
+                isStorytellerMode: isStorytellerMode,
+                showPlayersNotes: widget.showPlayersNotes,
+                showPlayersVotesNominations: widget.showPlayersVotesNominations,
+                playerTokenScale: widget.playerTokenScale,
+                removePlayer: () {
+                  _onRemovePlayer(player);
+                },
+                updateParent: widget.updateParent,
+                saveGameSession: widget.saveGameSession,
+                constraints: constraints,
+              ),
+              if (isStorytellerMode &&
+                  player.reminders != null &&
+                  player.reminders!.isNotEmpty)
+                for (final reminder in player.reminders!)
+                  ReminderItem(
+                      reminder: reminder,
+                      constraints: constraints,
+                      sessionCharacters: sessionCharacters,
+                      reminderTokenScale: widget.reminderTokenScale,
+                      removeReminder: () => _onRemoveReminder(player, reminder),
+                      saveGameSession: widget.saveGameSession),
+            ],
+          ]),
         ),
         if (isStorytellerMode)
           SizedBox(
@@ -406,7 +415,7 @@ class _GrimoireState extends State<Grimoire> {
               ),
             ),
           ),
-      ],
-    ));
+      ]);
+    });
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart' show Layout;
 
@@ -35,6 +36,7 @@ class _TabsScreenState extends State<TabsScreen>
             tabs: [
               for (final tabMetadata in tabsMetadata)
                 Tab(
+                  height: kTabsAppBarHeight,
                   text: getTranslationKey(tabMetadata.titleKey),
                   icon: tabMetadata.icon != null
                       ? Icon(tabMetadata.icon)

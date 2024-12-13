@@ -2145,3 +2145,40 @@ final characters = charactersJson
 final charactersMap = {
   for (final character in characters) character.id: character
 };
+
+final nightOrderNonCharacterInfo = {
+  "DUSK": Character.fromJson({
+    "id": "DUSK",
+    "team": "townsfolk",
+    "name": "Dusk",
+    "image": "assets/images/dusk.png",
+    "ability": "",
+  }),
+  "MINION": Character.fromJson({
+    "id": "MINION",
+    "team": "minion",
+    "name": "Minion setup",
+    "image": "assets/images/minion.png",
+    "ability": "",
+    "firstNight": 14,
+    "firstNightReminder":
+        "If 7 or more players are in play, wake the Minions to let them know each other. Show the 'This is your Demon' token and point to the Demon.",
+  }),
+  "DEMON": Character.fromJson({
+    "id": "DEMON",
+    "team": "demon",
+    "name": "Demon setup",
+    "image": "assets/images/demon.png",
+    "ability": "",
+    "firstNight": 18,
+    "firstNightReminder":
+        "If 7 or more players are in play, wake the Demon, show the 'These are your Minions' token and point to all Minions. Show 'These characters are not in play' token and 3 not in play character tokens.",
+  }),
+  "DAWN": Character.fromJson({
+    "id": "DAWN",
+    "team": "townsfolk",
+    "name": "Dawn",
+    "image": "assets/images/dawn.png",
+    "ability": "",
+  }),
+};

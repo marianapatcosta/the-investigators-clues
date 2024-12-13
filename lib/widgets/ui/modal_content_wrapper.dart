@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_botc_notes/constants.dart';
 
 class ModalContentWrapper extends StatelessWidget {
   const ModalContentWrapper({
@@ -17,6 +18,8 @@ class ModalContentWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final t = AppLocalizations.of(context);
+    final width = MediaQuery.of(context).size.width;
+    final isSmallScreen = width < kBreakpoints[ScreenSize.xs]!;
 
     final titleContent = title != null
         ? Text(
@@ -49,8 +52,8 @@ class ModalContentWrapper extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.only(
             top: 16,
-            left: 4,
-            right: 4,
+            left: isSmallScreen ? 4 : 16,
+            right: isSmallScreen ? 4 : 16,
             // to lift the modal up when keyboard is focused
             bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SizedBox(

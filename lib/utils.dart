@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
+import 'package:my_botc_notes/data/index.dart';
 import 'package:my_botc_notes/data/night_order.dart';
 import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/models/reminder.dart';
@@ -266,9 +267,22 @@ List<String> getOrderIds(List<Character> characters) {
 List<dynamic> getFirstNightOrder(
     List<Character> characters, bool hasHomebrewCharacters) {
   if (hasHomebrewCharacters) {
-    return characters.where((character) => character.firstNight != 0).toList()
+    final sortedCharacters = [
+      ...characters,
+      nightOrderNonCharacterInfo['MINION']!,
+      nightOrderNonCharacterInfo['DEMON']!
+    ]
+        .where((character) =>
+            character.firstNight != null && character.firstNight != 0)
+        .toList()
       ..sort((characterA, characterB) =>
           characterA.firstNight!.compareTo(characterB.firstNight!));
+
+    return [
+      nightOrderNonCharacterInfo['DUSK']!,
+      ...sortedCharacters,
+      nightOrderNonCharacterInfo['DAWN']!,
+    ];
   }
   final orderIds = getOrderIds(characters);
   return nightOrder['firstNight']!
@@ -279,9 +293,17 @@ List<dynamic> getFirstNightOrder(
 List<dynamic> getOtherNightsOrder(
     List<Character> characters, bool hasHomebrewCharacters) {
   if (hasHomebrewCharacters) {
-    return characters.where((character) => character.otherNight != 0).toList()
+    final sortedCharacters = characters
+        .where((character) =>
+            character.otherNight != null && character.otherNight != 0)
+        .toList()
       ..sort((characterA, characterB) =>
           characterA.otherNight!.compareTo(characterB.otherNight!));
+    return [
+      nightOrderNonCharacterInfo['DUSK']!,
+      ...sortedCharacters,
+      nightOrderNonCharacterInfo['DAWN']!,
+    ];
   }
 
   final orderIds = getOrderIds(characters);

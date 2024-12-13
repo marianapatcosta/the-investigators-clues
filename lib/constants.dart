@@ -17,7 +17,7 @@ import 'package:my_botc_notes/utils.dart';
 
 const uuid = Uuid();
 
-enum ScreenSize { sm, md, l, xl }
+enum ScreenSize { xs, sm, md, l, xl }
 
 enum TokenSize { small, medium, large }
 
@@ -26,6 +26,7 @@ enum NightType { first, other }
 const List<String> defaultOrders = ["DUSK", "DAWN", "MINION", "DEMON"];
 
 const kBreakpoints = {
+  ScreenSize.xs: 414.0,
   ScreenSize.sm: 480.0,
   ScreenSize.md: 768.0,
   ScreenSize.l: 992.0,
@@ -90,6 +91,8 @@ const double kMaxNumberPlayers = 15.0;
 const int kDemonBluffsNumber = 3;
 
 const kMobileTabsNumber = 5;
+
+const double kTabsAppBarHeight = 75;
 
 const botcWikiUrl = 'https://wiki.bloodontheclocktower.com';
 

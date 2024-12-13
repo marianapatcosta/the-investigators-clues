@@ -167,6 +167,7 @@
         }
     }
   },
+  "openGift": "Open your gift to learn your character!",
   "order": "Order",
   "otherNights": "Other Nights",
   "pasteJson": "Paste JSON custom script from the clipboard",

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
@@ -5,6 +7,8 @@ import 'package:my_botc_notes/models/index.dart' show Character, Player;
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
     show CharacterToken, FormActionBar, Layout, ShowDrawnCharacter, TokenSlot;
+
+final tokenImagesToShuffle = [...kXmasImages]..shuffle();
 
 class DrawCharactersToPlayersWithNumbersScreen extends StatefulWidget {
   const DrawCharactersToPlayersWithNumbersScreen({
@@ -24,6 +28,10 @@ class _DrawCharactersToPlayersWithNumbersScreenState
     extends State<DrawCharactersToPlayersWithNumbersScreen> {
   final List<Player> _players = [];
   final List<int> _selectedCharactersIndexes = [];
+
+  List<String> get tokenImages {
+    return tokenImagesToShuffle.take(widget.scriptCharacters.length).toList();
+  }
 
   void _onSelectToken(int index) async {
     setState(() {
@@ -58,8 +66,6 @@ class _DrawCharactersToPlayersWithNumbersScreenState
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
-    final size =
-        isLargeScreen ? kCharacterTokenSizeLarge : kCharacterTokenSizeMedium;
 
     return Layout(
         child: Scaffold(
@@ -114,12 +120,22 @@ class _DrawCharactersToPlayersWithNumbersScreenState
                                 ? ColorFiltered(
                                     colorFilter:
                                         const ColorFilter.matrix(greyMatrix),
-                                    child: TokenSlot(
-                                      size: size,
+                                    child: Opacity(
+                                      opacity: 0.5,
+                                      child: CharacterToken(
+                                        hasLabel: false,
+                                        tokenImage:
+                                            'assets/images/xmas/${tokenImages[index]}.png',
+                                        tokenSize: isLargeScreen
+                                            ? TokenSize.large
+                                            : TokenSize.medium,
+                                      ),
                                     ),
                                   )
                                 : CharacterToken(
-                                    tokenText: (index + 1).toString(),
+                                    hasLabel: false,
+                                    tokenImage:
+                                        'assets/images/xmas/${tokenImages[index]}.png',
                                     tokenSize: isLargeScreen
                                         ? TokenSize.large
                                         : TokenSize.medium,

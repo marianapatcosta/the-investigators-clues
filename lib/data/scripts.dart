@@ -1,5 +1,530 @@
 const favoriteScriptsInfo = [
   {
+    "pk": 15328,
+    "name": "Bloody Christmas",
+    "author": "The_AdLAD",
+    "logo":
+        "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/_meta.png",
+    "almanac":
+        "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/almanac.html",
+    "content": [
+      {
+        "id": "_meta",
+        "name": "Bloody Christmas",
+        "author": "The_AdLAD",
+        "logo":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/_meta.png",
+        "almanac":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/almanac.html"
+      },
+      {
+        "id": "pogues_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/pogues_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "The Pogues are woken to learn the name of an Outsider. If the Pogues became drunk tonight, they wake and learn this. ",
+        "otherNightReminder":
+            "If the Pogues became drunk tonight, they wake and learn this. ",
+        "reminders": ["Seen"],
+        "setup": true,
+        "name": "Pogues",
+        "team": "townsfolk",
+        "ability":
+            "You start knowing 1 player that is an Outsider. If you are made drunk, you learn you were that night. [+1 Outsider]",
+        "firstNight": 23,
+        "otherNight": 23
+      },
+      {
+        "id": "innkeeper_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/innkeeper_itsbloodychristmas2024v2.png",
+        "otherNightReminder":
+            "The previously protected and drunk players lose those markers. The Innkeeper points to two players. Those players are protected. One is drunk.",
+        "reminders": ["Safe", "Safe", "Drunk"],
+        "name": "Innkeeper",
+        "team": "townsfolk",
+        "ability":
+            "Each night*, choose 2 players: they can't die tonight, but 1 is drunk until dusk.",
+        "otherNight": 5
+      },
+      {
+        "id": "reindeer_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/reindeer_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "The Reindeer chooses a player. If that player is not the Demon, they become drunk until dusk.",
+        "otherNightReminder":
+            "The Reindeer chooses a player. If that player is not the Demon, they become drunk until dusk. If that player is the Demon, the Reindeer dies tonight. ",
+        "reminders": ["Drunk", "Dead"],
+        "name": "Reindeer",
+        "team": "townsfolk",
+        "ability":
+            "Each night, choose a player. If they are not the Demon, they are drunk until dusk. If they are the Demon, you die (except on night 1) ",
+        "firstNight": 14,
+        "otherNight": 6
+      },
+      {
+        "id": "landlord_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/landlord_itsbloodychristmas2024v2.png",
+        "otherNightReminder":
+            "If a player was killed by execution, the Landlord learns how many players were drunk that day. ",
+        "name": "Landlord",
+        "team": "townsfolk",
+        "ability":
+            "Each night*, if a player died by execution, you learn how many players were drunk that day. ",
+        "otherNight": 19
+      },
+      {
+        "id": "wiseman_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/wiseman_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "The Wise Man chooses a player. If they are good, they are drunk until dusk. ",
+        "otherNightReminder":
+            "If the Wise Man selected someone the previous night, wake that player and tell them who the Wise Man is. Then wake up the Wise Man, and ask them to choose a player. If they are good, they are drunk until dusk. ",
+        "reminders": ["Drunk", "Wise"],
+        "name": "Wise Man",
+        "team": "townsfolk",
+        "ability":
+            "Each night, choose a player (different from last night).  If they are good, they are drunk until dusk. The previously chosen player learns that you are the Wise Man. ",
+        "firstNight": 15,
+        "otherNight": 7
+      },
+      {
+        "id": "elf_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/elf_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "The Elf learns how many steps away from Santa Claus they are sat. ",
+        "otherNightReminder":
+            "The Elf learns how many steps away from Santa Claus they are sat, excluding\u00a0dead\u00a0players. ",
+        "name": "Elf",
+        "team": "townsfolk",
+        "ability":
+            "Each night, learn how many steps from Santa Claus you are, excluding\u00a0dead\u00a0players. ",
+        "firstNight": 18,
+        "otherNight": 20
+      },
+      {
+        "id": "postman_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/postman_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "The Postman learns if Santa Claus successfully delivered a present and the alignment of the present.",
+        "otherNightReminder":
+            "The Postman learns if Santa Claus successfully delivered a present and the alignment of the present. ",
+        "name": "Postman",
+        "team": "townsfolk",
+        "ability":
+            "Each night, you learn if a present was delivered tonight & if it was naughty or nice. ",
+        "firstNight": 21,
+        "otherNight": 21
+      },
+      {
+        "id": "vegan_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/vegan_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "The Vegan chooses a player. This player is 'frozen' til dusk.",
+        "otherNightReminder":
+            "The Vegan chooses a player. This player is 'frozen' til dusk. ",
+        "reminders": ["Frozen"],
+        "name": "Vegan",
+        "team": "townsfolk",
+        "ability": "Each night, choose a player: they are 'frozen' until dusk.",
+        "firstNight": 13,
+        "otherNight": 4
+      },
+      {
+        "id": "turkey_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/turkey_itsbloodychristmas2024v2.png",
+        "otherNightReminder":
+            "If the Turkey was killed, they publicly choose a player at dawn. If that player is evil, they die. If that player is good, they are drunk for the rest of the game. ",
+        "reminders": ["Drunk"],
+        "name": "Turkey",
+        "team": "townsfolk",
+        "ability":
+            "If you die at night, publicly choose a player: if evil, they die. If good, they are drunk permanently. ",
+        "otherNight": 22
+      },
+      {
+        "id": "snowman_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/snowman_itsbloodychristmas2024v2.png",
+        "reminders": ["Safe"],
+        "name": "Snowman",
+        "team": "townsfolk",
+        "ability": "You cannot die at night while Santa Claus lives. "
+      },
+      {
+        "id": "santaclaus_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/santaclaus_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "Santa Claus chooses a player. That player receives a present. ",
+        "otherNightReminder":
+            "If Santa Claus was killed at night, another good living player might become Santa Claus. If not, Santa Claus chooses a player. If they are alive and sober, they get a present. ",
+        "reminders": [
+          "Teddy Bear",
+          "Pair of Socks",
+          "Crystall Ball",
+          "Box of Chocolates",
+          "Games Console",
+          "Perfume",
+          "Getaway Holiday",
+          "Fridge/Freezer",
+          "Lump of Coal",
+          "Cheap Vodka",
+          "Bucket Hat",
+          "Pet Rock",
+          "Snowball",
+          "Greasy Wig"
+        ],
+        "setup": true,
+        "name": "Santa Claus",
+        "team": "townsfolk",
+        "ability":
+            "Each night, choose a living player (not yourself): they get a present. When you die at night, an alive good player might become Santa Claus. [Always starts in play]",
+        "firstNight": 20,
+        "otherNight": 11
+      },
+      {
+        "id": "piemaker_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/piemaker_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "The Piemaker chooses a character. They learn if that character is in play. If they are good, make that character drunk until dusk. ",
+        "otherNightReminder":
+            "The Piemaker chooses a character. They learn if that character is in play. If they are good, make that character drunk until dusk. ",
+        "reminders": ["Drunk"],
+        "name": "Piemaker",
+        "team": "townsfolk",
+        "ability":
+            "Each night, choose a character; learn if it is in play. If good, that character is drunk until dusk. ",
+        "firstNight": 16,
+        "otherNight": 8
+      },
+      {
+        "id": "tree_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/tree_itsbloodychristmas2024v2.png",
+        "otherNightReminder":
+            "The Tree chooses a player. If that player would die tonight, they are instead made drunk. ",
+        "reminders": ["Protected", "Drunk"],
+        "name": "Tree",
+        "team": "townsfolk",
+        "ability":
+            "Each night*, choose a player (not yourself): if they die tonight, they are instead drunk until dusk. ",
+        "otherNight": 9
+      },
+      {
+        "id": "crazyuncle_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/crazyuncle_itsbloodychristmas2024v2.png",
+        "remindersGlobal": ["Drunk", "Is the Crazy Uncle"],
+        "setup": true,
+        "name": "Crazy Uncle",
+        "team": "outsider",
+        "ability":
+            "You do not know that you are the Crazy Uncle. You think you are a Townsfolk (not Santa Claus), but any good players you choose are drunk until dusk"
+      },
+      {
+        "id": "donkey_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/donkey_itsbloodychristmas2024v2.png",
+        "otherNightReminder":
+            "If the Donkey was executed, a good player dies. ",
+        "reminders": ["Dead"],
+        "name": "Donkey",
+        "team": "outsider",
+        "ability":
+            "If you are made drunk, the player who made you drunk dies (except on night 1).  If you are executed, a good players dies that night. ",
+        "otherNight": 10
+      },
+      {
+        "id": "mistletoe_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/mistletoe_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "The Mistletoe chooses a player. Until dusk, if the mistletoe becomes drunk or dies, so does their target. ",
+        "otherNightReminder":
+            "The Mistletoe chooses a player. Until dusk, if the mistletoe becomes drunk or dies, so does their target. ",
+        "reminders": ["Drunk"],
+        "name": "Mistletoe",
+        "team": "outsider",
+        "ability":
+            "Each night, 1 of your living good neighbours is drunk until dusk. If a good player nominates you & executes you, they are drunk permanently.",
+        "firstNight": 11,
+        "otherNight": 2
+      },
+      {
+        "id": "dad_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/dad_itsbloodychristmas2024v2.png",
+        "firstNightReminder": "The Dad chooses a player. Nothing happens. ",
+        "otherNightReminder": "The Dad chooses a player. Nothing happens. ",
+        "remindersGlobal": ["Is the Dad"],
+        "setup": true,
+        "name": "Dad",
+        "team": "outsider",
+        "ability":
+            "You do not know that you are the Dad. You think you are Santa Claus, but you are drunk. ",
+        "firstNight": 19,
+        "otherNight": 12
+      },
+      {
+        "id": "creepyrelative_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/creepyrelative_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "The Creepy Relative chooses a player. They learn that player's character and may choose to make them drunk. ",
+        "otherNightReminder":
+            "The Creepy Relative chooses a player. They learn that player's character and may choose to make them drunk.",
+        "reminders": ["Drunk"],
+        "name": "Creepy Relative",
+        "team": "minion",
+        "ability":
+            "Each night, choose a player: learn their character. Once per game, at night,  you may choose to make them drunk until dusk",
+        "firstNight": 12,
+        "otherNight": 3
+      },
+      {
+        "id": "buble_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/buble_itsbloodychristmas2024v2.png",
+        "otherNightReminder": "The player who nominated Buble might die. ",
+        "reminders": ["Dead"],
+        "name": "Buble ",
+        "team": "minion",
+        "ability":
+            "Each night*, if a player nominated you today, they might die, even if you were executed. ",
+        "otherNight": 13
+      },
+      {
+        "id": "mariah_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/mariah_itsbloodychristmas2024v2.png",
+        "name": "Mariah",
+        "team": "minion",
+        "ability":
+            "If you obnoxiously sing a festive song when nominated and are executed that day, your team wins."
+      },
+      {
+        "id": "scrooge_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/scrooge_itsbloodychristmas2024v2.png",
+        "name": "Scrooge",
+        "team": "minion",
+        "ability":
+            "Once per game, during the day, publicly choose a living player: if Santa Claus, your team wins. "
+      },
+      {
+        "id": "mrsclaws_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/mrsclaws_itsbloodychristmas2024v2.png",
+        "otherNightReminder":
+            "Mrs.Claws wakes up and guesses a number. If they guess correctly, they kill two players, otherwise they kill one. ",
+        "reminders": ["Dead", "Dead"],
+        "name": "Mrs. Claws",
+        "team": "demon",
+        "ability":
+            "Each night*, guess how many players are drunk: if correct, choose 2 players, else choose 1: they die. ",
+        "otherNight": 16
+      },
+      {
+        "id": "krampus_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/krampus_itsbloodychristmas2024v2.png",
+        "otherNightReminder":
+            "Krampus chooses 2 players. If either of them are drunk, they both die. If there are no drunk players when they wake up, the evil team wins. ",
+        "reminders": ["Dead", "Dead"],
+        "setup": true,
+        "name": "Krampus",
+        "team": "demon",
+        "ability":
+            "Each night*, choose 2 players. If either are drunk, both die. If there are no living drunk players at dawn, your team wins. [+1 Outsider]",
+        "otherNight": 15
+      },
+      {
+        "id": "grinch_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/grinch_itsbloodychristmas2024v2.png",
+        "firstNightReminder": "The Grinch learns who Santa Claus picked. ",
+        "otherNightReminder":
+            "The Grinch learns who Santa Claus picked. Then, they choose a player; that player dies. If the Grinch picks the player they were told, the Grinch gets a present from the 'naughty' list. ",
+        "reminders": ["Dead"],
+        "name": "Grinch",
+        "team": "demon",
+        "ability":
+            "Each night, learn who Santa Claus chose. Each night*, choose a player: they die and if Santa Claus picked them, you get a present instead.",
+        "firstNight": 22,
+        "otherNight": 17
+      },
+      {
+        "id": "jackfrost_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/jackfrost_itsbloodychristmas2024v2.png",
+        "firstNightReminder":
+            "Jack Frost chooses a player. They are 'frozen'. Jack Frost wins if all good living players are 'frozen'",
+        "otherNightReminder":
+            "Jack Frost chooses a player. They are 'frozen'. Jack Frost wins if all good living players are 'frozen'",
+        "reminders": ["Frozen", "Frozen", "Frozen", ""],
+        "name": "Jack Frost",
+        "team": "demon",
+        "ability":
+            "Each night, choose a player: they are 'frozen' permanently. If all good living players are frozen, your team wins. ",
+        "firstNight": 17,
+        "otherNight": 14
+      },
+      {
+        "id": "presents_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/presents_itsbloodychristmas2024v2.png",
+        "otherNightReminder":
+            "Wake any players that have an unused present from a previous night. They may use the present. ",
+        "reminders": ["Present", "Present", "Present", "Present", "Present"],
+        "name": "Presents",
+        "team": "fabled",
+        "ability":
+            "Players can receive presents. Presents cannot be used on the same night they are received.  Good players get a present from the 'nice' list and evil players get presents from the 'naughty' list. If a player dies while holding a present, they lose the present. Drunk players' presents might malfunction.  ",
+        "otherNight": 18
+      },
+      {
+        "id": "bloodyfreezing_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/bloodyfreezing_itsbloodychristmas2024v2.png",
+        "name": "Bloody Freezing",
+        "team": "fabled",
+        "ability":
+            "'Frozen' players are always healthy and sober and cannot be made drunk."
+      },
+      {
+        "id": "teddybear_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/teddybear_itsbloodychristmas2024v2.png",
+        "name": "Teddy Bear",
+        "team": "fabled",
+        "ability":
+            "You learn the alignment of one living neighbour (ST's choice) (Nice List)"
+      },
+      {
+        "id": "pairofsocks_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/pairofsocks_itsbloodychristmas2024v2.png",
+        "name": "Pair of Socks",
+        "team": "fabled",
+        "ability": "Learn one player that is not the Demon. (Nice List)"
+      },
+      {
+        "id": "crystalball_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/crystalball_itsbloodychristmas2024v2.png",
+        "name": "Crystal Ball",
+        "team": "fabled",
+        "ability":
+            "You learn if the nearest evil player to you is a Minion or Demon. If equidistant, this information is arbitrary. (Nice List)"
+      },
+      {
+        "id": "boxofchocolates_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/boxofchocolates_itsbloodychristmas2024v2.png",
+        "name": "Box of Chocolates",
+        "team": "fabled",
+        "ability":
+            "Choose 3 players, learn how many of them are drunk. (Nice List)"
+      },
+      {
+        "id": "gamesconsole_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/gamesconsole_itsbloodychristmas2024v2.png",
+        "name": "Games Console",
+        "team": "fabled",
+        "ability": "Learn how many evil players are alive. (Nice List)"
+      },
+      {
+        "id": "perfume_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/perfume_itsbloodychristmas2024v2.png",
+        "name": "Perfume",
+        "team": "fabled",
+        "ability":
+            "Choose a living player. If they are good, they are executed instead of you today. (Nice List)"
+      },
+      {
+        "id": "getawayholiday_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/getawayholiday_itsbloodychristmas2024v2.png",
+        "name": "Getaway Holiday",
+        "team": "fabled",
+        "ability":
+            "If you die at night whilst holding this present, you stay alive. (Nice List)"
+      },
+      {
+        "id": "fridgefreezer_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/fridgefreezer_itsbloodychristmas2024v2.png",
+        "name": "Fridge/Freezer",
+        "team": "fabled",
+        "ability": "You are 'frozen' for the rest of the game. (Nice List)"
+      },
+      {
+        "id": "lumpofcoal_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/lumpofcoal_itsbloodychristmas2024v2.png",
+        "name": "Lump of Coal",
+        "team": "fabled",
+        "ability": "Choose a player, they die. (Naughty List)"
+      },
+      {
+        "id": "cheapvodka_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/cheapvodka_itsbloodychristmas2024v2.png",
+        "name": "Cheap Vodka",
+        "team": "fabled",
+        "ability":
+            "Choose a player, they are drunk for the rest of the game. (Naughty List)"
+      },
+      {
+        "id": "buckethat_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/buckethat_itsbloodychristmas2024v2.png",
+        "name": "Bucket Hat",
+        "team": "fabled",
+        "ability":
+            "Choose a character of your character type; you become that character. (Naughty List)"
+      },
+      {
+        "id": "petrock_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/petrock_itsbloodychristmas2024v2.png",
+        "name": "Pet Rock",
+        "team": "fabled",
+        "ability":
+            "If there are 5 or more living players, choose one of them. If you are executed today, they are executed instead. (Naughty List)"
+      },
+      {
+        "id": "snowball_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/snowball_itsbloodychristmas2024v2.png",
+        "name": "Snowball",
+        "team": "traveller",
+        "ability":
+            "Choose a player, they are 'frozen' for the rest of the game. (Naughty List)"
+      },
+      {
+        "id": "greasywig_itsbloodychristmas2024v2",
+        "image":
+            "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/greasywig_itsbloodychristmas2024v2.png",
+        "name": "Greasy Wig",
+        "team": "fabled",
+        "ability":
+            "Choose an evil player. You swap characters with them. (Naughty List)"
+      }
+    ],
+  },
+  {
     "pk": 178,
     "name": "Trouble Brewing",
     "version": "1.0.0",

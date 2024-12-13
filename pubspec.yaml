@@ -73,6 +73,7 @@ flutter:
   assets:
     - assets/images/character_tokens/
     - assets/images/character_tokens_off/
+    - assets/images/xmas/
     - assets/images/botc_logo.png
     - assets/images/dawn.png
     - assets/images/demon.png

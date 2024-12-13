@@ -38,14 +38,18 @@ class CharacterToken extends StatelessWidget {
     super.key,
     this.character,
     this.tokenText,
+    this.tokenImage,
     this.tokenSize = TokenSize.small,
     this.isEvilEasterEgg = false,
+    this.hasLabel = true,
   });
 
   final Character? character;
   final TokenSize tokenSize;
   final String? tokenText;
+  final String? tokenImage;
   final bool isEvilEasterEgg;
+  final bool hasLabel;
 
   bool get showLeftLeaf {
     if (character == null) {
@@ -91,6 +95,15 @@ class CharacterToken extends StatelessWidget {
   }
 
   Widget? get image {
+    if (tokenImage != null) {
+      return Transform.scale(
+        scale: 0.7,
+        child: Image(
+          image: AssetImage(tokenImage!),
+        ),
+      );
+    }
+
     if (tokenText != null) {
       return null;
     }
@@ -261,7 +274,11 @@ class CharacterToken extends StatelessWidget {
               children: [
                 TextItem(
                   text: Text(
-                    label != null ? label! : t.unknown,
+                    label != null
+                        ? label!
+                        : hasLabel
+                            ? t.unknown
+                            : '',
                     style: theme.textTheme.titleMedium!.copyWith(
                         fontSize: sizes['fontSize'],
                         fontWeight: FontWeight.w900,

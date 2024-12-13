@@ -131,8 +131,9 @@ class _DrawCharactersToPlayersScreenState
                       height: 32,
                     ),
                   Text(
-                    areAllCharactersDrawn ? t.allDone : t.drawYourCharacter,
+                    areAllCharactersDrawn ? t.allDone : t.openGift,
                     style: theme.textTheme.titleLarge,
+                    textAlign: TextAlign.center,
                   ),
                   SizedBox(
                     height: isLargeScreen ? 48 : 120,
@@ -144,12 +145,12 @@ class _DrawCharactersToPlayersScreenState
                         button: true,
                         label: _isDrawingCharacter ? t.drawing : t.draw,
                         child: InkWell(
-                          onTap: _onSelectToken,
+                          onTap: _isDrawingCharacter ? null : _onSelectToken,
                           child: Transform.rotate(
                             angle: areAllCharactersDrawn ? 3 : 0,
-                            child: Image(
-                              image: const AssetImage('assets/images/bag.png'),
-                              color: theme.colorScheme.primary,
+                            child: const Image(
+                              image:
+                                  AssetImage('assets/images/xmas/giftbox.png'),
                               width: 170,
                               fit: BoxFit.cover,
                             ),
@@ -161,7 +162,8 @@ class _DrawCharactersToPlayersScreenState
                             sin(5 * 2 * pi * _animationController.value);
 
                         return Transform.translate(
-                          offset: Offset(offsetSinValue * 10, 3),
+                          offset:
+                              Offset(offsetSinValue * 10, 2 * offsetSinValue),
                           child: child,
                         );
                       }),

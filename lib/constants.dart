@@ -224,3 +224,25 @@ final infoTokens = [
     color: const Color.fromRGBO(216, 137, 95, 1),
   )
 ];
+
+const kXmasImages = [
+  'candy-cane',
+  'christmas-bell',
+  'christmas-tree',
+  'christmas-wreath',
+  'hat',
+  'reindeer',
+  'balls',
+  'bauble',
+  'gingerbread-man',
+  'letter',
+  'mistletoe',
+  'sleigh',
+  'snowman',
+  'christmas-sock',
+  'presents',
+  'snowflake',
+  'christmas-sweater',
+  'gift-box',
+  'santa-claus'
+];

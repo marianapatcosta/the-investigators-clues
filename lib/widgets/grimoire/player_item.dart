@@ -23,6 +23,7 @@ class PlayerItem extends StatefulWidget {
     required this.removePlayer,
     required this.updateParent,
     required this.saveGameSession,
+    required this.addReminder,
   });
 
   final Player player;
@@ -37,6 +38,7 @@ class PlayerItem extends StatefulWidget {
   final void Function() removePlayer;
   final void Function() updateParent;
   final void Function() saveGameSession;
+  final void Function(Reminder) addReminder;
 
   Character? get character {
     if (player.characterId == null) {
@@ -60,12 +62,14 @@ class _PlayerItemState extends State<PlayerItem> {
       context,
       MaterialPageRoute(
         builder: (ctx) => EditPlayer(
-            player: widget.player,
-            sessionCharacters: widget.sessionCharacters,
-            sessionReminders: widget.sessionReminders,
-            removePlayer: widget.removePlayer,
-            isStorytellerMode: widget.isStorytellerMode,
-            inPlayCharactersIds: widget.inPlayCharactersIds),
+          player: widget.player,
+          sessionCharacters: widget.sessionCharacters,
+          sessionReminders: widget.sessionReminders,
+          removePlayer: widget.removePlayer,
+          isStorytellerMode: widget.isStorytellerMode,
+          inPlayCharactersIds: widget.inPlayCharactersIds,
+          addReminder: widget.addReminder,
+        ),
       ),
     );
 
@@ -73,10 +77,7 @@ class _PlayerItemState extends State<PlayerItem> {
     final wasHasGhostVoteUpdated =
         updatedPlayer.hasGhostVote != widget.player.hasGhostVote;
 
-    final wereRemindersUpdated = widget.isStorytellerMode;
-
-    final updateParent =
-        wasIsDeadUpdated || wasHasGhostVoteUpdated || wereRemindersUpdated;
+    final updateParent = wasIsDeadUpdated || wasHasGhostVoteUpdated;
 
     if (updatedPlayer.name != widget.player.name) {
       widget.player.setName = updatedPlayer.name;
@@ -100,10 +101,6 @@ class _PlayerItemState extends State<PlayerItem> {
 
     if (updatedPlayer.isEvilEasterEgg != widget.player.isEvilEasterEgg) {
       widget.player.setIsEvilEasterEgg = updatedPlayer.isEvilEasterEgg;
-    }
-
-    if (wereRemindersUpdated) {
-      widget.player.setReminders = updatedPlayer.reminders;
     }
 
     updateParent ? widget.updateParent() : setState(() {});

@@ -1,12 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/data/index.dart' show charactersMap;
 import 'package:my_botc_notes/models/index.dart'
     show Character, Player, Reminder;
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
-    show EditPlayerHeader, FormActionBar, Layout, ReminderToken;
+    show EditPlayerHeader, FormActionBar, Layout;
 
 class EditPlayer extends StatefulWidget {
   const EditPlayer({
@@ -17,6 +18,7 @@ class EditPlayer extends StatefulWidget {
     required this.removePlayer,
     required this.isStorytellerMode,
     required this.inPlayCharactersIds,
+    required this.addReminder,
   });
 
   final Player player;
@@ -25,6 +27,7 @@ class EditPlayer extends StatefulWidget {
   final bool isStorytellerMode;
   final List<String> inPlayCharactersIds;
   final void Function() removePlayer;
+  final void Function(Reminder) addReminder;
 
   Character? get character {
     if (player.characterId == null) {
@@ -47,7 +50,6 @@ class _EditPlayerState extends State<EditPlayer> {
   late bool _hasGhostVote;
   late Character? _character;
   late bool _isEvilEasterEgg = false;
-  late List<Reminder> _reminders;
 
   void _onSave(BuildContext context) {
     Navigator.of(context).pop(
@@ -58,7 +60,6 @@ class _EditPlayerState extends State<EditPlayer> {
         hasGhostVote: _hasGhostVote,
         characterId: _character?.id,
         isEvilEasterEgg: _isEvilEasterEgg,
-        reminders: _reminders,
       ),
     );
   }
@@ -68,7 +69,7 @@ class _EditPlayerState extends State<EditPlayer> {
     final List<Reminder> otherReminders = [];
 
     for (final reminder in widget.sessionReminders) {
-      if (widget.inPlayCharactersIds.contains(reminder.tokenId)) {
+      if (widget.inPlayCharactersIds.contains(reminder.characterId)) {
         inPlayCharactersReminders.add(reminder);
       } else {
         otherReminders.add(reminder);
@@ -83,32 +84,20 @@ class _EditPlayerState extends State<EditPlayer> {
       final isPlayerOnRightSide = playerX > width / 2;
 
       final reminderOffsetX = isPlayerOnRightSide
-          ? playerX + kReminderTokenSizeSmall / 2
+          ? playerX - kReminderTokenSizeSmall / 2
           : playerX + kCharacterTokenSizeSmall;
+      // offset to avoid overlap of multiple reminders in the same player
+      final double multipleReminderOffset = Random().nextInt(30) / 10;
 
       final reminderOffsetY = playerY -
           kCharacterTokenSizeSmall * 0.5 +
-          (_reminders.length) * kCharacterTokenSizeSmall * 0.5;
+          multipleReminderOffset * kCharacterTokenSizeSmall * 0.5;
 
       reminder.setX = reminderOffsetX;
       reminder.setY = reminderOffsetY;
 
-      setState(() {
-        _reminders.add(reminder);
-      });
+      widget.addReminder(reminder);
     });
-  }
-
-  Character? _getCharacter(String tokenId) {
-    if (kGeneralReminders
-        .where((reminder) => reminder.tokenId == tokenId)
-        .isNotEmpty) {
-      return null;
-    }
-
-    return charactersMap[tokenId] ??
-        widget.sessionCharacters
-            .firstWhere((character) => character.id == tokenId);
   }
 
   @override
@@ -120,8 +109,6 @@ class _EditPlayerState extends State<EditPlayer> {
     _hasGhostVote = widget.player.hasGhostVote;
     _character = widget.character;
     _isEvilEasterEgg = widget.player.isEvilEasterEgg;
-    _reminders =
-        widget.player.reminders != null ? [...widget.player.reminders!] : [];
   }
 
   @override
@@ -161,48 +148,6 @@ class _EditPlayerState extends State<EditPlayer> {
               ),
               const SizedBox(
                 height: 8,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: _reminders.isEmpty
-                    ? Text(t.noReminders)
-                    : Wrap(
-                        runSpacing: 6,
-                        spacing: 6,
-                        alignment: WrapAlignment.start,
-                        children: [
-                          for (final reminder in _reminders)
-                            Wrap(children: [
-                              SizedBox(
-                                width: kReminderTokenSizeSmall * 1.2,
-                                child: Stack(
-                                  children: [
-                                    ReminderToken(
-                                      reminder: reminder,
-                                      character:
-                                          _getCharacter(reminder.tokenId),
-                                    ),
-                                    Positioned(
-                                        right: -17,
-                                        top: -15,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              _reminders.remove(reminder);
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.delete,
-                                            semanticLabel: t.deleteGame,
-                                            size: 18,
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                              ),
-                            ])
-                        ],
-                      ),
               ),
             ],
           )

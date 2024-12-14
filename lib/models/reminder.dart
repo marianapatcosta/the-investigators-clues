@@ -2,14 +2,14 @@ import 'package:my_botc_notes/constants.dart';
 
 class Reminder {
   Reminder({
-    required this.tokenId,
+    required this.characterId,
     required this.reminder,
     this.x,
     this.y,
   }) : id = uuid.v4();
 
   final String id;
-  final String tokenId;
+  final String characterId;
   final String reminder;
   double? x;
   double? y;
@@ -24,7 +24,7 @@ class Reminder {
 
   Reminder.fromJson(Map<String, dynamic> json)
       : id = json['id'] as String,
-        tokenId = json['characterId'] as String,
+        characterId = json['characterId'] as String,
         reminder = json['reminder'],
         x = json['x'] as double?,
         y = json['y'] as double?;
@@ -32,7 +32,7 @@ class Reminder {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'characterId': tokenId,
+      'characterId': characterId,
       'reminder': reminder,
       'x': x,
       'y': y,

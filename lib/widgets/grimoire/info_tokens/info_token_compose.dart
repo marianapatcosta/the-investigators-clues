@@ -40,7 +40,7 @@ class _InfoTokenComposeState extends State<InfoTokenCompose> {
       ...widget.sessionCharacters,
       null,
       ...kGeneralReminders,
-      Reminder(tokenId: 'arrow', reminder: ''),
+      Reminder(characterId: 'arrow', reminder: ''),
     ];
   }
 
@@ -61,7 +61,7 @@ class _InfoTokenComposeState extends State<InfoTokenCompose> {
                         Semantics(
                             button: true,
                             label:
-                                '${t.select} ${token == null || token is Character ? token?.name : token.tokenId}',
+                                '${t.select} ${token == null || token is Character ? token?.name : token?.characterId}',
                             child: InkWell(
                                 onTap: () {
                                   Navigator.pop(ctx);

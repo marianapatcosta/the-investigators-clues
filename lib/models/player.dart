@@ -12,7 +12,6 @@ class Player {
     this.isTraveller = false,
     this.x,
     this.y,
-    this.reminders,
   }) : id = uuid.v4();
 
   String id;
@@ -25,7 +24,6 @@ class Player {
   bool isTraveller;
   double? x;
   double? y;
-  List<Reminder>? reminders;
   bool votedToday = false;
   bool nominatedToday = false;
 
@@ -69,10 +67,6 @@ class Player {
     nominatedToday = value;
   }
 
-  set setReminders(List<Reminder>? value) {
-    reminders = value;
-  }
-
   Player.fromJson(Map<String, dynamic> json)
       : id = json['id'] as String,
         name = json['name'] as String,
@@ -83,12 +77,7 @@ class Player {
         isEvilEasterEgg = json['isEvilEasterEgg'] as bool,
         isTraveller = json['isTraveller'] as bool,
         x = json['x'] as double?,
-        y = json['y'] as double?,
-        reminders = json['reminders'] == null
-            ? null
-            : List.from(json['reminders'])
-                .map((item) => Reminder.fromJson(item))
-                .toList();
+        y = json['y'] as double?;
 
   Map<String, dynamic> toJson() {
     return {
@@ -102,7 +91,6 @@ class Player {
       'isTraveller': isTraveller,
       'x': x,
       'y': y,
-      'reminders': reminders?.map((reminder) => reminder.toJson()).toList(),
     };
   }
 }

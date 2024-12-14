@@ -359,28 +359,35 @@ class _GameScreenState extends State<GameScreen> {
                                           );
                                         },
                                         child: _isScrollLocked
-                                            ? const ImageIcon(
-                                                key: ValueKey('scroll-locked'),
-                                                AssetImage(
+                                            ? ImageIcon(
+                                                key: const ValueKey(
+                                                    'scroll-locked'),
+                                                const AssetImage(
                                                     "assets/images/lock.png"),
                                                 size: 20,
-                                                color: Colors.white)
-                                            : const ImageIcon(
-                                                key:
-                                                    ValueKey('scroll-unlocked'),
-                                                AssetImage(
+                                                semanticLabel: t.unlockScroll,
+                                                color: Colors.white,
+                                              )
+                                            : ImageIcon(
+                                                key: const ValueKey(
+                                                    'scroll-unlocked'),
+                                                const AssetImage(
                                                     "assets/images/unlock.png"),
                                                 size: 20,
-                                                color: Colors.white)),
+                                                color: Colors.white,
+                                                semanticLabel: t.lockScroll,
+                                              )),
                                     onPressed: () => setState(() {
                                           _isScrollLocked = !_isScrollLocked;
                                         })),
                                 IconButton(
-                                  icon: const ImageIcon(
-                                      AssetImage(
-                                          "assets/images/fire_lighter.png"),
-                                      size: 20,
-                                      color: Colors.white),
+                                  icon: ImageIcon(
+                                    const AssetImage(
+                                        "assets/images/fire_lighter.png"),
+                                    size: 20,
+                                    color: Colors.white,
+                                    semanticLabel: t.storytellerHelper,
+                                  ),
                                   onPressed: () =>
                                       scaffoldKey.currentState?.openEndDrawer(),
                                 ),

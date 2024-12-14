@@ -121,8 +121,8 @@ const kInfoCardHeight = 340.0;
 const kPocketGrimoireUrl = 'https://www.pocketgrimoire.co.uk';
 
 final kGeneralReminders = [
-  Reminder(tokenId: 'good', reminder: 'Good'),
-  Reminder(tokenId: 'evil', reminder: 'Evil'),
+  Reminder(characterId: 'good', reminder: 'Good'),
+  Reminder(characterId: 'evil', reminder: 'Evil'),
 ];
 
 const List<double> greyMatrix = [

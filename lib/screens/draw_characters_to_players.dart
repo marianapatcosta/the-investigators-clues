@@ -148,11 +148,15 @@ class _DrawCharactersToPlayersScreenState
                           onTap: _isDrawingCharacter ? null : _onSelectToken,
                           child: Transform.rotate(
                             angle: areAllCharactersDrawn ? 3 : 0,
-                            child: const Image(
-                              image:
-                                  AssetImage('assets/images/xmas/giftbox.png'),
+                            child: SizedBox(
                               width: 170,
-                              fit: BoxFit.cover,
+                              height: 170,
+                              child: Image(
+                                image: const AssetImage(
+                                    'assets/images/giftbox.png'),
+                                color: theme.colorScheme.primary,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -162,8 +166,7 @@ class _DrawCharactersToPlayersScreenState
                             sin(5 * 2 * pi * _animationController.value);
 
                         return Transform.translate(
-                          offset:
-                              Offset(offsetSinValue * 10, 2 * offsetSinValue),
+                          offset: Offset(offsetSinValue * 10, offsetSinValue),
                           child: child,
                         );
                       }),

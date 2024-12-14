@@ -84,8 +84,9 @@ class _DrawCharactersToPlayersWithNumbersScreenState
                   height: 32,
                 ),
                 Text(
-                  t.drawYourCharacter,
+                  t.pickYourCharacter,
                   style: theme.textTheme.titleLarge,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
                   height: 48,

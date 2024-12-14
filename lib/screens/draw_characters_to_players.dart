@@ -150,6 +150,7 @@ class _DrawCharactersToPlayersScreenState
                             angle: areAllCharactersDrawn ? 3 : 0,
                             child: SizedBox(
                               width: 170,
+                              height: 170,
                               child: Image(
                                 image:
                                     const AssetImage('assets/images/bag.png'),

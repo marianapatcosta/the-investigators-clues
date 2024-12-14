@@ -27,16 +27,16 @@ class ReminderSelector extends StatefulWidget {
 }
 
 class _ReminderSelectorState extends State<ReminderSelector> {
-  Character? _getCharacter(String tokenId) {
+  Character? _getCharacter(String characterId) {
     if (kGeneralReminders
-        .where((reminder) => reminder.characterId == tokenId)
+        .where((reminder) => reminder.characterId == characterId)
         .isNotEmpty) {
       return null;
     }
 
-    return charactersMap[tokenId] ??
+    return charactersMap[characterId] ??
         widget.sessionCharacters
-            .firstWhere((character) => character.id == tokenId);
+            .firstWhere((character) => character.id == characterId);
   }
 
   bool _showAllReminders = false;

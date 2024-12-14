@@ -17,15 +17,16 @@ class RemindersDisplay extends StatelessWidget {
   final List<Character> sessionCharacters;
   final void Function(Reminder) onRemoveReminder;
 
-  Character? _getCharacter(String tokenId) {
+  Character? _getCharacter(String characterId) {
     if (kGeneralReminders
-        .where((reminder) => reminder.characterId == tokenId)
+        .where((reminder) => reminder.characterId == characterId)
         .isNotEmpty) {
       return null;
     }
 
-    return charactersMap[tokenId] ??
-        sessionCharacters.firstWhere((character) => character.id == tokenId);
+    return charactersMap[characterId] ??
+        sessionCharacters
+            .firstWhere((character) => character.id == characterId);
   }
 
   @override

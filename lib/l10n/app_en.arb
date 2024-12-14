@@ -172,6 +172,7 @@
   "order": "Order",
   "otherNights": "Other Nights",
   "pasteJson": "Paste JSON custom script from the clipboard",
+  "pickYourCharacter": "Select a number and learn your character!", 
   "player": "player",
   "playerMode": "Player mode",
   "playerNominated": "Player nominated?",

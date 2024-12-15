@@ -246,3 +246,9 @@ const kXmasImages = [
   'gift-box',
   'santa-claus'
 ];
+
+const kXmasSounds = [
+  'christmas-santa',
+  'santa-claus',
+  'sleigh-bells',
+];

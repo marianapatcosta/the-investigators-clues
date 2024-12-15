@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
@@ -43,6 +45,7 @@ class _CharacterSelectorState extends State<CharacterSelector> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
+    inspect(characters);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 24),

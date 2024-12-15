@@ -6,6 +6,7 @@ import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/index.dart'
     show Character, Player, Reminder;
 import 'package:my_botc_notes/utils.dart';
+import 'package:my_botc_notes/widgets/grimoire/reminders_display.dart';
 import 'package:my_botc_notes/widgets/index.dart'
     show EditPlayerHeader, FormActionBar, Layout;
 
@@ -50,6 +51,7 @@ class _EditPlayerState extends State<EditPlayer> {
   late bool _hasGhostVote;
   late Character? _character;
   late bool _isEvilEasterEgg = false;
+  final List<Reminder> _reminders = [];
 
   void _onSave(BuildContext context) {
     Navigator.of(context).pop(
@@ -96,6 +98,7 @@ class _EditPlayerState extends State<EditPlayer> {
       reminder.setX = reminderOffsetX;
       reminder.setY = reminderOffsetY;
 
+      _reminders.add(reminder);
       widget.addReminder(reminder);
     });
   }
@@ -149,6 +152,10 @@ class _EditPlayerState extends State<EditPlayer> {
               const SizedBox(
                 height: 8,
               ),
+              RemindersDisplay(
+                  reminders: _reminders,
+                  sessionCharacters: widget.sessionCharacters,
+                  onRemoveReminder: (r) => null)
             ],
           )
         : const SizedBox();

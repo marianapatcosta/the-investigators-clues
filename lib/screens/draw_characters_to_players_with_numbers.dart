@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/index.dart' show Character, Player;
 import 'package:my_botc_notes/utils.dart';
@@ -28,12 +30,16 @@ class _DrawCharactersToPlayersWithNumbersScreenState
     extends State<DrawCharactersToPlayersWithNumbersScreen> {
   final List<Player> _players = [];
   final List<int> _selectedCharactersIndexes = [];
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   List<String> get tokenImages {
     return tokenImagesToShuffle.take(widget.scriptCharacters.length).toList();
   }
 
   void _onSelectToken(int index) async {
+    final soundIndex = Random().nextInt(kXmasSounds.length);
+    _audioPlayer.setAsset('assets/audio/${kXmasSounds[soundIndex]}.mp3');
+    _audioPlayer.play();
     setState(() {
       _selectedCharactersIndexes.add(index);
     });
@@ -58,6 +64,12 @@ class _DrawCharactersToPlayersWithNumbersScreenState
 
   void _onSave() {
     Navigator.of(context).pop(_players);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _audioPlayer.dispose();
   }
 
   @override
@@ -90,7 +102,7 @@ class _DrawCharactersToPlayersWithNumbersScreenState
                   height: 32,
                 ),
                 Text(
-                  t.pickYourCharacter,
+                  t.openGift,
                   style: theme.textTheme.titleLarge,
                   textAlign: TextAlign.center,
                 ),

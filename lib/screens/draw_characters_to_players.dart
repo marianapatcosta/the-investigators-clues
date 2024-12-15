@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/index.dart' show Character, Player;
 import 'package:my_botc_notes/utils.dart';
@@ -32,6 +33,7 @@ class _DrawCharactersToPlayersScreenState
   late AnimationController _animationController;
   bool _isDrawingCharacter = false;
   final GlobalKey _shakeState = GlobalKey();
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   bool get areAllCharactersDrawn {
     return _charactersToDraw.isEmpty;
@@ -56,9 +58,13 @@ class _DrawCharactersToPlayersScreenState
   void dispose() {
     super.dispose();
     _animationController.dispose();
+    _audioPlayer.dispose();
   }
 
   void _onSelectToken() async {
+    final soundIndex = Random().nextInt(kXmasSounds.length);
+    _audioPlayer.setAsset('assets/audio/${kXmasSounds[soundIndex]}.mp3');
+    _audioPlayer.play();
     setState(() {
       _isDrawingCharacter = true;
       _animationController.forward();
@@ -130,46 +136,150 @@ class _DrawCharactersToPlayersScreenState
                     const SizedBox(
                       height: 32,
                     ),
+                  const IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: SizedBox(
+                              width: 100,
+                              child: Image(
+                                image: AssetImage(
+                                    'assets/images/xmas/santa-claus.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: SizedBox(
+                              width: 50,
+                              child: Image(
+                                image: AssetImage(
+                                    'assets/images/xmas/christmas-sock.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: SizedBox(
+                              width: 80,
+                              child: Image(
+                                image:
+                                    AssetImage('assets/images/xmas/balls.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: isLargeScreen ? 48 : 36,
+                  ),
                   Text(
                     areAllCharactersDrawn ? t.allDone : t.openGift,
                     style: theme.textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    height: isLargeScreen ? 48 : 120,
+                    height: isLargeScreen ? 48 : 36,
                   ),
-                  AnimatedBuilder(
-                      key: _shakeState,
-                      animation: _animationController,
-                      child: Semantics(
-                        button: true,
-                        label: _isDrawingCharacter ? t.drawing : t.draw,
-                        child: InkWell(
-                          onTap: _isDrawingCharacter ? null : _onSelectToken,
-                          child: Transform.rotate(
-                            angle: areAllCharactersDrawn ? 3 : 0,
+                  IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 50,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: Image(
+                              image: AssetImage(
+                                  'assets/images/xmas/christmas-bell.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 24,
+                        ),
+                        AnimatedBuilder(
+                            key: _shakeState,
+                            animation: _animationController,
+                            child: Semantics(
+                              button: true,
+                              label: _isDrawingCharacter ? t.drawing : t.draw,
+                              child: InkWell(
+                                onTap:
+                                    _isDrawingCharacter ? null : _onSelectToken,
+                                child: Transform.rotate(
+                                  angle: areAllCharactersDrawn ? 3 : 0,
+                                  child: const SizedBox(
+                                    width: 170,
+                                    child: Image(
+                                      image: AssetImage(
+                                          'assets/images/xmas/giftbox.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            builder: (ctx, child) {
+                              final offsetSinValue =
+                                  sin(5 * 2 * pi * _animationController.value);
+
+                              return Transform.translate(
+                                offset:
+                                    Offset(offsetSinValue * 10, offsetSinValue),
+                                child: child,
+                              );
+                            }),
+                        const SizedBox(
+                          width: 24,
+                        ),
+                        const Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Opacity(
+                            opacity: 0.5,
                             child: SizedBox(
-                              width: 170,
-                              height: 170,
+                              height: 50,
                               child: Image(
-                                image: const AssetImage(
-                                    'assets/images/giftbox.png'),
-                                color: theme.colorScheme.primary,
+                                image: AssetImage(
+                                    'assets/images/xmas/mistletoe.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      builder: (ctx, child) {
-                        final offsetSinValue =
-                            sin(5 * 2 * pi * _animationController.value);
-
-                        return Transform.translate(
-                          offset: Offset(offsetSinValue * 10, offsetSinValue),
-                          child: child,
-                        );
-                      }),
+                        const Align(
+                          alignment: Alignment.topCenter,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: SizedBox(
+                              height: 50,
+                              child: Image(
+                                image:
+                                    AssetImage('assets/images/xmas/bauble.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(
                     height: 12,
                   ),
@@ -191,7 +301,7 @@ class _DrawCharactersToPlayersScreenState
                     ],
                   ),
                   const SizedBox(
-                    height: 100,
+                    height: 20,
                   ),
                   areAllCharactersDrawn
                       ? ElevatedButton.icon(
@@ -201,7 +311,58 @@ class _DrawCharactersToPlayersScreenState
                           ),
                           icon: const Icon(Icons.save),
                           label: Text(t.save))
-                      : const SizedBox(),
+                      : const SizedBox(
+                          height: 40,
+                        ),
+                  const IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: SizedBox(
+                              width: 100,
+                              child: Image(
+                                image:
+                                    AssetImage('assets/images/xmas/sleigh.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: SizedBox(
+                              width: 80,
+                              child: Image(
+                                image: AssetImage(
+                                    'assets/images/xmas/reindeer.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: SizedBox(
+                              width: 80,
+                              child: Image(
+                                image: AssetImage(
+                                    'assets/images/xmas/snowman.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

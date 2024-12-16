@@ -1,12 +1,11 @@
+import 'dart:developer';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart';
-import 'package:my_botc_notes/data/night_order.dart';
-import 'package:my_botc_notes/models/character.dart';
-import 'package:my_botc_notes/models/reminder.dart';
-import 'package:my_botc_notes/models/screen_metadata.dart';
-import 'package:my_botc_notes/models/script.dart';
+import 'package:my_botc_notes/models/index.dart';
 import 'package:my_botc_notes/widgets/game_setup/character_selector.dart';
 import 'package:my_botc_notes/widgets/grimoire/reminder_selector.dart';
 
@@ -310,4 +309,96 @@ List<dynamic> getOtherNightsOrder(
   return nightOrder['otherNight']!
       .where((item) => orderIds.contains(item))
       .toList();
+}
+
+Offset getReminderOffset(
+    double x, double y, BuildContext context, int remindersLength) {
+  final playerX = x;
+  final playerY = y;
+  final width = MediaQuery.of(context).size.width;
+  final isPlayerOnRightSide = playerX > width / 2;
+
+  final reminderOffsetX = isPlayerOnRightSide
+      ? playerX - kReminderTokenSizeSmall / 2
+      : playerX + kCharacterTokenSizeSmall;
+
+  final reminderOffsetY = playerY -
+      kCharacterTokenSizeSmall * 0.5 +
+      remindersLength * kCharacterTokenSizeSmall * 0.5;
+
+  return Offset(reminderOffsetX, reminderOffsetY);
+}
+
+Size getGrimoireSize(BuildContext context) {
+  const tabsAndAppBarOffset = 3 * kTabsAppBarHeight;
+  const double minGrimoireHeight = 600;
+
+  final width = MediaQuery.of(context).size.width;
+  final height = MediaQuery.of(context).size.height;
+  final grimoireWidth = width < kBreakpoints[ScreenSize.xl]!
+      ? width
+      : kBreakpoints[ScreenSize.xl]!;
+  final grimoireHeight = height < minGrimoireHeight
+      ? minGrimoireHeight
+      : height - tabsAndAppBarOffset;
+
+  return Size(grimoireWidth, grimoireHeight);
+}
+
+Offset getPlayerOffset(
+  Size grimoireSize,
+  int numberOfPlayers,
+  int playerIndex,
+) {
+  const topPlayersOffset = 10;
+  const bottomPlayersOffset = 30;
+
+  // Scaling the size of the ellipse
+  final radiusX = (grimoireSize.width - kCharacterTokenSizeSmall) / 2;
+  final radiusY =
+      (grimoireSize.height - bottomPlayersOffset - kCharacterTokenSizeSmall) /
+          2;
+
+  const angleOffset =
+      pi / 2; // to align the first player at the bottom of the screen
+  final radians = (playerIndex * pi * 2) / numberOfPlayers;
+  final double x = radiusX + (cos(radians + angleOffset) * radiusX);
+  final double y =
+      radiusY + (sin(radians + angleOffset) * radiusY) + topPlayersOffset;
+  return Offset(x, y);
+}
+
+List<Reminder> getRemindersFirstNight(
+    double x, double y, Character character, BuildContext context) {
+  List<String> playerRemindersStrings = [];
+
+  if (character.remindersFirstNight != null &&
+      character.remindersFirstNight!.isNotEmpty) {
+    playerRemindersStrings = [
+      ...playerRemindersStrings,
+      ...character.remindersFirstNight!
+    ];
+  }
+
+  if (character.remindersGlobal != null &&
+      character.remindersGlobal!.isNotEmpty) {
+    playerRemindersStrings = [
+      ...playerRemindersStrings,
+      character.remindersGlobal!.first
+    ];
+  }
+
+  final List<Reminder> playerReminders =
+      playerRemindersStrings.asMap().entries.map((entry) {
+    final index = entry.key;
+    final reminder = entry.value;
+    final reminderOffset = getReminderOffset(x, y, context, index);
+    return Reminder(
+        characterId: character.id,
+        reminder: reminder,
+        x: reminderOffset.dx,
+        y: reminderOffset.dy);
+  }).toList();
+
+  return playerReminders;
 }

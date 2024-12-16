@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
@@ -17,10 +15,6 @@ import 'package:my_botc_notes/widgets/index.dart'
         InfoTokenManager,
         PlayerItem,
         ReminderItem;
-
-const _tabsAndAppBarOffset = 3 * kTabsAppBarHeight;
-const _bottomPlayerNamerOffset = 30;
-const double _minGrimoireHeight = 600;
 
 class Grimoire extends StatefulWidget {
   const Grimoire({
@@ -80,20 +74,11 @@ class _GrimoireState extends State<Grimoire> {
     widget.saveGameSession();
   }
 
-  void _onAddReminder(Reminder reminder) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-
+  void _onAddReminders(List<Reminder> newReminders) {
     setState(() {
-      final t = AppLocalizations.of(context);
       final reminders = widget.gameSession.inPlayReminders ?? [];
 
-      widget.gameSession.setInPlayReminders = [...reminders, reminder];
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(t.reminderAdded(reminder.reminder)),
-        ),
-      );
+      widget.gameSession.setInPlayReminders = [...reminders, ...newReminders];
     });
   }
 
@@ -220,46 +205,13 @@ class _GrimoireState extends State<Grimoire> {
     );
   }
 
-  List<Player> _getPlayers(double width, double height) {
-    final players = [...widget.gameSession.players];
-    // checks if position was already set for players list
-    if (players.first.x != null) {
-      return players;
-    }
-
-    // Scaling the size of the ellipse
-    final radiusX = (width - kCharacterTokenSizeSmall) / 2;
-    final radiusY =
-        (height - _bottomPlayerNamerOffset - kCharacterTokenSizeSmall) / 2;
-
-    int playersLength = players.length;
-
-    for (int index = 0; index < players.length; index++) {
-      const offset =
-          pi / 2; // to align the first player at the bottom of the screen
-      final radians = (index * pi * 2) / playersLength;
-      final double x = radiusX + (cos(radians + offset) * radiusX);
-      final double y = radiusY + (sin(radians + offset) * radiusY);
-      players[index].setX = x;
-      players[index].setY = y;
-    }
-
-    return players;
-  }
-
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
-    final grimoirreWidth = width < kBreakpoints[ScreenSize.xl]!
-        ? width
-        : kBreakpoints[ScreenSize.xl]!;
-    final grimoireHeight = height < _minGrimoireHeight
-        ? _minGrimoireHeight
-        : height - _tabsAndAppBarOffset;
+    final grimoireSize = getGrimoireSize(context);
 
     final GameSession(
       :players,
@@ -311,7 +263,7 @@ class _GrimoireState extends State<Grimoire> {
         builder: (BuildContext context, BoxConstraints constraints) {
       return Column(children: [
         SizedBox(
-          height: grimoireHeight,
+          height: grimoireSize.height,
           child: Stack(children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -371,8 +323,7 @@ class _GrimoireState extends State<Grimoire> {
                 ),
               ],
             ),
-            for (final player
-                in _getPlayers(grimoirreWidth, grimoireHeight)) ...[
+            for (final player in widget.gameSession.players) ...[
               PlayerItem(
                 key: ValueKey(player.id),
                 player: player,
@@ -389,7 +340,7 @@ class _GrimoireState extends State<Grimoire> {
                 updateParent: widget.updateParent,
                 saveGameSession: widget.saveGameSession,
                 constraints: constraints,
-                addReminder: _onAddReminder,
+                addReminders: _onAddReminders,
               ),
             ],
             if (isStorytellerMode &&

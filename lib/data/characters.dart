@@ -279,6 +279,7 @@ const charactersJson = [
         "Point to 1 evil player. Wake the townsfolk who is evil and show them the 'You are' card and the thumbs down evil sign.",
     "otherNightReminder":
         "If the known evil player has died, point to another evil player. ",
+    "remindersFirstNight": ["Known"],
     "reminders": ["Known"],
     "setup": true,
     "ability":
@@ -329,6 +330,7 @@ const charactersJson = [
         "The Butler points to a player. Mark that player as 'Master'.",
     "otherNightReminder":
         "The Butler points to a player. Mark that player as 'Master'.",
+    "remindersFirstNight": ["Master"],
     "reminders": ["Master"],
     "setup": false,
     "ability":
@@ -357,6 +359,7 @@ const charactersJson = [
     "otherNightReminder":
         "The Cerenovus points to a player, then to a character on their sheet. Wake that player. Show the 'This character selected you' card, then the Cerenovus token. Show the selected character token. If the player is not mad about being that character tomorrow, they can be executed.",
     "reminders": ["Mad"],
+    "remindersFirstNight": ["Mad"],
     "setup": false,
     "ability":
         "Each night, choose a player & a good character: they are \"mad\" they are this character tomorrow, or might be executed.",
@@ -476,6 +479,7 @@ const charactersJson = [
     "otherNightReminder":
         "The Devil's Advocate points to a living player, different from the previous night. That player survives execution tomorrow.",
     "reminders": ["Survives execution"],
+    "remindersFirstNight": ["Survives execution"],
     "setup": false,
     "ability":
         "Each night, choose a living player (different to last night): if executed tomorrow, they don't die.",
@@ -581,6 +585,7 @@ const charactersJson = [
         "Wake the Evil Twin and their twin. Confirm that they have acknowledged each other. Point to the Evil Twin. Show their Evil Twin token to the twin player. Point to the twin. Show their character token to the Evil Twin player.",
     "otherNightReminder": "",
     "reminders": ["Twin"],
+    "remindersFirstNight": ["Twin"],
     "setup": false,
     "ability":
         "You & an opposing player know each other. If the good player is executed, evil wins. Good can't win if you both live.",
@@ -633,6 +638,7 @@ const charactersJson = [
     "otherNightReminder":
         "The Fearmonger points to a player. If different from the previous night, place the Fear token next to that player and announce that a new player has been selected with the Fearmonger ability.",
     "reminders": ["Fear"],
+    "remindersFirstNight": ["Fear"],
     "setup": false,
     "ability":
         "Each night, choose a player. If you nominate & execute them, their team loses. All players know if you choose a new player.",
@@ -712,6 +718,7 @@ const charactersJson = [
         "The Fortune Teller points to two players. Give the head signal (nod yes, shake no) for whether one of those players is the Demon. ",
     "otherNightReminder":
         "The Fortune Teller points to two players. Show the head signal (nod 'yes', shake 'no') for whether one of those players is the Demon.",
+    "remindersFirstNight": ["Red herring"],
     "reminders": ["Red herring"],
     "setup": false,
     "ability":
@@ -850,6 +857,7 @@ const charactersJson = [
     "otherNightReminder":
         "If the Grandmother's grandchild was killed by the Demon tonight: The Grandmother dies.",
     "reminders": ["Grandchild"],
+    "remindersFirstNight": ["Grandchild"],
     "setup": false,
     "ability":
         "You start knowing a good player & their character. If the Demon kills them, you die too.",
@@ -889,6 +897,7 @@ const charactersJson = [
     "otherNightReminder":
         "Wake the Harpy; they point at one player, then another. Wake the 1st player the Harpy pointed to, show them the 'This character has selected you' card, show them the Harpy token, then point at the 2nd player the Harpy pointed to.",
     "reminders": ["Mad", "2nd"],
+    "remindersFirstNight": ["Mad", "2nd"],
     "setup": false,
     "ability":
         "Each night, choose 2 players: tomorrow, the 1st player is mad that the 2nd is evil, or one or both might die.",
@@ -989,6 +998,7 @@ const charactersJson = [
     "firstNightReminder":
         "Show the character token of a Minion in play. Point to two players, one of which is that character.",
     "otherNightReminder": "",
+    "remindersFirstNight": ["Minion", "Wrong"],
     "reminders": ["Minion", "Wrong"],
     "setup": false,
     "ability": "You start knowing that 1 of 2 players is a particular Minion.",
@@ -1022,13 +1032,13 @@ const charactersJson = [
     "id": "kazali",
     "name": "Kazali",
     "team": "demon",
-    "ability":
-        "Each night*, choose a player: they die. [You choose which players are Minions. -? to +? Outsiders]",
-    "setup": true,
     "firstNightReminder":
         "The Kazali points at a player and a Minion on the character sheet. Replace their old character token with the Minion token, show them the “You Are” info token then the Minion character token, and give a thumbs down. Repeat until the normal number of Minions exist. Put the Kazali to sleep.",
     "otherNightReminder": "The Kazali points to a player. That player dies.",
-    "reminders": ["Dead"]
+    "reminders": ["Dead"],
+    "setup": true,
+    "ability":
+        "Each night*, choose a player: they die. [You choose which players are Minions. -? to +? Outsiders]",
   },
   {
     "id": "king",
@@ -1064,6 +1074,7 @@ const charactersJson = [
     "firstNightReminder": "Point to 2 non-Demon players.",
     "otherNightReminder": "",
     "reminders": ["Know", "Know"],
+    "remindersFirstNight": ["Know", "Know"],
     "setup": false,
     "ability": "You start knowing 2 players that are not the Demon.",
   },
@@ -1095,6 +1106,7 @@ const charactersJson = [
       "Day 5",
       "Good player executed"
     ],
+    "remindersFirstNight": ["Day 1"],
     "setup": false,
     "ability":
         "If more than 1 good player is executed, you win. All players know you are in play. After day 5, evil wins.",
@@ -1107,6 +1119,7 @@ const charactersJson = [
     "firstNightReminder":
         "Show the character token of an Outsider in play. Point to two players, one of which is that character.",
     "otherNightReminder": "",
+    "remindersFirstNight": ["Outsider", "Wrong"],
     "reminders": ["Outsider", "Wrong"],
     "setup": false,
     "ability":
@@ -1140,6 +1153,7 @@ const charactersJson = [
         "The Lleech points to a player. Place the Poisoned reminder token.",
     "otherNightReminder": "The Lleech points to a player. That player dies.",
     "reminders": ["Dead", "Poisoned"],
+    "remindersFirstNight": ["Poisoned"],
     "setup": false,
     "ability":
         "Each night*, choose a player: they die. You start by choosing a player: they are poisoned - you die if & only if they die.",
@@ -1351,6 +1365,7 @@ const charactersJson = [
         "Point to 3 players including one evil player, in no particular order.",
     "otherNightReminder": "",
     "reminders": ["Seen"],
+    "remindersFirstNight": ["Seen", "Seen", "Seen"],
     "setup": false,
     "ability": "You start knowing 3 players, 1 and only 1 of which is evil.",
   },
@@ -1362,6 +1377,7 @@ const charactersJson = [
     "firstNightReminder": "",
     "otherNightReminder": "The No Dashii points to a player. That player dies.",
     "reminders": ["Dead", "Poisoned"],
+    "remindersFirstNight": ["Poisoned", "Poisoned"],
     "setup": false,
     "ability":
         "Each night*, choose a player: they die. Your 2 Townsfolk neighbours are poisoned.",
@@ -1375,6 +1391,7 @@ const charactersJson = [
         "The Ogre points to a player (not themselves) and becomes their alignment.",
     "otherNightReminder": "",
     "reminders": ["Friend"],
+    "remindersFirstNight": ["Friend"],
     "setup": false,
     "ability":
         "On your 1st night, choose a player (not yourself): you become their alignment (you don't know which) even if drunk or poisoned.",
@@ -1462,6 +1479,7 @@ const charactersJson = [
     "firstNightReminder": "Show the Pixie 1 in-play Townsfolk character token.",
     "otherNightReminder": "",
     "reminders": ["Mad", "Has ability"],
+    "remindersFirstNight": ["Mad"],
     "setup": false,
     "ability":
         "You start knowing 1 in-play Townsfolk. If you were mad that you were this character, you gain their ability when they die.",
@@ -1499,6 +1517,7 @@ const charactersJson = [
         "The Poisoner points to a player. That player is poisoned.",
     "otherNightReminder":
         "The previously poisoned player is no longer poisoned. The Poisoner points to a player. That player is poisoned.",
+    "remindersFirstNight": ["Poisoned"],
     "reminders": ["Poisoned"],
     "setup": false,
     "ability":
@@ -1578,6 +1597,7 @@ const charactersJson = [
     "otherNightReminder":
         "The Pukka points to a player. That player is poisoned. The previously poisoned player dies. ",
     "reminders": ["Poisoned", "Dead"],
+    "remindersFirstNight": ["Poisoned"],
     "setup": false,
     "ability":
         "Each night, choose a player: they are poisoned. The previously poisoned player dies then becomes healthy.",
@@ -1664,6 +1684,7 @@ const charactersJson = [
     "otherNightReminder":
         "The previously drunk player is no longer drunk. The Sailor points to a living player. Either the Sailor, or the chosen player, is drunk.",
     "reminders": ["Drunk"],
+    "remindersFirstNight": ["Drunk"],
     "setup": false,
     "ability":
         "Each night, choose an alive player: either you or they are drunk until dusk. You can't die.",
@@ -1844,9 +1865,10 @@ const charactersJson = [
     "name": "Steward",
     "edition": "",
     "team": "townsfolk",
-    "firstNightReminder": "Point to 1 good player.",
+    "firstNightReminder": "Wake Steward and point to 1 good player.",
     "otherNightReminder": "",
     "reminders": ["Know"],
+    "remindersFirstNight": ["Know"],
     "setup": false,
     "ability": "You start knowing 1 good player.",
   },
@@ -1872,6 +1894,7 @@ const charactersJson = [
     "otherNightReminder":
         "If it is the 3rd night, wake the Summoner. They point to a player and a Demon on the character sheet - that player becomes that Demon.",
     "reminders": ["Night 1", "Night 2", "Night 3"],
+    "remindersFirstNight": ["Night 1"],
     "setup": true,
     "ability":
         "You get 3 bluffs. On the 3rd night, choose a player: they become an evil Demon of your choice. [No Demon]",
@@ -1892,8 +1915,10 @@ const charactersJson = [
     "name": "Tea Lady",
     "edition": "bmr",
     "team": "townsfolk",
-    "firstNightReminder": "",
-    "otherNightReminder": "",
+    "firstNightReminder":
+        "If both alive neighbours are good, place 'Can not die' reminder on them.",
+    "otherNightReminder":
+        "If both alive neighbours are good, place 'Can not die' reminder on them.",
     "reminders": ["Can not die"],
     "setup": false,
     "ability": "If both your alive neighbours are good, they can't die.",
@@ -1967,7 +1992,7 @@ const charactersJson = [
     "team": "demon",
     "firstNightReminder": "",
     "otherNightReminder":
-        "The Vigormortis points to a player. That player dies. If a Minion, they keep their ability and one of their Townsfolk neighbours is poisoned.",
+        "The Vigormortis points to a player. That player dies. If a Minion, add 'Has ability' reminder to them, and 'Poisoned' reminder to one of their Townsfolk neighbours.",
     "reminders": ["Dead", "Has ability", "Poisoned"],
     "setup": true,
     "ability":
@@ -1979,7 +2004,7 @@ const charactersJson = [
     "edition": "",
     "team": "townsfolk",
     "firstNightReminder":
-        "The Village Idiot points to a player; give a thumbs up if that player is good or a thumbs down if that player is evil.",
+        "Add the 'Drunk' reinder to the extra Village Idots, if existing. The Village Idiot points to a player; give a thumbs up if that player is good or a thumbs down if that player is evil.",
     "otherNightReminder":
         "The Village Idiot points to a player; give a thumbs up if that player is good or a thumbs down if that player is evil.",
     "reminders": ["Drunk"],
@@ -2044,6 +2069,7 @@ const charactersJson = [
     "firstNightReminder":
         "Show the character token of a Townsfolk in play. Point to two players, one of which is that character.",
     "otherNightReminder": "",
+    "remindersFirstNight": ["Townsfolk", "Wrong"],
     "reminders": ["Townsfolk", "Wrong"],
     "setup": false,
     "ability":
@@ -2058,6 +2084,7 @@ const charactersJson = [
         "Show the Grimoire to the Widow for as long as they need. The Widow points to a player. That player is poisoned. Wake a good player. Show the 'These characters are in play' card, then the Widow character token.",
     "otherNightReminder": "",
     "reminders": ["Poisoned"],
+    "remindersFirstNight": ["Poisoned"],
     "remindersGlobal": ["Knows"],
     "setup": false,
     "ability":
@@ -2073,6 +2100,7 @@ const charactersJson = [
     "otherNightReminder":
         "If there are 4 or more players alive: The Witch points to a player. If that player nominates tomorrow they die immediately.",
     "reminders": ["Cursed"],
+    "remindersFirstNight": ["Cursed"],
     "setup": false,
     "ability":
         "Each night, choose a player: if they nominate tomorrow, they die. If just 3 players live, you lose this ability.",
@@ -2092,6 +2120,7 @@ const charactersJson = [
       "Night 3",
       "X",
     ],
+    "remindersFirstNight": ["Night 1"],
     "setup": true,
     "ability":
         "On night X, all Townsfolk are poisoned until dusk. [X Outsiders].",

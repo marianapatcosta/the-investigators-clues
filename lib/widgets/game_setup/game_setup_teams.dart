@@ -45,7 +45,7 @@ class GameSetupTeams extends StatelessWidget {
                 setup.key == Team.townsfolk ? Icons.people : Icons.person,
                 size: gameSetupIconSize,
                 color: teamsColors[setup.key] is List
-                    ? null
+                    ? Colors.white
                     : teamsColors[setup.key] as Color,
                 semanticLabel: '${setup.value} ${setup.key}',
               ),

@@ -59,6 +59,8 @@ class _GameScreenState extends State<GameScreen> {
   double _playerTokenScale = 1;
   double _reminderTokenScale = 1;
   bool _isScrollLocked = false;
+  bool _showAllCharactersInStorytellerHelper = false;
+  bool _showDeadCharactersInStorytellerHelper = false;
 
   void _addGame(
     BuildContext context,
@@ -469,6 +471,20 @@ class _GameScreenState extends State<GameScreen> {
                 hasHomebrewCharacters:
                     gameSession!.script.hasHomebrewCharacters,
                 jinxes: gameSession!.script.jinxes,
+                showAllCharacters: _showAllCharactersInStorytellerHelper,
+                showDeadCharacters: _showDeadCharactersInStorytellerHelper,
+                toggleShowAllCharacters: () {
+                  setState(() {
+                    _showAllCharactersInStorytellerHelper =
+                        !_showAllCharactersInStorytellerHelper;
+                  });
+                },
+                toggleShowDeadCharacters: () {
+                  setState(() {
+                    _showDeadCharactersInStorytellerHelper =
+                        !_showDeadCharactersInStorytellerHelper;
+                  });
+                },
               )
             : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,

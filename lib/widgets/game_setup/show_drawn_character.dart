@@ -84,6 +84,7 @@ class _ShowDrawnCharacterState extends State<ShowDrawnCharacter> {
                       controller: _nameController,
                       maxLength: 20,
                       decoration: InputDecoration(label: Text(t.nameOfPlayer)),
+                      textCapitalization: TextCapitalization.words,
                       onTapOutside: (PointerDownEvent event) {
                         FocusScope.of(context).unfocus();
                       },

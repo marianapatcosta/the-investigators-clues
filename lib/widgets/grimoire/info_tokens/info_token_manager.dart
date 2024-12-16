@@ -76,6 +76,7 @@ class _InfoTokenManagerState extends State<InfoTokenManager> {
                           setState(() {
                             _isEditMode = false;
                           });
+                          Navigator.pop(context);
                         },
                       ),
                     )

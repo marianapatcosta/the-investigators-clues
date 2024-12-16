@@ -61,6 +61,7 @@ class Script {
           firstNightReminder: charInfo.firstNightReminder,
           otherNightReminder: charInfo.otherNightReminder,
           reminders: charInfo.reminders,
+          remindersFirstNight: charInfo.remindersFirstNight,
           remindersGlobal: charInfo.remindersGlobal,
         );
       },

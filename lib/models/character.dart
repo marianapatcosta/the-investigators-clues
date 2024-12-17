@@ -25,7 +25,9 @@ class Character {
     this.otherNight,
     this.firstNightReminder,
     this.otherNightReminder,
+    this.firstNightReminders,
     this.reminders,
+    this.remindersFirstNight,
     this.remindersGlobal,
   }) : image = '$kCharactersTokensPath/$id.png';
 
@@ -41,7 +43,9 @@ class Character {
   final int? otherNight;
   final String? firstNightReminder;
   final String? otherNightReminder;
+  final List<String>? firstNightReminders;
   final List<String>? reminders;
+  final List<String>? remindersFirstNight;
   final List<String>? remindersGlobal;
   final String? characterInfoUrl;
 
@@ -87,9 +91,15 @@ class Character {
         otherNight = json['otherNight'],
         firstNightReminder = json['firstNightReminder'] as String?,
         otherNightReminder = json['otherNightReminder'] as String?,
+        firstNightReminders = json['firstNightReminders'] == null
+            ? null
+            : List.from(json['reminders'] as List),
         reminders = json['reminders'] == null
             ? null
             : List.from(json['reminders'] as List),
+        remindersFirstNight = json['remindersFirstNight'] == null
+            ? null
+            : List.from(json['remindersFirstNight'] as List),
         remindersGlobal = json['remindersGlobal'] == null
             ? null
             : List.from(json['remindersGlobal'] as List),
@@ -109,7 +119,9 @@ class Character {
       'otherNight': otherNight,
       'firstNightReminder': firstNightReminder,
       'otherNightReminder': otherNightReminder,
+      'firstNightReminders': firstNightReminders,
       'reminders': reminders,
+      'remindersFirstNight': remindersFirstNight,
       'remindersGlobal': remindersGlobal,
       'characterInfoUrl': characterInfoUrl,
     };

@@ -14,10 +14,10 @@ const kShowModalDelay = 1000; // in ms
 class DrawCharactersToPlayersScreen extends StatefulWidget {
   const DrawCharactersToPlayersScreen({
     super.key,
-    required this.scriptCharacters,
+    required this.charactersToDraw,
   });
 
-  final List<Character> scriptCharacters;
+  final List<Character> charactersToDraw;
 
   @override
   State<DrawCharactersToPlayersScreen> createState() {
@@ -39,10 +39,14 @@ class _DrawCharactersToPlayersScreenState
     return _charactersToDraw.isEmpty;
   }
 
+  Size get grimoireSize {
+    return getGrimoireSize(context);
+  }
+
   @override
   void initState() {
     super.initState();
-    _charactersToDraw = [...widget.scriptCharacters];
+    _charactersToDraw = [...widget.charactersToDraw];
 
     _animationController = AnimationController(
       vsync: this,
@@ -90,6 +94,13 @@ class _DrawCharactersToPlayersScreenState
         );
 
         if (player != null) {
+          final playerIndex = _players.length;
+
+          final offset = getPlayerOffset(
+              grimoireSize, widget.charactersToDraw.length, playerIndex);
+
+          player.setX = offset.dx;
+          player.setY = offset.dy;
           _players.add(player);
         }
       }
@@ -222,7 +233,9 @@ class _DrawCharactersToPlayersScreenState
                               label: _isDrawingCharacter ? t.drawing : t.draw,
                               child: InkWell(
                                 onTap:
-                                    _isDrawingCharacter ? null : _onSelectToken,
+                                    _isDrawingCharacter || areAllCharactersDrawn
+                                        ? null
+                                        : _onSelectToken,
                                 child: Transform.rotate(
                                   angle: areAllCharactersDrawn ? 3 : 0,
                                   child: const SizedBox(
@@ -287,7 +300,7 @@ class _DrawCharactersToPlayersScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '${_charactersToDraw.length}/ ${widget.scriptCharacters.length}',
+                        '${_charactersToDraw.length}/ ${widget.charactersToDraw.length}',
                         style: theme.textTheme.titleMedium,
                       ),
                       const SizedBox(

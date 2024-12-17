@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show gameSetups;
 import 'package:my_botc_notes/models/index.dart'
-    show Character, GameSession, GameSetup, Player, Script, Team;
+    show Character, GameSession, GameSetup, Player, Reminder, Script, Team;
 import 'package:my_botc_notes/providers/index.dart'
     show favoriteScriptsProvider;
 import 'package:my_botc_notes/screens/index.dart'
@@ -33,7 +33,24 @@ class _NewGameStorytellerFormState
   List<Character> _selectedScriptCharacters = [];
   List<Character> _demonBluffs = [];
   List<Character> _lunaticBluffs = [];
-  List<Player>? _players;
+  List<Player> _players = [];
+  bool _addRemindersFirstNight = true;
+
+  List<Reminder> get remindersFirstNight {
+    return _players
+        .map((player) {
+          final Character playerCharacter = _selectedScriptCharacters
+              .where((character) => character.id == player.characterId)
+              .first;
+
+          final List<Reminder> remindersFirstNight = getRemindersFirstNight(
+              player.x!, player.y!, playerCharacter, context);
+
+          return remindersFirstNight;
+        })
+        .expand((i) => i)
+        .toList();
+  }
 
   List<Character> get demonsBluffsOptions {
     if (_selectedScript == null) {
@@ -47,6 +64,10 @@ class _NewGameStorytellerFormState
             (character.team == Team.townsfolk ||
                 character.team == Team.outsider))
         .toList();
+  }
+
+  Size get grimoireSize {
+    return getGrimoireSize(context);
   }
 
   GameSetup get gameSetup {
@@ -225,24 +246,30 @@ class _NewGameStorytellerFormState
   }
 
   void _createSession() {
-    if (_players == null) {
-      final charactersToShuffle = [..._selectedScriptCharacters];
-      charactersToShuffle.shuffle();
+    if (_players.isEmpty) {
+      final shuffledCharacters = [..._selectedScriptCharacters]..shuffle();
 
       _players = List.generate(
         _numberOfPlayers.toInt(),
-        (index) => Player(
-            name: '',
-            characterId: index < charactersToShuffle.length
-                ? charactersToShuffle[index].id
-                : null),
+        (index) {
+          final offset =
+              getPlayerOffset(grimoireSize, _numberOfPlayers.toInt(), index);
+          return Player(
+              name: '',
+              characterId: index < shuffledCharacters.length
+                  ? shuffledCharacters[index].id
+                  : null,
+              x: offset.dx,
+              y: offset.dy);
+        },
       );
     }
 
     Navigator.of(context).pop(
       GameSession(
           script: _selectedScript!,
-          players: _players!,
+          players: _players,
+          inPlayReminders: _addRemindersFirstNight ? remindersFirstNight : [],
           isStorytellerMode: true,
           demonBluffs: _getBluffs(_demonBluffs),
           lunaticBluffs: _getBluffs(_lunaticBluffs)),
@@ -260,13 +287,12 @@ class _NewGameStorytellerFormState
   }
 
   void _drawCharacters(BuildContext context) async {
-    final charactersToShuffle = [..._selectedScriptCharacters];
-    charactersToShuffle.shuffle();
+    final shuffledCharacters = [..._selectedScriptCharacters]..shuffle();
     final List<Player>? players = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (ctx) => DrawCharactersToPlayersScreen(
-          scriptCharacters: charactersToShuffle,
+          charactersToDraw: shuffledCharacters,
         ),
       ),
     );
@@ -277,13 +303,12 @@ class _NewGameStorytellerFormState
   }
 
   void _drawCharactersWithNumbers(BuildContext context) async {
-    final charactersToShuffle = [..._selectedScriptCharacters];
-    charactersToShuffle.shuffle();
+    final shuffledCharacters = [..._selectedScriptCharacters]..shuffle();
     final List<Player>? players = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (ctx) => DrawCharactersToPlayersWithNumbersScreen(
-          scriptCharacters: charactersToShuffle,
+          charactersToDraw: shuffledCharacters,
         ),
       ),
     );
@@ -295,6 +320,7 @@ class _NewGameStorytellerFormState
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final t = AppLocalizations.of(context);
     final width = MediaQuery.of(context).size.width;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
@@ -401,9 +427,33 @@ class _NewGameStorytellerFormState
             bluffsWidget,
           ],
         ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              t.addRemindersFirstNight,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Checkbox(
+              value: _addRemindersFirstNight,
+              onChanged: (bool? newValue) {
+                setState(() {
+                  _addRemindersFirstNight = !_addRemindersFirstNight;
+                });
+              },
+            ),
+          ],
+        ),
         if (_selectedScript != null &&
             _selectedScriptCharacters.isNotEmpty) ...[
           const SizedBox(height: 12),
+          Text(
+            t.drawCharacters,
+            style: theme.textTheme.titleMedium,
+          ),
           Row(
             children: [
               ElevatedButton.icon(
@@ -411,13 +461,13 @@ class _NewGameStorytellerFormState
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
-                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  foregroundColor: theme.colorScheme.onSurface,
                   minimumSize: const Size(120, 40),
                 ),
                 icon: const ImageIcon(
                     AssetImage("assets/images/bag_outlined.png"),
                     size: 18),
-                label: Text(t.drawCharacters),
+                label: Text(t.grabFromBag),
               ),
               const SizedBox(width: 12),
               ElevatedButton.icon(
@@ -431,7 +481,7 @@ class _NewGameStorytellerFormState
                 icon: const ImageIcon(
                     AssetImage("assets/images/circle_one.png"),
                     size: 18),
-                label: Text(t.drawCharacters),
+                label: Text(t.pickNumber),
               ),
             ],
           )

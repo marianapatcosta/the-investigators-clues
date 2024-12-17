@@ -74,8 +74,15 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
 
   void _onRemoveCustomInfoToken(BuildContext context, int customInfoTokenIndex,
       [bool updateState = true]) {
-    final t = AppLocalizations.of(context);
+    widget.removeCustomInfoToken(customInfoTokenIndex);
+    if (updateState) {
+      setState(() {
+        _customInfoTokens.removeAt(customInfoTokenIndex);
+      });
+      return;
+    }
 
+    final t = AppLocalizations.of(context);
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -84,14 +91,6 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
             _customInfoTokens[customInfoTokenIndex].label)),
       ),
     );
-
-    widget.removeCustomInfoToken(customInfoTokenIndex);
-    if (updateState) {
-      setState(() {
-        _customInfoTokens.removeAt(customInfoTokenIndex);
-      });
-      return;
-    }
     _customInfoTokens.removeAt(customInfoTokenIndex);
   }
 

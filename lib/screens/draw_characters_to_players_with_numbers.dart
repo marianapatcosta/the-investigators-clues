@@ -15,10 +15,10 @@ final tokenImagesToShuffle = [...kXmasImages]..shuffle();
 class DrawCharactersToPlayersWithNumbersScreen extends StatefulWidget {
   const DrawCharactersToPlayersWithNumbersScreen({
     super.key,
-    required this.scriptCharacters,
+    required this.charactersToDraw,
   });
 
-  final List<Character> scriptCharacters;
+  final List<Character> charactersToDraw;
 
   @override
   State<DrawCharactersToPlayersWithNumbersScreen> createState() {
@@ -33,7 +33,11 @@ class _DrawCharactersToPlayersWithNumbersScreenState
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   List<String> get tokenImages {
-    return tokenImagesToShuffle.take(widget.scriptCharacters.length).toList();
+    return tokenImagesToShuffle.take(widget.charactersToDraw.length).toList();
+  }
+
+  Size get grimoireSize {
+    return getGrimoireSize(context);
   }
 
   void _onSelectToken(int index) async {
@@ -53,11 +57,16 @@ class _DrawCharactersToPlayersWithNumbersScreenState
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       builder: (ctx) => ShowDrawnCharacter(
-        character: widget.scriptCharacters[index],
+        character: widget.charactersToDraw[index],
       ),
     );
 
-    if (player != null) {
+    if (player != null && context.mounted) {
+      final playerIndex = _players.length;
+      final offset = getPlayerOffset(
+          grimoireSize, widget.charactersToDraw.length, playerIndex);
+      player.setX = offset.dx;
+      player.setY = offset.dy;
       _players.add(player);
     }
   }
@@ -117,7 +126,7 @@ class _DrawCharactersToPlayersWithNumbersScreenState
                     runSpacing: 12,
                     children: [
                       for (int index = 0;
-                          index < widget.scriptCharacters.length;
+                          index < widget.charactersToDraw.length;
                           index++)
                         Semantics(
                           button: true,

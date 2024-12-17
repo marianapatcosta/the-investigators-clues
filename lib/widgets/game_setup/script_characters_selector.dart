@@ -70,9 +70,8 @@ class _ScriptCharactersSelectorState extends State<ScriptCharactersSelector> {
       final List<Character> randomCharacters = [];
 
       for (final item in charactersByTeam.entries) {
-        final charactersToShuffle = [...item.value];
-        charactersToShuffle.shuffle();
-        randomCharacters.addAll(charactersToShuffle
+        final shuffledCharacters = [...item.value]..shuffle();
+        randomCharacters.addAll(shuffledCharacters
             .take(widget.gameSetup!.getValueFromTeam(item.key))
             .toList());
       }
@@ -88,10 +87,10 @@ class _ScriptCharactersSelectorState extends State<ScriptCharactersSelector> {
         _selectedCharacters = orderedShuffledCharacters;
       });
     } else {
-      final charactersToShuffle = [...widget.characters];
-      charactersToShuffle.shuffle();
-      final shuffledCharacters =
-          charactersToShuffle.take(widget.numberOfCharactersToSelect)..toList();
+      final shuffledCharacters = [...widget.characters]
+        ..shuffle()
+        ..take(widget.numberOfCharactersToSelect)
+        ..toList();
 
       final shuffledCharactersIds =
           shuffledCharacters.map((character) => character.id).toList();
@@ -273,6 +272,7 @@ class _ScriptCharactersSelectorState extends State<ScriptCharactersSelector> {
             },
             onCancel: () {
               _selectedCharacters = [];
+              Navigator.pop(context);
             },
           ),
           const SizedBox(

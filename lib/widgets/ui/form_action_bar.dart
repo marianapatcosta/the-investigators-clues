@@ -26,7 +26,6 @@ class FormActionBar extends StatelessWidget {
               if (onCancel != null) {
                 onCancel!();
               }
-              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,

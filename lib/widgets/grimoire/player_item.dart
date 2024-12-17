@@ -4,6 +4,7 @@ import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show charactersMap;
 import 'package:my_botc_notes/models/index.dart'
     show Character, Player, Reminder;
+import 'package:my_botc_notes/screens/edit_player.dart';
 import 'package:my_botc_notes/widgets/index.dart'
     show CharacterToken, GhostVoteToken, PlayerVotedNominated;
 import 'package:my_botc_notes/screens/index.dart' show EditPlayer;
@@ -23,7 +24,7 @@ class PlayerItem extends StatefulWidget {
     required this.removePlayer,
     required this.updateParent,
     required this.saveGameSession,
-    required this.addReminder,
+    required this.addReminders,
   });
 
   final Player player;
@@ -38,7 +39,7 @@ class PlayerItem extends StatefulWidget {
   final void Function() removePlayer;
   final void Function() updateParent;
   final void Function() saveGameSession;
-  final void Function(Reminder) addReminder;
+  final void Function(List<Reminder>) addReminders;
 
   Character? get character {
     if (player.characterId == null) {
@@ -58,7 +59,7 @@ class PlayerItem extends StatefulWidget {
 
 class _PlayerItemState extends State<PlayerItem> {
   void _openEditPlayer(BuildContext context) async {
-    Player updatedPlayer = await Navigator.push(
+    final EditPlayerData editPlayerData = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (ctx) => EditPlayer(
@@ -68,16 +69,20 @@ class _PlayerItemState extends State<PlayerItem> {
           removePlayer: widget.removePlayer,
           isStorytellerMode: widget.isStorytellerMode,
           inPlayCharactersIds: widget.inPlayCharactersIds,
-          addReminder: widget.addReminder,
         ),
       ),
     );
+
+    final EditPlayerData(:updatedPlayer, :reminders) = editPlayerData;
 
     final wasIsDeadUpdated = updatedPlayer.isDead != widget.player.isDead;
     final wasHasGhostVoteUpdated =
         updatedPlayer.hasGhostVote != widget.player.hasGhostVote;
 
-    final updateParent = wasIsDeadUpdated || wasHasGhostVoteUpdated;
+    final wereRemindersUpdated = reminders.isNotEmpty;
+
+    final updateParent =
+        wasIsDeadUpdated || wasHasGhostVoteUpdated || wereRemindersUpdated;
 
     if (updatedPlayer.name != widget.player.name) {
       widget.player.setName = updatedPlayer.name;
@@ -101,6 +106,10 @@ class _PlayerItemState extends State<PlayerItem> {
 
     if (updatedPlayer.isEvilEasterEgg != widget.player.isEvilEasterEgg) {
       widget.player.setIsEvilEasterEgg = updatedPlayer.isEvilEasterEgg;
+    }
+
+    if (wereRemindersUpdated) {
+      widget.addReminders(reminders);
     }
 
     updateParent ? widget.updateParent() : setState(() {});

@@ -26,6 +26,7 @@ const favoriteScriptsInfo = [
         "otherNightReminder":
             "If the Pogues became drunk tonight, they wake and learn this. ",
         "reminders": ["Seen"],
+        "remindersFirstNight": ["Seen"],
         "setup": true,
         "name": "Pogues",
         "team": "townsfolk",
@@ -129,6 +130,7 @@ const favoriteScriptsInfo = [
             "The Vegan chooses a player. This player is 'frozen' til dusk.",
         "otherNightReminder":
             "The Vegan chooses a player. This player is 'frozen' til dusk. ",
+        "remindersFirstNight": ["Frozen"],
         "reminders": ["Frozen"],
         "name": "Vegan",
         "team": "townsfolk",
@@ -154,6 +156,7 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/snowman_itsbloodychristmas2024v2.png",
         "reminders": ["Safe"],
+        "remindersFirstNight": ["Safe"],
         "name": "Snowman",
         "team": "townsfolk",
         "ability": "You cannot die at night while Santa Claus lives. "
@@ -223,7 +226,7 @@ const favoriteScriptsInfo = [
         "id": "crazyuncle_itsbloodychristmas2024v2",
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/crazyuncle_itsbloodychristmas2024v2.png",
-        "remindersGlobal": ["Drunk", "Is the Crazy Uncle"],
+        "remindersGlobal": ["Is the Crazy Uncle", "Drunk"],
         "setup": true,
         "name": "Crazy Uncle",
         "team": "outsider",

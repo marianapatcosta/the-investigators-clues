@@ -15,6 +15,10 @@ class StorytellerHelper extends StatefulWidget {
     required this.alivePlayersCharactersIds,
     required this.alivePlayersWithoutAbilityCharactersIds,
     required this.jinxes,
+    required this.showAllCharacters,
+    required this.showDeadCharacters,
+    required this.toggleShowAllCharacters,
+    required this.toggleShowDeadCharacters,
     this.hasHomebrewCharacters = false,
   });
 
@@ -25,6 +29,10 @@ class StorytellerHelper extends StatefulWidget {
   final bool hasHomebrewCharacters;
   final List<Jinx> jinxes;
   final String gamePhase;
+  final bool showAllCharacters;
+  final bool showDeadCharacters;
+  final void Function() toggleShowAllCharacters;
+  final void Function() toggleShowDeadCharacters;
 
   @override
   State<StorytellerHelper> createState() {
@@ -34,8 +42,6 @@ class StorytellerHelper extends StatefulWidget {
 
 class _StorytellerHelperState extends State<StorytellerHelper> {
   late NightType _nightTab;
-  bool _showDeadCharacters = false;
-  bool _showAllCharacters = false;
 
   @override
   void initState() {
@@ -61,11 +67,11 @@ class _StorytellerHelperState extends State<StorytellerHelper> {
   }
 
   List<dynamic> getOrder(List<dynamic> unfilteredOrder) {
-    if (_showAllCharacters) {
+    if (widget.showAllCharacters) {
       return unfilteredOrder;
     }
 
-    if (_showDeadCharacters) {
+    if (widget.showDeadCharacters) {
       return unfilteredOrder.where((order) {
         final orderId = order is Character ? order.id : order;
 
@@ -202,14 +208,12 @@ class _StorytellerHelperState extends State<StorytellerHelper> {
                               style: theme.textTheme.titleSmall!
                                   .copyWith(height: 1),
                             ),
-                            value: _showDeadCharacters,
+                            value: widget.showDeadCharacters,
                             controlAffinity: ListTileControlAffinity.leading,
                             visualDensity: const VisualDensity(
                                 horizontal: -4.0, vertical: -4.0),
                             onChanged: (bool? newValue) {
-                              setState(() {
-                                _showDeadCharacters = newValue ?? false;
-                              });
+                              widget.toggleShowDeadCharacters();
                             },
                           ),
                         ),
@@ -224,14 +228,12 @@ class _StorytellerHelperState extends State<StorytellerHelper> {
                               style: theme.textTheme.titleSmall!
                                   .copyWith(height: 1),
                             ),
-                            value: _showAllCharacters,
+                            value: widget.showAllCharacters,
                             controlAffinity: ListTileControlAffinity.leading,
                             visualDensity: const VisualDensity(
                                 horizontal: -4.0, vertical: -4.0),
                             onChanged: (bool? newValue) {
-                              setState(() {
-                                _showAllCharacters = newValue ?? false;
-                              });
+                              widget.toggleShowAllCharacters();
                             },
                           ),
                         ),

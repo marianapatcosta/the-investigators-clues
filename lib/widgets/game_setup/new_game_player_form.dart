@@ -31,6 +31,10 @@ class _NewGamePlayerFormState extends ConsumerState<NewGamePlayerForm> {
     return gameSetups[_numberOfPlayers.round().toString()]!;
   }
 
+  Size get grimoireSize {
+    return getGrimoireSize(context);
+  }
+
   void _onSave(BuildContext context) {
     final t = AppLocalizations.of(context);
 
@@ -60,11 +64,14 @@ class _NewGamePlayerFormState extends ConsumerState<NewGamePlayerForm> {
       return;
     }
 
-    final players = List.generate(
-        _numberOfPlayers.toInt(),
-        (index) => Player(
-              name: index < _playersNames.length ? _playersNames[index] : '',
-            ));
+    final players = List.generate(_numberOfPlayers.toInt(), (index) {
+      final offset =
+          getPlayerOffset(grimoireSize, _numberOfPlayers.toInt(), index);
+      return Player(
+          name: index < _playersNames.length ? _playersNames[index] : '',
+          x: offset.dx,
+          y: offset.dy);
+    });
     Navigator.of(context).pop(GameSession(
       script: _selectedScript!,
       players: players,

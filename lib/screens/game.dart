@@ -59,6 +59,8 @@ class _GameScreenState extends State<GameScreen> {
   double _playerTokenScale = 1;
   double _reminderTokenScale = 1;
   bool _isScrollLocked = false;
+  bool _showAllCharactersInStorytellerHelper = false;
+  bool _showDeadCharactersInStorytellerHelper = false;
 
   void _addGame(
     BuildContext context,
@@ -242,35 +244,44 @@ class _GameScreenState extends State<GameScreen> {
 
     Widget content = SliverFillRemaining(
       hasScrollBody: false,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(
-            height: 56,
-          ),
-          Image(
-            image: const AssetImage("assets/images/clocktower.png"),
-            color: theme.colorScheme.onSurface,
-            width: 150,
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          Text(
-            t.noGame,
-            style: theme.textTheme.bodyLarge!.copyWith(fontSize: 18),
-          ),
-          const SizedBox(
-            height: 48,
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-              _addGame(context);
-            },
-            label: Text(t.addGame),
-            icon: const Icon(Icons.add),
-          )
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 56,
+            ),
+            const Image(
+              image: AssetImage("assets/images/xmas/botc-xmas.png"),
+              //width: 400,
+            ),
+            const SizedBox(
+              height: 32,
+            ),
+            Text(
+              t.noGame,
+              style: theme.textTheme.bodyLarge!.copyWith(fontSize: 18),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              t.noGameChallenge,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 48,
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                _addGame(context);
+              },
+              label: Text(t.addGame),
+              icon: const Icon(Icons.add),
+            )
+          ],
+        ),
       ),
     );
 
@@ -469,6 +480,20 @@ class _GameScreenState extends State<GameScreen> {
                 hasHomebrewCharacters:
                     gameSession!.script.hasHomebrewCharacters,
                 jinxes: gameSession!.script.jinxes,
+                showAllCharacters: _showAllCharactersInStorytellerHelper,
+                showDeadCharacters: _showDeadCharactersInStorytellerHelper,
+                toggleShowAllCharacters: () {
+                  setState(() {
+                    _showAllCharactersInStorytellerHelper =
+                        !_showAllCharactersInStorytellerHelper;
+                  });
+                },
+                toggleShowDeadCharacters: () {
+                  setState(() {
+                    _showDeadCharactersInStorytellerHelper =
+                        !_showDeadCharactersInStorytellerHelper;
+                  });
+                },
               )
             : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,

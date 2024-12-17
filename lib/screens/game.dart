@@ -94,7 +94,7 @@ class _GameScreenState extends State<GameScreen> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     final gameSessionString = preferences.getString(kGameSession);
 
-    if (gameSessionString != null) {
+    if (gameSessionString != null && gameSessionString != 'null') {
       setState(() {
         gameSession = GameSession.fromJson(json.decode(gameSessionString));
       });

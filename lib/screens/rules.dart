@@ -56,6 +56,27 @@ class RulesScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
+                        t.rulesRoleTypes,
+                        style:
+                            theme.textTheme.titleMedium!.copyWith(height: 1.25),
+                      ),
+                      const SizedBox(height: 4),
+                      _TextListItem(
+                          title: 'Townsfolk',
+                          description: t.rulesRoleTypesTownsfolk),
+                      _TextListItem(
+                          title: 'Outsiders',
+                          description: t.rulesRoleTypesOutsiders),
+                      _TextListItem(
+                          title: 'Minions',
+                          description: t.rulesRoleTypesMinions),
+                      _TextListItem(
+                          title: 'Demon', description: t.rulesRoleTypesDemon),
+                      _TextListItem(
+                          title: 'Travellers',
+                          description: t.rulesRoleTypesTravellers),
+                      const SizedBox(height: 16),
+                      Text(
                         t.rulesSetup,
                         style:
                             theme.textTheme.titleMedium!.copyWith(height: 1.25),
@@ -130,6 +151,17 @@ class RulesScreen extends StatelessWidget {
                           description: t.rulesWinningDesc2),
                       const SizedBox(height: 16),
                       Text(
+                        t.rulesDrunkennessPoisoning,
+                        style:
+                            theme.textTheme.titleMedium!.copyWith(height: 1.25),
+                      ),
+                      const SizedBox(height: 4),
+                      _TextListItem(
+                          description: t.rulesDrunkennessPoisoningDesc1),
+                      _TextListItem(
+                          description: t.rulesDrunkennessPoisoningDesc2),
+                      const SizedBox(height: 16),
+                      Text(
                         t.rulesTips,
                         style:
                             theme.textTheme.titleMedium!.copyWith(height: 1.25),
@@ -144,27 +176,6 @@ class RulesScreen extends StatelessWidget {
                       _TextListItem(
                           title: t.rulesTipsTitle3,
                           description: t.rulesTipsDesc3),
-                      const SizedBox(height: 16),
-                      Text(
-                        t.rulesRoleTypes,
-                        style:
-                            theme.textTheme.titleMedium!.copyWith(height: 1.25),
-                      ),
-                      const SizedBox(height: 4),
-                      _TextListItem(
-                          title: 'Townsfolk',
-                          description: t.rulesRoleTypesTownsfolk),
-                      _TextListItem(
-                          title: 'Outsiders',
-                          description: t.rulesRoleTypesOutsiders),
-                      _TextListItem(
-                          title: 'Minions',
-                          description: t.rulesRoleTypesMinions),
-                      _TextListItem(
-                          title: 'Demon', description: t.rulesRoleTypesDemon),
-                      _TextListItem(
-                          title: 'Travellers',
-                          description: t.rulesRoleTypesTravellers),
                       const SizedBox(height: 16),
                       Text(
                         t.rulesConclusion,

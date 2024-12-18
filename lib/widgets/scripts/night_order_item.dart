@@ -106,29 +106,34 @@ class NightOrderItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              nightType == NightType.first ? t.firstNight : t.otherNights,
-              style: theme.textTheme.titleSmall,
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Text(
-              itemInfo['description']!,
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Text(
-              t.ability,
-              style: theme.textTheme.titleSmall,
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Text(
-              itemInfo['ability']!,
-            ),
+            if (itemInfo['description'] != null &&
+                itemInfo['description'] != '') ...[
+              Text(
+                nightType == NightType.first ? t.firstNight : t.otherNights,
+                style: theme.textTheme.titleSmall,
+              ),
+              const SizedBox(
+                height: 2,
+              ),
+              Text(
+                itemInfo['description']!,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+            ],
+            if (itemInfo['ability'] != null && itemInfo['ability'] != '') ...[
+              Text(
+                t.ability,
+                style: theme.textTheme.titleSmall,
+              ),
+              const SizedBox(
+                height: 2,
+              ),
+              Text(
+                itemInfo['ability']!,
+              ),
+            ]
           ],
         ),
       ),

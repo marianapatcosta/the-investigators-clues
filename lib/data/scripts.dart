@@ -230,6 +230,9 @@ const favoriteScriptsInfo = [
         "setup": true,
         "name": "Crazy Uncle",
         "team": "outsider",
+        "special": [
+          {"type": "selection", "name": "bag-disabled"}
+        ],
         "ability":
             "You do not know that you are the Crazy Uncle. You think you are a Townsfolk (not Santa Claus), but any good players you choose are drunk until dusk"
       },
@@ -272,6 +275,9 @@ const favoriteScriptsInfo = [
         "setup": true,
         "name": "Dad",
         "team": "outsider",
+        "special": [
+          {"type": "selection", "name": "bag-disabled"}
+        ],
         "ability":
             "You do not know that you are the Dad. You think you are Santa Claus, but you are drunk. ",
         "firstNight": 19,
@@ -399,7 +405,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/bloodyfreezing_itsbloodychristmas2024v2.png",
         "name": "Bloody Freezing",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "'Frozen' players are always healthy and sober and cannot be made drunk."
       },
@@ -408,7 +415,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/teddybear_itsbloodychristmas2024v2.png",
         "name": "Teddy Bear",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "You learn the alignment of one living neighbour (ST's choice) (Nice List)"
       },
@@ -417,7 +425,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/pairofsocks_itsbloodychristmas2024v2.png",
         "name": "Pair of Socks",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability": "Learn one player that is not the Demon. (Nice List)"
       },
       {
@@ -425,7 +434,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/crystalball_itsbloodychristmas2024v2.png",
         "name": "Crystal Ball",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "You learn if the nearest evil player to you is a Minion or Demon. If equidistant, this information is arbitrary. (Nice List)"
       },
@@ -434,7 +444,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/boxofchocolates_itsbloodychristmas2024v2.png",
         "name": "Box of Chocolates",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "Choose 3 players, learn how many of them are drunk. (Nice List)"
       },
@@ -443,7 +454,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/gamesconsole_itsbloodychristmas2024v2.png",
         "name": "Games Console",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability": "Learn how many evil players are alive. (Nice List)"
       },
       {
@@ -451,7 +463,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/perfume_itsbloodychristmas2024v2.png",
         "name": "Perfume",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "Choose a living player. If they are good, they are executed instead of you today. (Nice List)"
       },
@@ -460,7 +473,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/getawayholiday_itsbloodychristmas2024v2.png",
         "name": "Getaway Holiday",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "If you die at night whilst holding this present, you stay alive. (Nice List)"
       },
@@ -469,7 +483,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/fridgefreezer_itsbloodychristmas2024v2.png",
         "name": "Fridge/Freezer",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability": "You are 'frozen' for the rest of the game. (Nice List)"
       },
       {
@@ -477,7 +492,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/lumpofcoal_itsbloodychristmas2024v2.png",
         "name": "Lump of Coal",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability": "Choose a player, they die. (Naughty List)"
       },
       {
@@ -485,7 +501,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/cheapvodka_itsbloodychristmas2024v2.png",
         "name": "Cheap Vodka",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "Choose a player, they are drunk for the rest of the game. (Naughty List)"
       },
@@ -494,7 +511,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/buckethat_itsbloodychristmas2024v2.png",
         "name": "Bucket Hat",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "Choose a character of your character type; you become that character. (Naughty List)"
       },
@@ -503,7 +521,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/petrock_itsbloodychristmas2024v2.png",
         "name": "Pet Rock",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "If there are 5 or more living players, choose one of them. If you are executed today, they are executed instead. (Naughty List)"
       },
@@ -513,6 +532,7 @@ const favoriteScriptsInfo = [
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/snowball_itsbloodychristmas2024v2.png",
         "name": "Snowball",
         "team": "traveller",
+        "firstNight": 20,
         "ability":
             "Choose a player, they are 'frozen' for the rest of the game. (Naughty List)"
       },
@@ -521,7 +541,8 @@ const favoriteScriptsInfo = [
         "image":
             "https://www.bloodstar.xyz/p/Jabas/ItsBloodyChristmas2024v2/greasywig_itsbloodychristmas2024v2.png",
         "name": "Greasy Wig",
-        "team": "fabled",
+        "team": "traveller",
+        "firstNight": 20,
         "ability":
             "Choose an evil player. You swap characters with them. (Naughty List)"
       }

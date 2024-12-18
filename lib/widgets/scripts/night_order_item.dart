@@ -42,11 +42,11 @@ class NightOrderItem extends StatelessWidget {
       };
     }
 
-    if (name != null && image != null && description != null) {
+    if (name != null && image != null) {
       return {
         'name': name!,
         "image": image!,
-        "description": description!,
+        "description": description ?? '',
         "ability": ability ?? ''
       };
     }

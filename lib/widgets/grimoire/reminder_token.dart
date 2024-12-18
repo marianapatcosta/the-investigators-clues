@@ -9,17 +9,17 @@ final _tokenSizes = {
   TokenSize.small: {
     'size': kReminderTokenSizeSmall,
     'fontSize': 40.0,
-    'textSpace': 9.0,
+    'textSpace': 15.0,
   },
   TokenSize.medium: {
     'size': kReminderTokenSizeMedium,
     'fontSize': 42.0,
-    'textSpace': 9.0,
+    'textSpace': 15.0,
   },
   TokenSize.large: {
     'size': kReminderTokenSizeLarge,
     'fontSize': 44.0,
-    'textSpace': 10.0,
+    'textSpace': 16.0,
   },
 };
 

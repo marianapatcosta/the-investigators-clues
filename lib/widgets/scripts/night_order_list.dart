@@ -47,6 +47,7 @@ class NightOrderList extends StatelessWidget {
                       ? item.firstNightReminder
                       : item.otherNightReminder)
                   : null,
+              ability: item is Character ? item.ability : null,
               nightType: nightType,
               showDescription: showItemDescription,
               getIsNotInPlayOrDeadCharacter: getIsNotInPlayOrDeadCharacter,

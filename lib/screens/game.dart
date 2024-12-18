@@ -50,7 +50,8 @@ class GameScreen extends StatefulWidget {
   }
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _GameScreenState extends State<GameScreen>
+    with AutomaticKeepAliveClientMixin {
   GameSession? gameSession;
   bool _showPlayersNotes = false;
   bool _showPlayersVotesNominations = false;
@@ -61,6 +62,9 @@ class _GameScreenState extends State<GameScreen> {
   bool _isScrollLocked = false;
   bool _showAllCharactersInStorytellerHelper = false;
   bool _showDeadCharactersInStorytellerHelper = false;
+
+  @override
+  bool get wantKeepAlive => true;
 
   void _addGame(
     BuildContext context,

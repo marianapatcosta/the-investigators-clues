@@ -24,11 +24,15 @@ class ScriptsListScreen extends ConsumerStatefulWidget {
   }
 }
 
-class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen> {
+class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen>
+    with AutomaticKeepAliveClientMixin {
   final _searchController = TextEditingController();
   final _scrollController = ScrollController();
   bool _isLoading = false;
   bool _showOnlyFavorites = true;
+
+  @override
+  bool get wantKeepAlive => true;
 
   List<Script> get _filteredFavoriteScripts {
     final favoriteScripts = ref.watch(favoriteScriptsProvider);

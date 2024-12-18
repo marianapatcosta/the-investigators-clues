@@ -233,6 +233,7 @@ const favoriteScriptsInfo = [
         "special": [
           {"type": "selection", "name": "bag-disabled"}
         ],
+        "bagDisabled": true,
         "ability":
             "You do not know that you are the Crazy Uncle. You think you are a Townsfolk (not Santa Claus), but any good players you choose are drunk until dusk"
       },
@@ -278,6 +279,7 @@ const favoriteScriptsInfo = [
         "special": [
           {"type": "selection", "name": "bag-disabled"}
         ],
+        "bagDisabled": true,
         "ability":
             "You do not know that you are the Dad. You think you are Santa Claus, but you are drunk. ",
         "firstNight": 19,

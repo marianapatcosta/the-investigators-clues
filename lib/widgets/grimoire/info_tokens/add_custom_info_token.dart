@@ -40,7 +40,7 @@ class _AddCustomInfoTokenState extends State<AddCustomInfoToken> {
     final t = AppLocalizations.of(context);
 
     return ModalContentWrapper(
-      isFullScreen: false,
+      isNotScrollable: false,
       title: t.addCustomToken,
       content: Center(
           child: Column(children: [
@@ -50,7 +50,7 @@ class _AddCustomInfoTokenState extends State<AddCustomInfoToken> {
             Flexible(
               flex: 5,
               child: Container(
-                margin: const EdgeInsets.only(right: 22),
+                margin: const EdgeInsets.only(left: 12, right: 22),
                 child: TextField(
                   controller: _customTokenController,
                   maxLength: 50,

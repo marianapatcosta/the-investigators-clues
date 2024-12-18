@@ -193,9 +193,9 @@ class _StorytellerHelperState extends State<StorytellerHelper> {
                             order: order,
                             nightType: _nightTab,
                             showItemDescription: true,
-                            isNotInPlayOrDeadCharacter:
+                            getIsNotInPlayOrDeadCharacter:
                                 _isNotInPlayOrDeadCharacter,
-                            isAliveCharacterWithoutAbility:
+                            getIsAliveCharacterWithoutAbility:
                                 _isAliveCharacterWithoutAbility),
                         const SizedBox(
                           height: 12,

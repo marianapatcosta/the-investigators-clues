@@ -44,7 +44,7 @@ class _EditNotesState extends State<EditNotes> {
 
     return ModalContentWrapper(
         title: t.editGeneralNotes,
-        isFullScreen: false,
+        isNotScrollable: false,
         content: Center(
           child: Column(
             children: [

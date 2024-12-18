@@ -15,9 +15,10 @@ class NightOrderItem extends StatelessWidget {
     this.name,
     this.image,
     this.description,
+    this.ability,
     this.showDescription = false,
-    this.isNotInPlayOrDeadCharacter,
-    this.isAliveCharacterWithoutAbility,
+    this.getIsNotInPlayOrDeadCharacter,
+    this.getIsAliveCharacterWithoutAbility,
   });
 
   final String id;
@@ -25,9 +26,10 @@ class NightOrderItem extends StatelessWidget {
   final String? name;
   final String? image;
   final String? description;
+  final String? ability;
   final bool showDescription;
-  final bool Function(String orderId)? isNotInPlayOrDeadCharacter;
-  final bool Function(String orderId)? isAliveCharacterWithoutAbility;
+  final bool Function(String orderId)? getIsNotInPlayOrDeadCharacter;
+  final bool Function(String orderId)? getIsAliveCharacterWithoutAbility;
 
   Map<String, String> get itemInfo {
     final nonCharacterInfo = nightOrderNonCharacterInfo[id];
@@ -45,6 +47,7 @@ class NightOrderItem extends StatelessWidget {
         'name': name!,
         "image": image!,
         "description": description!,
+        "ability": ability ?? ''
       };
     }
 
@@ -54,7 +57,82 @@ class NightOrderItem extends StatelessWidget {
       "description": nightType == NightType.first
           ? charactersMap[id]!.firstNightReminder!
           : charactersMap[id]!.otherNightReminder!,
+      "ability": charactersMap[id]!.ability
     };
+  }
+
+  void _onShowCharacter(
+    BuildContext context,
+  ) {
+    final t = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Row(
+          children: [
+            SizedBox(
+              width: _nightOrderImageSize,
+              height: _nightOrderImageSize,
+              child: CharacterImage(
+                name: itemInfo['name']!,
+                image: itemInfo['image']!,
+                color: itemInfo['name']! == 'Dusk'
+                    ? theme.colorScheme.onSurface
+                    : null,
+              ),
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+            Text(
+              itemInfo['name']!,
+              style: const TextStyle(fontFamily: 'Dumbledore'),
+            ),
+            const SizedBox(
+              width: 4,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('OK'))
+        ],
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              nightType == NightType.first ? t.firstNight : t.otherNights,
+              style: theme.textTheme.titleSmall,
+            ),
+            const SizedBox(
+              height: 2,
+            ),
+            Text(
+              itemInfo['description']!,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(
+              t.ability,
+              style: theme.textTheme.titleSmall,
+            ),
+            const SizedBox(
+              height: 2,
+            ),
+            Text(
+              itemInfo['ability']!,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -63,10 +141,10 @@ class NightOrderItem extends StatelessWidget {
     final t = AppLocalizations.of(context);
 
     return Opacity(
-      opacity:
-          isNotInPlayOrDeadCharacter != null && isNotInPlayOrDeadCharacter!(id)
-              ? 0.6
-              : 1,
+      opacity: getIsNotInPlayOrDeadCharacter != null &&
+              getIsNotInPlayOrDeadCharacter!(id)
+          ? 0.6
+          : 1,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -86,9 +164,27 @@ class NightOrderItem extends StatelessWidget {
               const SizedBox(
                 width: 12,
               ),
-              Text(itemInfo['name']!, style: theme.textTheme.titleSmall),
-              if (isAliveCharacterWithoutAbility != null &&
-                  isAliveCharacterWithoutAbility!(id)) ...[
+              if (showDescription &&
+                  itemInfo['ability'] != null &&
+                  itemInfo['ability'] != '')
+                SizedBox(
+                  height: 30,
+                  child: TextButton(
+                    onPressed: () => _onShowCharacter(context),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(0),
+                      alignment: Alignment.centerLeft,
+                    ),
+                    child: Text(
+                      itemInfo['name']!,
+                      style: theme.textTheme.titleSmall,
+                    ),
+                  ),
+                )
+              else
+                Text(itemInfo['name']!, style: theme.textTheme.titleSmall),
+              if (getIsAliveCharacterWithoutAbility != null &&
+                  getIsAliveCharacterWithoutAbility!(id)) ...[
                 const SizedBox(
                   width: 12,
                 ),
@@ -104,7 +200,9 @@ class NightOrderItem extends StatelessWidget {
               ],
             ],
           ),
-          if (showDescription && itemInfo['description'] != null)
+          if (showDescription &&
+              itemInfo['description'] != null &&
+              itemInfo['description'] != '')
             Padding(
               padding: const EdgeInsets.only(bottom: 4.0),
               child: Text(

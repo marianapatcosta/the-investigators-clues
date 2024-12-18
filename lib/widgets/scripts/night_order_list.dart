@@ -10,16 +10,16 @@ class NightOrderList extends StatelessWidget {
     required this.order,
     required this.nightType,
     this.showItemDescription = false,
-    this.isNotInPlayOrDeadCharacter,
-    this.isAliveCharacterWithoutAbility,
+    this.getIsNotInPlayOrDeadCharacter,
+    this.getIsAliveCharacterWithoutAbility,
   });
 
   final String? title;
   final List<dynamic> order;
   final NightType nightType;
   final bool showItemDescription;
-  final bool Function(String orderId)? isNotInPlayOrDeadCharacter;
-  final bool Function(String orderId)? isAliveCharacterWithoutAbility;
+  final bool Function(String orderId)? getIsNotInPlayOrDeadCharacter;
+  final bool Function(String orderId)? getIsAliveCharacterWithoutAbility;
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,9 @@ class NightOrderList extends StatelessWidget {
                   : null,
               nightType: nightType,
               showDescription: showItemDescription,
-              isNotInPlayOrDeadCharacter: isNotInPlayOrDeadCharacter,
-              isAliveCharacterWithoutAbility: isAliveCharacterWithoutAbility,
+              getIsNotInPlayOrDeadCharacter: getIsNotInPlayOrDeadCharacter,
+              getIsAliveCharacterWithoutAbility:
+                  getIsAliveCharacterWithoutAbility,
             ),
           ),
       ],

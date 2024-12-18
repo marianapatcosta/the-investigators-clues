@@ -82,7 +82,7 @@ class ShowToken extends StatelessWidget {
               )
             ]),
       ),
-      isFullScreen: true,
+      isNotScrollable: true,
     );
   }
 }

@@ -1,4 +1,5 @@
 {
+  "ability": "Ability",
   "about": "About",
   "aboutApp": "is an unofficial application to help Blood on the Clocktower''s players to track the game status and register the clues they collected, and to help the storyteller to setup the game and track its status.",
   "aboutAppCode": "This is a free and open source project, and the code can be found on ",

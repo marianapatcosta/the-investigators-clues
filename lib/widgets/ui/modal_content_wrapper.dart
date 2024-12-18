@@ -7,12 +7,12 @@ class ModalContentWrapper extends StatelessWidget {
     super.key,
     this.title,
     required this.content,
-    this.isFullScreen = false,
+    this.isNotScrollable = false,
   });
 
   final String? title;
   final Widget content;
-  final bool isFullScreen;
+  final bool isNotScrollable;
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +52,13 @@ class ModalContentWrapper extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.only(
             top: 16,
-            left: isSmallScreen ? 4 : 16,
-            right: isSmallScreen ? 4 : 16,
+            left: isSmallScreen ? 8 : 16,
+            right: isSmallScreen ? 8 : 16,
             // to lift the modal up when keyboard is focused
             bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SizedBox(
           width: double.infinity,
-          child: isFullScreen
+          child: isNotScrollable
               ? Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

@@ -138,7 +138,7 @@ class _ScriptCharactersSelectorState extends State<ScriptCharactersSelector> {
 
     return ModalContentWrapper(
       title: widget.title,
-      isFullScreen: false,
+      isNotScrollable: false,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

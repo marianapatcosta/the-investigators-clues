@@ -82,7 +82,7 @@ class _InfoTokenManagerState extends State<InfoTokenManager> {
                     )
                   ]),
             ),
-            isFullScreen: true,
+            isNotScrollable: true,
           )
         : ShowToken(
             infoToken: _infoToken,

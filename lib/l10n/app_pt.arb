@@ -1,4 +1,5 @@
 {
+  "ability": "Habilidade",
   "about": "Sobre",
   "aboutApp": "é um aaplicação não oficial para ajudar os jogadores de Blood on the Clocktower a seguir o estado do jogo e a registar as pista que vão recolhendo, e ajudar o narrador a fazer o setup do jogo e a seguir o seu estado.",
   "aboutAppCode": "Este projeto é gratuito e open source, e o código pode ser encontrado no",

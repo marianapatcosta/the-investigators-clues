@@ -281,7 +281,11 @@ class _NewGameStorytellerFormState
       return bluffs;
     }
 
-    final emptyBluffsNumber = kDemonBluffsNumber - (bluffs?.length ?? 0);
+    final bluffsLength = bluffs?.length ?? 0;
+
+    final emptyBluffsNumber = bluffsLength > kDemonBluffsNumber
+        ? 0
+        : kDemonBluffsNumber - bluffsLength;
     final emptyBluffs = List.generate(emptyBluffsNumber, (index) => null);
     return [...bluffs ?? [], ...emptyBluffs];
   }

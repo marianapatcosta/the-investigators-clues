@@ -20,10 +20,14 @@ class CharactersListScreen extends StatefulWidget {
   }
 }
 
-class _CharactersListScreenState extends State<CharactersListScreen> {
+class _CharactersListScreenState extends State<CharactersListScreen>
+    with AutomaticKeepAliveClientMixin {
   Map<Team, List<Character>> _filteredCharactersByTeam =
       kInitialCharactersByTeam;
   final _searchController = TextEditingController();
+
+  @override
+  bool get wantKeepAlive => true;
 
   bool get hasCharactersToShow {
     return _filteredCharactersByTeam.values

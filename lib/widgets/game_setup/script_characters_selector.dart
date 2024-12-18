@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/index.dart'
@@ -87,10 +89,11 @@ class _ScriptCharactersSelectorState extends State<ScriptCharactersSelector> {
         _selectedCharacters = orderedShuffledCharacters;
       });
     } else {
-      final shuffledCharacters = [...widget.characters]
-        ..shuffle()
-        ..take(widget.numberOfCharactersToSelect)
-        ..toList();
+      final shuffledAllCharacters = [...widget.characters]..shuffle();
+
+      final shuffledCharacters = shuffledAllCharacters
+          .take(widget.numberOfCharactersToSelect)
+          .toList();
 
       final shuffledCharactersIds =
           shuffledCharacters.map((character) => character.id).toList();

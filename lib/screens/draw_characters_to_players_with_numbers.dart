@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -108,7 +107,7 @@ class _DrawCharactersToPlayersWithNumbersScreenState
             child: Column(
               children: [
                 const SizedBox(
-                  height: 32,
+                  height: 16,
                 ),
                 Text(
                   t.openGift,

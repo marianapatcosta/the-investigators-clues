@@ -250,11 +250,14 @@ class _GameScreenState extends State<GameScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(
-              height: 56,
+              height: 12,
             ),
-            const Image(
-              image: AssetImage("assets/images/xmas/botc-xmas.png"),
-              //width: 400,
+            Container(
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: const Image(
+                image: AssetImage("assets/images/xmas/botc-xmas.png"),
+                //width: 400,
+              ),
             ),
             const SizedBox(
               height: 32,

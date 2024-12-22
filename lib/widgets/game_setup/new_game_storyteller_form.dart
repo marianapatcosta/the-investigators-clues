@@ -4,7 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show gameSetups;
 import 'package:my_botc_notes/models/index.dart'
-    show Character, GameSession, GameSetup, Player, Reminder, Script, Team;
+    show
+        BagDisabledReminder,
+        Character,
+        GameSession,
+        GameSetup,
+        Player,
+        Reminder,
+        Script,
+        Team;
 import 'package:my_botc_notes/providers/index.dart'
     show favoriteScriptsProvider;
 import 'package:my_botc_notes/screens/index.dart'
@@ -35,8 +43,12 @@ class _NewGameStorytellerFormState
   List<Character> _lunaticBluffs = [];
   List<Player> _players = [];
   bool _addRemindersFirstNight = true;
+  List<BagDisabledReminder> _bagDisabledReminders = [];
 
   List<Reminder> get remindersFirstNight {
+    if (_selectedScriptCharacters.isEmpty) {
+      return [];
+    }
     return _players
         .map((player) {
           final Character playerCharacter = _selectedScriptCharacters
@@ -50,6 +62,24 @@ class _NewGameStorytellerFormState
         })
         .expand((i) => i)
         .toList();
+  }
+
+  Size get grimoireSize {
+    return getGrimoireSize(context);
+  }
+
+  GameSetup get gameSetup {
+    return gameSetups[_numberOfPlayers.toInt().toString()]!.copyWith();
+  }
+
+  bool get isLunaticInPlay {
+    if (_selectedScript == null) {
+      return false;
+    }
+
+    return _selectedScriptCharacters
+        .where((character) => character.id == 'lunatic')
+        .isNotEmpty;
   }
 
   List<Character> get demonsBluffsOptions {
@@ -66,22 +96,29 @@ class _NewGameStorytellerFormState
         .toList();
   }
 
-  Size get grimoireSize {
-    return getGrimoireSize(context);
-  }
-
-  GameSetup get gameSetup {
-    return gameSetups[_numberOfPlayers.round().toString()]!;
-  }
-
-  bool get isLunaticInPlay {
+  List<BagDisabledReminder> _getBagDisabledReminders() {
     if (_selectedScript == null) {
-      return false;
+      return [];
     }
 
-    return _selectedScriptCharacters
-        .where((character) => character.id == 'lunatic')
-        .isNotEmpty;
+    final badDisabledCharacters = _selectedScript!.characters
+        .where((character) =>
+            character.bagDisabled && character.remindersGlobal != null)
+        .toList();
+
+    return badDisabledCharacters.asMap().entries.map((entry) {
+      final index = entry.key;
+      final character = entry.value;
+      final reminderOffset = getReminderOffset(20, 20, context, index);
+      return BagDisabledReminder(
+        reminder: Reminder(
+          characterId: character.id,
+          reminder: character.remindersGlobal!.first,
+          x: reminderOffset.dx,
+          y: reminderOffset.dy,
+        ),
+      );
+    }).toList();
   }
 
   void _onUpdatePlayersNumber(double newValue) {
@@ -121,6 +158,7 @@ class _NewGameStorytellerFormState
   void _onSelectScript(Script? script) {
     setState(() {
       _selectedScript = script;
+      _bagDisabledReminders = _getBagDisabledReminders();
       if (_selectedScriptCharacters.isNotEmpty) {
         _selectedScriptCharacters = [];
       }
@@ -265,11 +303,22 @@ class _NewGameStorytellerFormState
       );
     }
 
+    final List<Reminder> inPlayReminders =
+        _addRemindersFirstNight ? remindersFirstNight : [];
+    final bagReminders = _bagDisabledReminders
+        .where((reminder) => reminder.addToGrimoire)
+        .map((reminder) => reminder.reminder)
+        .toList();
+
+    if (bagReminders.isNotEmpty) {
+      inPlayReminders.addAll(bagReminders);
+    }
+
     Navigator.of(context).pop(
       GameSession(
           script: _selectedScript!,
           players: _players,
-          inPlayReminders: _addRemindersFirstNight ? remindersFirstNight : [],
+          inPlayReminders: inPlayReminders,
           isStorytellerMode: true,
           demonBluffs: _getBluffs(_demonBluffs),
           lunaticBluffs: _getBluffs(_lunaticBluffs)),
@@ -431,26 +480,51 @@ class _NewGameStorytellerFormState
             bluffsWidget,
           ],
         ],
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              t.addRemindersFirstNight,
-              style: Theme.of(context).textTheme.titleMedium,
+        if (_selectedScriptCharacters.isNotEmpty) ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Checkbox(
+                value: _addRemindersFirstNight,
+                onChanged: (bool? newValue) {
+                  setState(() {
+                    _addRemindersFirstNight = !_addRemindersFirstNight;
+                  });
+                },
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                t.addRemindersFirstNight,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
+          for (final badDisabledReminder in _bagDisabledReminders)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Checkbox(
+                  value: badDisabledReminder.addToGrimoire,
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      badDisabledReminder.setAddToGrimoire = newValue ?? false;
+                    });
+
+                    print(badDisabledReminder.addToGrimoire);
+                  },
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  '${t.add} ${badDisabledReminder.reminder.reminder}',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ],
             ),
-            const SizedBox(
-              width: 8,
-            ),
-            Checkbox(
-              value: _addRemindersFirstNight,
-              onChanged: (bool? newValue) {
-                setState(() {
-                  _addRemindersFirstNight = !_addRemindersFirstNight;
-                });
-              },
-            ),
-          ],
-        ),
+        ],
         if (_selectedScript != null &&
             _selectedScriptCharacters.isNotEmpty) ...[
           const SizedBox(height: 12),

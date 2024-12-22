@@ -36,4 +36,18 @@ class GameSetup {
     }
     return 0;
   }
+
+  GameSetup copyWith({
+    int? townsfolk,
+    int? outsider,
+    int? minion,
+    int? demon,
+  }) {
+    return GameSetup(
+      townsfolk: townsfolk ?? this.townsfolk,
+      outsider: outsider ?? this.outsider,
+      minion: minion ?? this.minion,
+      demon: demon ?? this.demon,
+    );
+  }
 }

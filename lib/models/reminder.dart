@@ -39,3 +39,21 @@ class Reminder {
     };
   }
 }
+
+class BagDisabledReminder {
+  BagDisabledReminder({
+    required this.reminder,
+  });
+
+  final Reminder reminder;
+  bool _addToGrimoire = false;
+
+  bool get addToGrimoire {
+    return _addToGrimoire;
+  }
+
+  set setAddToGrimoire(bool newValue) {
+    _addToGrimoire = newValue;
+    print(_addToGrimoire);
+  }
+}

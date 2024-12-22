@@ -94,6 +94,9 @@ const kMobileTabsNumber = 5;
 
 const double kTabsAppBarHeight = 75;
 
+const double kTopPlayersOffset = 10;
+const double kBottomPlayersOffset = 30;
+
 const botcWikiUrl = 'https://wiki.bloodontheclocktower.com';
 
 const kScriptsDatabaseUrl = 'botc-scripts.azurewebsites.net';

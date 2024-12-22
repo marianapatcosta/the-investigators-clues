@@ -34,7 +34,9 @@ class NumberPlayersSlider extends StatelessWidget {
             const SizedBox(
               width: 8,
             ),
-            GameSetupTeams(gameSetup: gameSetup)
+            GameSetupTeams(
+              gameSetup: gameSetup,
+            )
           ],
         ),
         NumberSlider(

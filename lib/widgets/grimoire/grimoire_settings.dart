@@ -15,7 +15,7 @@ class GrimoireSettings extends StatefulWidget {
     required this.playerTokenScale,
     required this.reminderTokenScale,
     required this.showPlayersNotes,
-    required this.showPlayersVotesNominations,
+    required this.showVotingPhase,
     required this.showGamePhase,
     required this.showGameSetup,
     required this.onUpdatePlayerTokenScale,
@@ -29,7 +29,7 @@ class GrimoireSettings extends StatefulWidget {
   final double playerTokenScale;
   final double reminderTokenScale;
   final bool showPlayersNotes;
-  final bool showPlayersVotesNominations;
+  final bool showVotingPhase;
   final bool showGamePhase;
   final bool showGameSetup;
   final void Function(double) onUpdatePlayerTokenScale;
@@ -59,7 +59,7 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
     _playerTokenScale = widget.playerTokenScale;
     _reminderTokenScale = widget.reminderTokenScale;
     _showPlayersNotes = widget.showPlayersNotes;
-    _showPlayersVotesNominations = widget.showPlayersVotesNominations;
+    _showPlayersVotesNominations = widget.showVotingPhase;
     _showGamePhase = widget.showGamePhase;
     _showGameSetup = widget.showGameSetup;
   }
@@ -99,7 +99,7 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          t.showPlayersVotesNominations,
+          t.showVotingPhase,
         ),
         const SizedBox(
           width: 8,

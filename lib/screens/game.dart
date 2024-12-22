@@ -54,7 +54,7 @@ class _GameScreenState extends State<GameScreen>
     with AutomaticKeepAliveClientMixin {
   GameSession? gameSession;
   bool _showPlayersNotes = false;
-  bool _showPlayersVotesNominations = false;
+  bool _showVotingPhase = false;
   bool _showGamePhase = true;
   bool _showGameSetup = true;
   double _playerTokenScale = 1;
@@ -189,7 +189,7 @@ class _GameScreenState extends State<GameScreen>
               playerTokenScale: _playerTokenScale,
               reminderTokenScale: _reminderTokenScale,
               showPlayersNotes: _showPlayersNotes,
-              showPlayersVotesNominations: _showPlayersVotesNominations,
+              showVotingPhase: _showVotingPhase,
               showGamePhase: _showGamePhase,
               showGameSetup: _showGameSetup,
               onUpdatePlayerTokenScale: (value) {
@@ -204,18 +204,18 @@ class _GameScreenState extends State<GameScreen>
               },
               onUpdateShowPlayersNotes: () {
                 setState(() {
-                  if (!_showPlayersNotes && _showPlayersVotesNominations) {
-                    _showPlayersVotesNominations = false;
+                  if (!_showPlayersNotes && _showVotingPhase) {
+                    _showVotingPhase = false;
                   }
                   _showPlayersNotes = !_showPlayersNotes;
                 });
               },
               onUpdateShowVotesNominations: () {
                 setState(() {
-                  if (!_showPlayersVotesNominations && _showPlayersNotes) {
+                  if (!_showVotingPhase && _showPlayersNotes) {
                     _showPlayersNotes = false;
                   }
-                  _showPlayersVotesNominations = !_showPlayersVotesNominations;
+                  _showVotingPhase = !_showVotingPhase;
                 });
               },
               onUpdateShowGamePhase: () {
@@ -303,7 +303,7 @@ class _GameScreenState extends State<GameScreen>
           child: Grimoire(
               gameSession: gameSession!,
               showPlayersNotes: _showPlayersNotes,
-              showPlayersVotesNominations: _showPlayersVotesNominations,
+              showVotingPhase: _showVotingPhase,
               showGamePhase: _showGamePhase,
               showGameSetup: _showGameSetup,
               playerTokenScale: _playerTokenScale,
@@ -412,8 +412,7 @@ class _GameScreenState extends State<GameScreen>
                               ],
                               GameMenu(
                                 showPlayersNotes: _showPlayersNotes,
-                                showPlayersVotesNominations:
-                                    _showPlayersVotesNominations,
+                                showVotingPhase: _showVotingPhase,
                                 menuActions: {
                                   MenuItem.addPlayer: () => _onAddPlayer(
                                       gameSession!.script.characters

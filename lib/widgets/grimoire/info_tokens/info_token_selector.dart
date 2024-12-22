@@ -298,9 +298,6 @@ class _InfoTokenSelectorState extends State<InfoTokenSelector> {
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight)),
                       ),
-                      direction: index % 2 == 0
-                          ? DismissDirection.endToStart
-                          : DismissDirection.startToEnd,
                       key: ValueKey(_customInfoTokens[index].id),
                       onDismissed: (direction) =>
                           _onRemoveCustomInfoToken(context, index),

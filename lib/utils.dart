@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -350,13 +349,10 @@ Offset getPlayerOffset(
   int numberOfPlayers,
   int playerIndex,
 ) {
-  const topPlayersOffset = 10;
-  const bottomPlayersOffset = 30;
-
   // Scaling the size of the ellipse
   final radiusX = (grimoireSize.width - kCharacterTokenSizeSmall) / 2;
   final radiusY =
-      (grimoireSize.height - bottomPlayersOffset - kCharacterTokenSizeSmall) /
+      (grimoireSize.height - kBottomPlayersOffset - kCharacterTokenSizeSmall) /
           2;
 
   const angleOffset =
@@ -364,7 +360,7 @@ Offset getPlayerOffset(
   final radians = (playerIndex * pi * 2) / numberOfPlayers;
   final double x = radiusX + (cos(radians + angleOffset) * radiusX);
   final double y =
-      radiusY + (sin(radians + angleOffset) * radiusY) + topPlayersOffset;
+      radiusY + (sin(radians + angleOffset) * radiusY) + kTopPlayersOffset;
   return Offset(x, y);
 }
 

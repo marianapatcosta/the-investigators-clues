@@ -1,5 +1,4 @@
 import 'package:my_botc_notes/constants.dart';
-import 'package:my_botc_notes/models/reminder.dart';
 
 class Player {
   Player({
@@ -26,6 +25,7 @@ class Player {
   double? y;
   bool votedToday = false;
   bool nominatedToday = false;
+  bool wasNominatedToday = false;
 
   set setName(String value) {
     name = value;
@@ -65,6 +65,10 @@ class Player {
 
   set setNominatedToday(bool value) {
     nominatedToday = value;
+  }
+
+  set setWasNominatedToday(bool value) {
+    wasNominatedToday = value;
   }
 
   Player.fromJson(Map<String, dynamic> json)

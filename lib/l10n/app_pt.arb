@@ -279,9 +279,9 @@
   "showListView": "Mostrar a vista em lista",
   "showMore": "Mostrar mais",
   "showPlayersNotes": "Mostrar notas dos jogadores",
-  "showPlayersVotesNominations": "Mostrar votos/nomeações",
   "showReminder": "Mostrar lembrete",
-  "showSetupWarning": "Mostarr aviso de setup",
+  "showSetupWarning": "Mostrar aviso de setup",
+  "showVotingPhase": "Mostrar fase de votação",
   "shroud": "Morto",
   "source": "fonte",
   "storyteller": "Narrador",
@@ -302,5 +302,6 @@
   "unsavedChangesDescription": "Pretede guardá-las ou descartá-las?",
   "unselect": "Desselecioone",
   "updateGamePhase": "Atualizar fase do jogo",
+  "wasPlayerNominated": "O jogador foi nomeado?",
   "yes": "Sim"
 }

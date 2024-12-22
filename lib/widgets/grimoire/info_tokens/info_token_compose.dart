@@ -144,21 +144,45 @@ class _InfoTokenComposeState extends State<InfoTokenCompose> {
       label: Text(t.close),
     );
 
-    final removeButton = Align(
+    final header = Align(
       alignment: Alignment.topRight,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, right: 8),
-        child: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-            widget.removeCustomInfoToken!(context);
-          },
-          icon: Icon(
-            Icons.delete,
-            semanticLabel: t.deleteCustomInfoToken,
-            size: 28,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const SizedBox(
+            width: 40,
           ),
-        ),
+          if (widget.removeCustomInfoToken != null) ...[
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, right: 8),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  widget.removeCustomInfoToken!(context);
+                },
+                icon: Icon(
+                  Icons.delete,
+                  semanticLabel: t.deleteCustomInfoToken,
+                  size: 28,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 8,
+            )
+          ],
+          SizedBox(
+              width: 40,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.close,
+                  semanticLabel: t.close,
+                ),
+              )),
+        ],
       ),
     );
 
@@ -172,18 +196,15 @@ class _InfoTokenComposeState extends State<InfoTokenCompose> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      ...content,
-                    ]),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        if (widget.removeCustomInfoToken != null) removeButton,
-                        Align(
-                            alignment: Alignment.bottomRight,
-                            child: closeButton),
+                        header,
                       ],
                     ),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      ...content,
+                    ]),
                   ],
                 ),
               ),
@@ -197,7 +218,7 @@ class _InfoTokenComposeState extends State<InfoTokenCompose> {
                         minHeight: MediaQuery.of(context).size.height),
                     child: Column(
                       children: [
-                        if (widget.removeCustomInfoToken != null) removeButton,
+                        header,
                         ConstrainedBox(
                           constraints: BoxConstraints(
                               minHeight: MediaQuery.of(context).size.height),

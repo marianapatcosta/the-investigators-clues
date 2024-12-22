@@ -28,7 +28,7 @@ class _NewGamePlayerFormState extends ConsumerState<NewGamePlayerForm> {
   final List<String> _playersNames = [];
 
   GameSetup get gameSetup {
-    return gameSetups[_numberOfPlayers.round().toString()]!;
+    return gameSetups[_numberOfPlayers.toInt().toString()]!.copyWith();
   }
 
   Size get grimoireSize {

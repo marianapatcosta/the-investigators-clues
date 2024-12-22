@@ -3,10 +3,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show charactersMap;
 import 'package:my_botc_notes/models/index.dart'
-    show Character, Player, Reminder;
+    show Character, Player, Reminder, Team;
 import 'package:my_botc_notes/screens/edit_player.dart';
+import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
-    show CharacterToken, GhostVoteToken, PlayerVotedNominated;
+    show CharacterToken, GhostVoteToken, PlayerVotingPhase;
 import 'package:my_botc_notes/screens/index.dart' show EditPlayer;
 
 class PlayerItem extends StatefulWidget {
@@ -19,8 +20,10 @@ class PlayerItem extends StatefulWidget {
     required this.inPlayCharactersIds,
     required this.isStorytellerMode,
     this.showPlayersNotes = false,
-    this.showPlayersVotesNominations = false,
+    this.showVotingPhase = false,
     this.playerTokenScale = 1,
+    this.firstNightOrder,
+    this.otherNightsOrder,
     required this.removePlayer,
     required this.updateParent,
     required this.saveGameSession,
@@ -34,8 +37,10 @@ class PlayerItem extends StatefulWidget {
   final List<String> inPlayCharactersIds;
   final bool isStorytellerMode;
   final bool showPlayersNotes;
-  final bool showPlayersVotesNominations;
+  final bool showVotingPhase;
   final double playerTokenScale;
+  final int? firstNightOrder;
+  final int? otherNightsOrder;
   final void Function() removePlayer;
   final void Function() updateParent;
   final void Function() saveGameSession;
@@ -136,15 +141,18 @@ class _PlayerItemState extends State<PlayerItem> {
       :isEvilEasterEgg,
       :votedToday,
       :nominatedToday,
+      :wasNominatedToday
     ) = widget.player;
 
     final theme = Theme.of(context);
     final t = AppLocalizations.of(context);
-    final width = MediaQuery.of(context).size.width;
-    final isPlayerOnRightSide = _offset.dx > width / 2;
+    final grimoireSize = getGrimoireSize(context);
+
+    final isPlayerOnRightSide = _offset.dx > grimoireSize.width / 2;
+
     final double additionalInfoWidth = widget.showPlayersNotes
         ? kPlayerNotesSize
-        : (widget.showPlayersVotesNominations ? kPlayerCheckboxesSize : 0);
+        : (widget.showVotingPhase ? kPlayerCheckboxesSize : 0);
 
     return Positioned(
         left:
@@ -208,6 +216,37 @@ class _PlayerItemState extends State<PlayerItem> {
                                           character: widget.character,
                                           isEvilEasterEgg: isEvilEasterEgg,
                                         ),
+                                  if (characterId != null &&
+                                      (widget.firstNightOrder != null ||
+                                          widget.firstNightOrder != null))
+                                    Positioned(
+                                      left: 0,
+                                      right: 0,
+                                      top: 4,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 4.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            if (widget.firstNightOrder != null)
+                                              _NightOrderIndicator(
+                                                  value: widget.firstNightOrder
+                                                      .toString(),
+                                                  color: teamsColors[Team
+                                                      .townsfolk]! as Color),
+                                            if (widget.otherNightsOrder != null)
+                                              _NightOrderIndicator(
+                                                  value: widget.otherNightsOrder
+                                                      .toString(),
+                                                  color:
+                                                      teamsColors[Team.demon]!
+                                                          as Color),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   if (isDead)
                                     const Positioned(
                                       left: 0,
@@ -251,14 +290,15 @@ class _PlayerItemState extends State<PlayerItem> {
                         ],
                       ),
                     ),
-                    if (widget.showPlayersVotesNominations)
+                    if (widget.showVotingPhase)
                       Positioned(
-                        top: 15,
+                        top: 0,
                         left: isPlayerOnRightSide ? 0 : null,
                         right: isPlayerOnRightSide ? null : 0,
-                        child: PlayerVotedNominated(
+                        child: PlayerVotingPhase(
                           didPlayerVote: votedToday,
                           didPlayerNominate: nominatedToday,
+                          wasPlayerNominate: wasNominatedToday,
                           onDidPlayerVoteChange: (newValue) {
                             setState(() {
                               widget.player.setVotedToday = newValue ?? false;
@@ -267,6 +307,12 @@ class _PlayerItemState extends State<PlayerItem> {
                           onDidPlayerNominateChange: (newValue) {
                             setState(() {
                               widget.player.setNominatedToday =
+                                  newValue ?? false;
+                            });
+                          },
+                          onWasPlayerNominatedChange: (newValue) {
+                            setState(() {
+                              widget.player.setWasNominatedToday =
                                   newValue ?? false;
                             });
                           },
@@ -307,5 +353,46 @@ class _PlayerItemState extends State<PlayerItem> {
             ),
           ),
         ));
+  }
+}
+
+class _NightOrderIndicator extends StatelessWidget {
+  const _NightOrderIndicator({
+    super.key,
+    required this.value,
+    required this.color,
+  });
+
+  final String value;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      width: 18,
+      height: 18,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+        gradient: LinearGradient(colors: [
+          color,
+          color.withOpacity(0.75),
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+      ),
+      padding: const EdgeInsets.all(2),
+      child: Center(
+        child: Text(
+          value,
+          textHeightBehavior: const TextHeightBehavior(
+            applyHeightToFirstAscent: true,
+            applyHeightToLastDescent: false,
+          ),
+          style: theme.textTheme.bodySmall!
+              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
   }
 }

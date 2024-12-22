@@ -1,5 +1,3 @@
-import 'package:my_botc_notes/models/index.dart';
-
 const nightOrder = {
   "firstNight": [
     "DUSK",

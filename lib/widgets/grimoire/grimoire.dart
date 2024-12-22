@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
+import 'package:my_botc_notes/data/index.dart';
 import 'package:my_botc_notes/models/index.dart'
     show Character, CustomInfoToken, GameSession, Player, Reminder;
 import 'package:my_botc_notes/utils.dart';
@@ -21,7 +22,7 @@ class Grimoire extends StatefulWidget {
     super.key,
     required this.gameSession,
     this.showPlayersNotes = false,
-    this.showPlayersVotesNominations = false,
+    this.showVotingPhase = false,
     this.showGamePhase = true,
     this.showGameSetup = true,
     this.playerTokenScale = 1,
@@ -32,7 +33,7 @@ class Grimoire extends StatefulWidget {
 
   final GameSession gameSession;
   final bool showPlayersNotes;
-  final bool showPlayersVotesNominations;
+  final bool showVotingPhase;
   final bool showGamePhase;
   final bool showGameSetup;
   final double playerTokenScale;
@@ -52,9 +53,60 @@ class _GrimoireState extends State<Grimoire> {
       return false;
     }
 
-    return widget.gameSession.script.characters
+    return widget.gameSession.sessionCharacters
         .where((character) => character.id == 'lunatic')
         .isNotEmpty;
+  }
+
+  List<String> get firstNightOrder {
+    if (widget.gameSession.script.hasHomebrewCharacters) {
+      final sortedCharacters = [
+        ...widget.gameSession.sessionCharacters,
+      ]
+          .where((character) =>
+              character.firstNight != null && character.firstNight != 0)
+          .toList()
+        ..sort((characterA, characterB) =>
+            characterA.firstNight!.compareTo(characterB.firstNight!));
+
+      return sortedCharacters.map((character) => character.id).toList();
+    }
+
+    return nightOrder['firstNight']!
+        .where((item) => widget.gameSession.inPlayCharactersIds.contains(item))
+        .toList();
+  }
+
+  List<String> get otherNightsOrder {
+    if (widget.gameSession.script.hasHomebrewCharacters) {
+      final sortedCharacters = [
+        ...widget.gameSession.sessionCharacters,
+      ]
+          .where((character) =>
+              character.otherNight != null && character.otherNight != 0)
+          .toList()
+        ..sort((characterA, characterB) =>
+            characterA.otherNight!.compareTo(characterB.otherNight!));
+
+      return sortedCharacters.map((character) => character.id).toList();
+    }
+
+    return nightOrder['otherNight']!
+        .where((item) => widget.gameSession.inPlayCharactersIds.contains(item))
+        .toList();
+  }
+
+  int? _getCharacterOrder(String? characterId, NightType nightType) {
+    if (characterId == null) {
+      return null;
+    }
+
+    final order =
+        nightType == NightType.first ? firstNightOrder : otherNightsOrder;
+
+    final index = order.indexOf(characterId);
+
+    return index == -1 ? null : index + 1;
   }
 
   void _onRemovePlayer(Player player) {
@@ -107,10 +159,11 @@ class _GrimoireState extends State<Grimoire> {
   }
 
   void _updateGamePhase(String gamePhase) {
-    if (widget.showPlayersVotesNominations && gamePhase.startsWith('D')) {
+    if (widget.showVotingPhase && gamePhase.startsWith('D')) {
       for (final player in widget.gameSession.players) {
         player.setVotedToday = false;
         player.setNominatedToday = false;
+        player.setWasNominatedToday = false;
       }
     }
     widget.gameSession.setGamePhase = gamePhase;
@@ -332,8 +385,12 @@ class _GrimoireState extends State<Grimoire> {
                 sessionReminders: reminders,
                 isStorytellerMode: isStorytellerMode,
                 showPlayersNotes: widget.showPlayersNotes,
-                showPlayersVotesNominations: widget.showPlayersVotesNominations,
+                showVotingPhase: widget.showVotingPhase,
                 playerTokenScale: widget.playerTokenScale,
+                firstNightOrder:
+                    _getCharacterOrder(player.characterId, NightType.first),
+                otherNightsOrder:
+                    _getCharacterOrder(player.characterId, NightType.other),
                 removePlayer: () {
                   _onRemovePlayer(player);
                 },

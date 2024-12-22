@@ -1,5 +1,4 @@
 import 'package:my_botc_notes/data/index.dart' show charactersMap, gameSetups;
-import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/models/index.dart'
     show
         Character,
@@ -37,7 +36,7 @@ class GameSession {
   GameSetup get gameSetup {
     final playersNumber = players.where((player) => !player.isTraveller).length;
     final travellersNumber = players.length - playersNumber;
-    final gameSetup = gameSetups[playersNumber.round().toString()]!;
+    final gameSetup = gameSetups[playersNumber.toString()]!.copyWith();
     gameSetup.setTraveller = travellersNumber;
     return gameSetup;
   }

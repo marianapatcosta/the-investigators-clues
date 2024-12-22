@@ -101,12 +101,12 @@ class _NewGameStorytellerFormState
       return [];
     }
 
-    final badDisabledCharacters = _selectedScript!.characters
+    final bagDisabledCharacters = _selectedScript!.characters
         .where((character) =>
             character.bagDisabled && character.remindersGlobal != null)
         .toList();
 
-    return badDisabledCharacters.asMap().entries.map((entry) {
+    return bagDisabledCharacters.asMap().entries.map((entry) {
       final index = entry.key;
       final character = entry.value;
       final reminderOffset = getReminderOffset(20, 20, context, index);
@@ -511,8 +511,6 @@ class _NewGameStorytellerFormState
                     setState(() {
                       badDisabledReminder.setAddToGrimoire = newValue ?? false;
                     });
-
-                    print(badDisabledReminder.addToGrimoire);
                   },
                 ),
                 const SizedBox(

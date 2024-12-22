@@ -83,7 +83,9 @@ class _GrimoireState extends State<Grimoire> {
         ...widget.gameSession.sessionCharacters,
       ]
           .where((character) =>
-              character.otherNight != null && character.otherNight != 0)
+              widget.gameSession.inPlayCharactersIds.contains(character.id) &&
+              character.otherNight != null &&
+              character.otherNight != 0)
           .toList()
         ..sort((characterA, characterB) =>
             characterA.otherNight!.compareTo(characterB.otherNight!));

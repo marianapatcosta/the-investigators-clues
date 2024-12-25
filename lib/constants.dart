@@ -228,30 +228,29 @@ final infoTokens = [
   )
 ];
 
-const kXmasImages = [
-  'candy-cane',
-  'christmas-bell',
-  'christmas-tree',
-  'christmas-wreath',
-  'hat',
-  'reindeer',
-  'balls',
-  'bauble',
-  'gingerbread-man',
-  'letter',
-  'mistletoe',
-  'sleigh',
-  'snowman',
-  'christmas-sock',
-  'presents',
-  'snowflake',
-  'christmas-sweater',
-  'gift-box',
-  'santa-claus'
+const kHalloweenImages = [
+  'balloon',
+  'bat',
+  'black-evil-cat',
+  'blood',
+  'candy',
+  'castle',
+  'cauldron',
+  'ghost-face',
+  'ghost',
+  'haunted-house',
+  'pumpkin',
+  'skeleton',
+  'spider-insect',
+  'spider',
+  'spooky',
+  'tombstone',
+  'witch-hat',
+  'zombie',
 ];
 
-const kXmasSounds = [
-  'christmas-santa',
-  'santa-claus',
-  'sleigh-bells',
+const kHalloweenSounds = [
+  'halloween-horror-surprise',
+  'creepy-laugh',
+  'evil-laugh',
 ];

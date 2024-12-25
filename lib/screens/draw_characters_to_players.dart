@@ -66,8 +66,8 @@ class _DrawCharactersToPlayersScreenState
   }
 
   void _onSelectToken() async {
-    final soundIndex = Random().nextInt(kXmasSounds.length);
-    _audioPlayer.setAsset('assets/audio/${kXmasSounds[soundIndex]}.mp3');
+    final soundIndex = Random().nextInt(kHalloweenSounds.length);
+    _audioPlayer.setAsset('assets/audio/${kHalloweenSounds[soundIndex]}.mp3');
     _audioPlayer.play();
     setState(() {
       _isDrawingCharacter = true;
@@ -158,7 +158,7 @@ class _DrawCharactersToPlayersScreenState
                               width: 100,
                               child: Image(
                                 image: AssetImage(
-                                    'assets/images/xmas/santa-claus.png'),
+                                    'assets/images/halloween/castle.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -173,7 +173,7 @@ class _DrawCharactersToPlayersScreenState
                               width: 50,
                               child: Image(
                                 image: AssetImage(
-                                    'assets/images/xmas/christmas-sock.png'),
+                                    'assets/images/halloween/bat.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -186,8 +186,8 @@ class _DrawCharactersToPlayersScreenState
                             child: SizedBox(
                               width: 80,
                               child: Image(
-                                image:
-                                    AssetImage('assets/images/xmas/balls.png'),
+                                image: AssetImage(
+                                    'assets/images/halloween/balloon.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -217,7 +217,7 @@ class _DrawCharactersToPlayersScreenState
                             opacity: 0.5,
                             child: Image(
                               image: AssetImage(
-                                  'assets/images/xmas/christmas-bell.png'),
+                                  'assets/images/halloween/ghost-face.png'),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -242,7 +242,7 @@ class _DrawCharactersToPlayersScreenState
                                     width: 170,
                                     child: Image(
                                       image: AssetImage(
-                                          'assets/images/xmas/giftbox.png'),
+                                          'assets/images/halloween/pumpkin.png'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -270,7 +270,7 @@ class _DrawCharactersToPlayersScreenState
                               height: 50,
                               child: Image(
                                 image: AssetImage(
-                                    'assets/images/xmas/mistletoe.png'),
+                                    'assets/images/halloween/cauldron.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -283,8 +283,8 @@ class _DrawCharactersToPlayersScreenState
                             child: SizedBox(
                               height: 50,
                               child: Image(
-                                image:
-                                    AssetImage('assets/images/xmas/bauble.png'),
+                                image: AssetImage(
+                                    'assets/images/halloween/witch.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -337,8 +337,8 @@ class _DrawCharactersToPlayersScreenState
                             child: SizedBox(
                               width: 100,
                               child: Image(
-                                image:
-                                    AssetImage('assets/images/xmas/sleigh.png'),
+                                image: AssetImage(
+                                    'assets/images/halloween/tombstone.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -352,7 +352,7 @@ class _DrawCharactersToPlayersScreenState
                               width: 80,
                               child: Image(
                                 image: AssetImage(
-                                    'assets/images/xmas/reindeer.png'),
+                                    'assets/images/halloween/zombie.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -367,7 +367,7 @@ class _DrawCharactersToPlayersScreenState
                               width: 80,
                               child: Image(
                                 image: AssetImage(
-                                    'assets/images/xmas/snowman.png'),
+                                    'assets/images/halloween/skeleton.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),

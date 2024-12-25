@@ -254,14 +254,12 @@ class _GameScreenState extends State<GameScreen>
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(
-              height: 12,
+              height: 56,
             ),
-            Container(
-              constraints: const BoxConstraints(maxWidth: 500),
-              child: const Image(
-                image: AssetImage("assets/images/xmas/botc-xmas.png"),
-                //width: 400,
-              ),
+            Image(
+              image: const AssetImage("assets/images/clocktower.png"),
+              color: theme.colorScheme.onSurface,
+              width: 150,
             ),
             const SizedBox(
               height: 32,

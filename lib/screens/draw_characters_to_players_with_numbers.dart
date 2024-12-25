@@ -7,9 +7,9 @@ import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/index.dart' show Character, Player;
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
-    show CharacterToken, FormActionBar, Layout, ShowDrawnCharacter, TokenSlot;
+    show CharacterToken, FormActionBar, Layout, ShowDrawnCharacter;
 
-final tokenImagesToShuffle = [...kXmasImages]..shuffle();
+final tokenImagesToShuffle = [...kHalloweenImages]..shuffle();
 
 class DrawCharactersToPlayersWithNumbersScreen extends StatefulWidget {
   const DrawCharactersToPlayersWithNumbersScreen({
@@ -40,8 +40,8 @@ class _DrawCharactersToPlayersWithNumbersScreenState
   }
 
   void _onSelectToken(int index) async {
-    final soundIndex = Random().nextInt(kXmasSounds.length);
-    _audioPlayer.setAsset('assets/audio/${kXmasSounds[soundIndex]}.mp3');
+    final soundIndex = Random().nextInt(kHalloweenSounds.length);
+    _audioPlayer.setAsset('assets/audio/${kHalloweenSounds[soundIndex]}.mp3');
     _audioPlayer.play();
     setState(() {
       _selectedCharactersIndexes.add(index);
@@ -146,7 +146,7 @@ class _DrawCharactersToPlayersWithNumbersScreenState
                                       child: CharacterToken(
                                         hasLabel: false,
                                         tokenImage:
-                                            'assets/images/xmas/${tokenImages[index]}.png',
+                                            'assets/images/halloween/${tokenImages[index]}.png',
                                         tokenSize: isLargeScreen
                                             ? TokenSize.large
                                             : TokenSize.medium,
@@ -156,7 +156,7 @@ class _DrawCharactersToPlayersWithNumbersScreenState
                                 : CharacterToken(
                                     hasLabel: false,
                                     tokenImage:
-                                        'assets/images/xmas/${tokenImages[index]}.png',
+                                        'assets/images/halloween/${tokenImages[index]}.png',
                                     tokenSize: isLargeScreen
                                         ? TokenSize.large
                                         : TokenSize.medium,

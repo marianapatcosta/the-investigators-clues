@@ -151,8 +151,8 @@ class _PlayerItemState extends State<PlayerItem> {
     final isPlayerOnRightSide = _offset.dx > grimoireSize.width / 2;
 
     final double additionalInfoWidth = widget.showPlayersNotes
-        ? kPlayerNotesSize
-        : (widget.showVotingPhase ? kPlayerCheckboxesSize : 0);
+        ? kPlayerNotesSize + 2
+        : (widget.showVotingPhase ? kPlayerCheckboxesSize : 0) + 2;
 
     return Positioned(
         left:

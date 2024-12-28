@@ -14,9 +14,6 @@ class TeamScriptTitle extends StatelessWidget {
     final theme = Theme.of(context);
     return Row(
       children: [
-        Expanded(
-          child: Divider(thickness: 1, color: theme.colorScheme.onSurface),
-        ),
         Container(
           padding: const EdgeInsets.only(left: 8, right: 8, top: 2),
           decoration: BoxDecoration(
@@ -28,9 +25,13 @@ class TeamScriptTitle extends StatelessWidget {
             style: theme.textTheme.titleMedium!.copyWith(
               color: theme.colorScheme.onSurface,
               fontWeight: FontWeight.bold,
+              height: 1.2,
             ),
             textAlign: TextAlign.end,
           ),
+        ),
+        Expanded(
+          child: Divider(thickness: 1, color: theme.colorScheme.onSurface),
         ),
       ],
     );

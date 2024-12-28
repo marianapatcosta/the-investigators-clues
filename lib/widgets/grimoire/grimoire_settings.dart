@@ -165,7 +165,6 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
       title: t.grimoireSettings,
       content: Container(
         margin: const EdgeInsets.only(bottom: 24),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

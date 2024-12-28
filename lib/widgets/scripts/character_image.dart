@@ -33,7 +33,7 @@ class CharacterImage extends StatelessWidget {
           )
         : Image.asset(
             image,
-            fit: BoxFit.cover,
+            fit: BoxFit.fitHeight,
             semanticLabel: name,
             color: color,
             errorBuilder: (context, error, stackTrace) {

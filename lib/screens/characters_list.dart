@@ -5,7 +5,7 @@ import 'package:my_botc_notes/data/characters.dart';
 import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
-    show CharacterItem, Layout, Search;
+    show CharacterItem, CustomSafeArea, Layout, Search;
 
 final kInitialCharactersByTeam = getCharactersByTeam(characters);
 
@@ -71,9 +71,8 @@ class _CharactersListScreenState extends State<CharactersListScreen>
 
     return Layout(
       child: Scaffold(
-        body: /*  SafeArea(
-          child: */
-            CustomScrollView(
+          body: CustomSafeArea(
+        child: CustomScrollView(
           slivers: [
             SliverAppBar(
               automaticallyImplyLeading:
@@ -148,8 +147,7 @@ class _CharactersListScreenState extends State<CharactersListScreen>
                   ),
           ],
         ),
-        // )
-      ),
+      )),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/models/index.dart' show Character, Script;
 import 'package:my_botc_notes/screens/index.dart' show CharacterDetailsScreen;
@@ -57,6 +58,7 @@ class ScriptDetailsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context);
     final width = MediaQuery.of(context).size.width;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
 
@@ -88,6 +90,15 @@ class ScriptDetailsContent extends StatelessWidget {
             ...content,
             const SizedBox(
               height: 8,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                t.eachNightExcept,
+              ),
+            ),
+            const SizedBox(
+              height: 12,
             ),
             if (isScreenBiggerThanX(width, ScreenSize.md))
               Row(

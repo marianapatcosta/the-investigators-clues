@@ -263,7 +263,7 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
                 height: 8,
               ),
               SizedBox(width: _checkboxWidth, child: gameSetupCheckBox),
-            ]
+            ],
           ],
         ),
       ),

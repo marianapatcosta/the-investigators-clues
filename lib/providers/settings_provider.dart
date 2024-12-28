@@ -11,9 +11,9 @@ class SettingsNotifier extends Notifier<Settings> {
   @override
   Settings build() {
     fetchSettings();
-    return Settings(
-      themeMode: ThemeMode.system,
-      locale: Locale(Intl.getCurrentLocale().split('_')[0]),
+    return const Settings(
+      themeMode: ThemeMode.light,
+      locale: Locale('en'), //Locale(Intl.getCurrentLocale().split('_')[0]),
     );
   }
 
@@ -23,7 +23,6 @@ class SettingsNotifier extends Notifier<Settings> {
 
     if (settingsString != null) {
       final settings = jsonDecode(settingsString);
-
       state = state.copyWith(
         themeMode: ThemeMode.values.byName(settings['themeMode']),
         locale: Locale(

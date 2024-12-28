@@ -59,7 +59,7 @@ final screensMetadata = [
     icon: Icons.info_outlined,
     screen: AboutScreen(),
   ),
-  const ScreenMetadata(
+/*   const ScreenMetadata(
     titleKey: 'settings',
     icon: Icons.settings,
     screen: SettingsScreen(),
@@ -68,7 +68,7 @@ final screensMetadata = [
     titleKey: 'acknowledgments',
     icon: Icons.handshake_outlined,
     screen: AcknowledgmentsScreen(),
-  ),
+  ), */
 ];
 
 const moreScreenMetadata = ScreenMetadata(

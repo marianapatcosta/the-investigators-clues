@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_botc_notes/providers/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -40,18 +42,18 @@ final gameTabsMetadata = {
 
 final scaffoldKey = GlobalKey<ScaffoldState>();
 
-class GameScreen extends StatefulWidget {
+class GameScreen extends ConsumerStatefulWidget {
   const GameScreen({
     super.key,
   });
 
   @override
-  State<GameScreen> createState() {
+  ConsumerState<GameScreen> createState() {
     return _GameScreenState();
   }
 }
 
-class _GameScreenState extends State<GameScreen>
+class _GameScreenState extends ConsumerState<GameScreen>
     with AutomaticKeepAliveClientMixin {
   GameSession? gameSession;
   bool _showPlayersNotes = false;
@@ -246,6 +248,7 @@ class _GameScreenState extends State<GameScreen>
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
     final getTranslationKey = getTranslationKeyGetter(context);
+    final settings = ref.watch(settingsProvider);
 
     Widget content = SliverFillRemaining(
       hasScrollBody: false,
@@ -317,8 +320,56 @@ class _GameScreenState extends State<GameScreen>
                 actions: <Widget>[
                   Container()
                 ], // hide default hamburger menu for open drawer
-                title: Text(
-                  gameSession == null ? t.game : gameSession!.script.name,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      gameSession == null ? t.game : gameSession!.script.name,
+                    ),
+                    IconButton(
+                        icon: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          transitionBuilder: (child, animation) {
+                            return ScaleTransition(
+                              scale: Tween<double>(begin: 0, end: 1)
+                                  .animate(animation),
+                              child: child,
+                            );
+                          },
+                          child: settings.themeMode == ThemeMode.light
+                              ? Transform.rotate(
+                                  angle: 3,
+                                  child: Icon(
+                                    Icons.nightlight,
+                                    key: const ValueKey('dark-theme'),
+                                    size: 20,
+                                    semanticLabel: t.darkTheme,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Icon(
+                                  Icons.sunny,
+                                  key: const ValueKey('light-theme'),
+                                  size: 20,
+                                  color: Colors.white,
+                                  semanticLabel: t.lightTheme,
+                                ),
+                        ),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        style: const ButtonStyle(
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        onPressed: () => setState(() {
+                              final newValue =
+                                  settings.themeMode == ThemeMode.light
+                                      ? ThemeMode.dark
+                                      : ThemeMode.light;
+                              ref
+                                  .read(settingsProvider.notifier)
+                                  .setTheme(newValue);
+                            })),
+                  ],
                 ),
                 centerTitle: false,
                 bottom: gameSession == null

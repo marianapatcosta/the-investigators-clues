@@ -18,6 +18,13 @@ class CharacterItem extends StatelessWidget {
   final Character character;
   final bool? small;
 
+  Future<void> _launchInWebView(Uri url) async {
+    if (!await launchUrl(url,
+        mode: LaunchMode.inAppWebView, webOnlyWindowName: '_self')) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   void onSelectCharacter(BuildContext context) async {
     if (kIsWeb) {
       final [scheme, host] = botcWikiUrl.split('://');
@@ -35,13 +42,7 @@ class CharacterItem extends StatelessWidget {
 
         url = Uri(scheme: scheme, host: host, path: path, query: query);
       }
-      if (!await launchUrl(
-        url,
-        mode: LaunchMode.inAppWebView,
-        webOnlyWindowName: '_self',
-      )) {
-        throw Exception('Could not launch $url');
-      }
+      _launchInWebView(url);
       return;
     }
     Navigator.push(

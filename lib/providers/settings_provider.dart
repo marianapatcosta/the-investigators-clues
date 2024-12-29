@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:my_botc_notes/models/settings.dart';
+import 'theme_color_fallback.dart'
+    if (dart.library.html) 'theme_color_web.dart';
 
 const kSettings = 'settings';
 
@@ -60,6 +63,13 @@ class SettingsNotifier extends Notifier<Settings> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     state = state.copyWith(themeMode: theme);
     saveState(preferences);
+
+    if (kIsWeb) {
+      final color = theme == ThemeMode.dark ? '#231e23' : '#2c0b3f';
+
+      // change title bar theme color for PWA
+      updateThemeColor(color);
+    }
   }
 
   void setLocale(Locale locale) async {

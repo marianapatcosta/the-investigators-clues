@@ -112,9 +112,11 @@ class _VotingPhaseCheckbox extends StatelessWidget {
       message: label,
       child: orientation == Orientation.portrait
           ? Row(
+              mainAxisSize: MainAxisSize.min,
               children: content,
             )
           : Column(
+              mainAxisSize: MainAxisSize.min,
               children: content,
             ),
     );

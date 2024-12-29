@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
+import 'package:my_botc_notes/providers/index.dart';
 import 'package:my_botc_notes/screens/index.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
@@ -9,63 +11,21 @@ import 'package:my_botc_notes/widgets/index.dart'
 const double _titleWidth = 130;
 const double _checkboxWidth = 250;
 
-class GrimoireSettings extends StatefulWidget {
+class GrimoireSettings extends ConsumerStatefulWidget {
   const GrimoireSettings({
     super.key,
-    required this.playerTokenScale,
-    required this.reminderTokenScale,
-    required this.showPlayersNotes,
-    required this.showVotingPhase,
-    required this.showGamePhase,
-    required this.showGameSetup,
-    required this.onUpdatePlayerTokenScale,
-    required this.onUpdateReminderTokenScale,
-    required this.onUpdateShowPlayersNotes,
-    required this.onUpdateShowVotesNominations,
-    required this.onUpdateShowGamePhase,
-    required this.onUpdateShowGameSetup,
   });
 
-  final double playerTokenScale;
-  final double reminderTokenScale;
-  final bool showPlayersNotes;
-  final bool showVotingPhase;
-  final bool showGamePhase;
-  final bool showGameSetup;
-  final void Function(double) onUpdatePlayerTokenScale;
-  final void Function(double) onUpdateReminderTokenScale;
-  final void Function() onUpdateShowPlayersNotes;
-  final void Function() onUpdateShowGameSetup;
-  final void Function() onUpdateShowVotesNominations;
-  final void Function() onUpdateShowGamePhase;
-
   @override
-  State<GrimoireSettings> createState() {
+  ConsumerState<GrimoireSettings> createState() {
     return _GrimoireSettingsState();
   }
 }
 
-class _GrimoireSettingsState extends State<GrimoireSettings> {
-  late double _playerTokenScale;
-  late double _reminderTokenScale;
-  late bool _showPlayersNotes;
-  late bool _showPlayersVotesNominations;
-  late bool _showGamePhase;
-  late bool _showGameSetup;
-
-  @override
-  void initState() {
-    super.initState();
-    _playerTokenScale = widget.playerTokenScale;
-    _reminderTokenScale = widget.reminderTokenScale;
-    _showPlayersNotes = widget.showPlayersNotes;
-    _showPlayersVotesNominations = widget.showVotingPhase;
-    _showGamePhase = widget.showGamePhase;
-    _showGameSetup = widget.showGameSetup;
-  }
-
+class _GrimoireSettingsState extends ConsumerState<GrimoireSettings> {
   @override
   Widget build(BuildContext context) {
+    final settings = ref.watch(settingsProvider);
     final t = AppLocalizations.of(context);
     final width = MediaQuery.of(context).size.width;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
@@ -81,15 +41,9 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
           width: 8,
         ),
         Checkbox(
-          value: _showPlayersNotes,
+          value: settings.showPlayersNotes,
           onChanged: (bool? newValue) {
-            setState(() {
-              if (!_showPlayersNotes && _showPlayersVotesNominations) {
-                _showPlayersVotesNominations = false;
-              }
-              _showPlayersNotes = !_showPlayersNotes;
-              widget.onUpdateShowPlayersNotes();
-            });
+            ref.read(settingsProvider.notifier).toggleShowPlayersNotes();
           },
         ),
       ],
@@ -105,15 +59,9 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
           width: 8,
         ),
         Checkbox(
-          value: _showPlayersVotesNominations,
+          value: settings.showVotingPhase,
           onChanged: (bool? newValue) {
-            setState(() {
-              if (!_showPlayersVotesNominations && _showPlayersNotes) {
-                _showPlayersNotes = false;
-              }
-              _showPlayersVotesNominations = !_showPlayersVotesNominations;
-              widget.onUpdateShowVotesNominations();
-            });
+            ref.read(settingsProvider.notifier).toggleShowVotingPhase();
           },
         ),
       ],
@@ -129,12 +77,9 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
           width: 8,
         ),
         Checkbox(
-          value: _showGamePhase,
+          value: settings.showGamePhase,
           onChanged: (bool? newValue) {
-            setState(() {
-              _showGamePhase = !_showGamePhase;
-              widget.onUpdateShowGamePhase();
-            });
+            ref.read(settingsProvider.notifier).toggleShowGamePhase();
           },
         ),
       ],
@@ -150,12 +95,9 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
           width: 8,
         ),
         Checkbox(
-          value: _showGameSetup,
+          value: settings.showGameSetup,
           onChanged: (bool? newValue) {
-            setState(() {
-              _showGameSetup = !_showGameSetup;
-              widget.onUpdateShowGameSetup();
-            });
+            ref.read(settingsProvider.notifier).toggleShowGameSetup();
           },
         ),
       ],
@@ -179,12 +121,11 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
                 ),
                 Expanded(
                   child: NumberSlider(
-                    value: _playerTokenScale,
+                    value: settings.playerTokenScale,
                     onChange: (value) {
-                      setState(() {
-                        _playerTokenScale = value;
-                        widget.onUpdatePlayerTokenScale(value);
-                      });
+                      ref
+                          .read(settingsProvider.notifier)
+                          .setPlayerTokenScale(value);
                     },
                     min: 0.5,
                     max: 2,
@@ -208,12 +149,11 @@ class _GrimoireSettingsState extends State<GrimoireSettings> {
                 ),
                 Expanded(
                   child: NumberSlider(
-                    value: _reminderTokenScale,
+                    value: settings.reminderTokenScale,
                     onChange: (value) {
-                      setState(() {
-                        _reminderTokenScale = value;
-                        widget.onUpdateReminderTokenScale(value);
-                      });
+                      ref
+                          .read(settingsProvider.notifier)
+                          .setReminderTokenScale(value);
                     },
                     min: kMinScale,
                     max: kMaxScale,

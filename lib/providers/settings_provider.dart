@@ -28,6 +28,12 @@ class SettingsNotifier extends Notifier<Settings> {
         locale: Locale(
           settings['locale'],
         ),
+        showPlayersNotes: settings['showPlayersNotes'],
+        showVotingPhase: settings['showVotingPhase'],
+        showGamePhase: settings['showGamePhase'],
+        showGameSetup: settings['showGameSetup'],
+        playerTokenScale: settings['playerTokenScale'],
+        reminderTokenScale: settings['reminderTokenScale'],
       );
     }
   }
@@ -39,6 +45,12 @@ class SettingsNotifier extends Notifier<Settings> {
         {
           'locale': state.locale.toString(),
           'themeMode': state.themeMode.name,
+          'showPlayersNotes': state.showPlayersNotes,
+          'showVotingPhase': state.showVotingPhase,
+          'showGamePhase': state.showGamePhase,
+          'showGameSetup': state.showGameSetup,
+          'playerTokenScale': state.playerTokenScale,
+          'reminderTokenScale': state.reminderTokenScale,
         },
       ),
     );
@@ -53,6 +65,52 @@ class SettingsNotifier extends Notifier<Settings> {
   void setLocale(Locale locale) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     state = state.copyWith(locale: locale);
+    saveState(preferences);
+  }
+
+  void toggleShowPlayersNotes() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    final updatedShowVotingPhase =
+        !state.showPlayersNotes ? false : state.showVotingPhase;
+
+    state = state.copyWith(
+        showPlayersNotes: !state.showPlayersNotes,
+        showVotingPhase: updatedShowVotingPhase);
+    saveState(preferences);
+  }
+
+  void toggleShowVotingPhase() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    final updatedShowPlayersNotes =
+        !state.showVotingPhase ? false : state.showPlayersNotes;
+    state = state.copyWith(
+        showVotingPhase: !state.showVotingPhase,
+        showPlayersNotes: updatedShowPlayersNotes);
+    saveState(preferences);
+  }
+
+  void toggleShowGamePhase() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    state = state.copyWith(showGamePhase: !state.showGamePhase);
+    saveState(preferences);
+  }
+
+  void toggleShowGameSetup() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    state = state.copyWith(showGameSetup: !state.showGameSetup);
+    saveState(preferences);
+  }
+
+  void setPlayerTokenScale(double scale) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    state = state.copyWith(playerTokenScale: scale);
+    saveState(preferences);
+  }
+
+  void setReminderTokenScale(double scale) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    state = state.copyWith(reminderTokenScale: scale);
     saveState(preferences);
   }
 }

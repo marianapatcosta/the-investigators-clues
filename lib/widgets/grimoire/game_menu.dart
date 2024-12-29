@@ -13,13 +13,9 @@ class GameMenu extends StatelessWidget {
   const GameMenu({
     super.key,
     required this.menuActions,
-    this.showPlayersNotes = false,
-    this.showVotingPhase = false,
   });
 
   final Map<MenuItem, void Function()> menuActions;
-  final bool showPlayersNotes;
-  final bool showVotingPhase;
 
   @override
   Widget build(BuildContext context) {

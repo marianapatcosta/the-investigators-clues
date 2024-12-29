@@ -56,12 +56,6 @@ class GameScreen extends ConsumerStatefulWidget {
 class _GameScreenState extends ConsumerState<GameScreen>
     with AutomaticKeepAliveClientMixin {
   GameSession? gameSession;
-  bool _showPlayersNotes = false;
-  bool _showVotingPhase = false;
-  bool _showGamePhase = true;
-  bool _showGameSetup = true;
-  double _playerTokenScale = 1;
-  double _reminderTokenScale = 1;
   bool _isScrollLocked = false;
   bool _showAllCharactersInStorytellerHelper = false;
   bool _showDeadCharactersInStorytellerHelper = false;
@@ -188,50 +182,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
         builder: (context) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState) {
-            return GrimoireSettings(
-              playerTokenScale: _playerTokenScale,
-              reminderTokenScale: _reminderTokenScale,
-              showPlayersNotes: _showPlayersNotes,
-              showVotingPhase: _showVotingPhase,
-              showGamePhase: _showGamePhase,
-              showGameSetup: _showGameSetup,
-              onUpdatePlayerTokenScale: (value) {
-                setState(() {
-                  _playerTokenScale = value;
-                });
-              },
-              onUpdateReminderTokenScale: (value) {
-                setState(() {
-                  _reminderTokenScale = value;
-                });
-              },
-              onUpdateShowPlayersNotes: () {
-                setState(() {
-                  if (!_showPlayersNotes && _showVotingPhase) {
-                    _showVotingPhase = false;
-                  }
-                  _showPlayersNotes = !_showPlayersNotes;
-                });
-              },
-              onUpdateShowVotesNominations: () {
-                setState(() {
-                  if (!_showVotingPhase && _showPlayersNotes) {
-                    _showPlayersNotes = false;
-                  }
-                  _showVotingPhase = !_showVotingPhase;
-                });
-              },
-              onUpdateShowGamePhase: () {
-                setState(() {
-                  _showGamePhase = !_showGamePhase;
-                });
-              },
-              onUpdateShowGameSetup: () {
-                setState(() {
-                  _showGameSetup = !_showGameSetup;
-                });
-              },
-            );
+            return GrimoireSettings();
           });
         });
   }
@@ -294,14 +245,10 @@ class _GameScreenState extends ConsumerState<GameScreen>
       content = SliverToBoxAdapter(
           child: Grimoire(
               gameSession: gameSession!,
-              showPlayersNotes: _showPlayersNotes,
-              showVotingPhase: _showVotingPhase,
-              showGamePhase: _showGamePhase,
-              showGameSetup: _showGameSetup,
-              playerTokenScale: _playerTokenScale,
-              reminderTokenScale: _reminderTokenScale,
               saveGameSession: _saveGameSession,
-              updateParent: () => setState(() {})));
+              updateParent: () => setState(
+                    () {},
+                  )));
     }
 
     return Layout(
@@ -453,8 +400,6 @@ class _GameScreenState extends ConsumerState<GameScreen>
                                   ),
                                 ],
                                 GameMenu(
-                                  showPlayersNotes: _showPlayersNotes,
-                                  showVotingPhase: _showVotingPhase,
                                   menuActions: {
                                     MenuItem.addPlayer: () => _onAddPlayer(
                                         gameSession!.script.characters

@@ -1,0 +1,1 @@
+void updateThemeColor(String color) {}

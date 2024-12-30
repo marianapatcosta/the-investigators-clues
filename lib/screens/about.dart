@@ -1,3 +1,4 @@
+import 'package:my_botc_notes/widgets/index.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/gestures.dart';
@@ -241,6 +242,17 @@ class AboutScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 32,
+              ),
+              Text(
+                t.acknowledgments,
+                style: theme.textTheme.titleMedium!.copyWith(height: 1.25),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              const Acknowledgments()
             ]),
           ),
         ),

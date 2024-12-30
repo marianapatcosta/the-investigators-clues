@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show charactersMap;
 import 'package:my_botc_notes/models/index.dart'
     show Character, Player, Reminder, Team;
-import 'package:my_botc_notes/screens/edit_player.dart';
+import 'package:my_botc_notes/providers/index.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
     show CharacterToken, GhostVoteToken, PlayerVotingPhase;
-import 'package:my_botc_notes/screens/index.dart' show EditPlayer;
+import 'package:my_botc_notes/screens/index.dart'
+    show EditPlayer, EditPlayerData;
 
-class PlayerItem extends StatefulWidget {
+class PlayerItem extends ConsumerStatefulWidget {
   const PlayerItem({
     super.key,
     required this.player,
@@ -19,9 +21,6 @@ class PlayerItem extends StatefulWidget {
     required this.constraints,
     required this.inPlayCharactersIds,
     required this.isStorytellerMode,
-    this.showPlayersNotes = false,
-    this.showVotingPhase = false,
-    this.playerTokenScale = 1,
     this.firstNightOrder,
     this.otherNightsOrder,
     required this.removePlayer,
@@ -36,9 +35,6 @@ class PlayerItem extends StatefulWidget {
   final BoxConstraints constraints;
   final List<String> inPlayCharactersIds;
   final bool isStorytellerMode;
-  final bool showPlayersNotes;
-  final bool showVotingPhase;
-  final double playerTokenScale;
   final int? firstNightOrder;
   final int? otherNightsOrder;
   final void Function() removePlayer;
@@ -57,12 +53,12 @@ class PlayerItem extends StatefulWidget {
   }
 
   @override
-  State<PlayerItem> createState() {
+  ConsumerState<PlayerItem> createState() {
     return _PlayerItemState();
   }
 }
 
-class _PlayerItemState extends State<PlayerItem> {
+class _PlayerItemState extends ConsumerState<PlayerItem> {
   void _openEditPlayer(BuildContext context) async {
     final EditPlayerData editPlayerData = await Navigator.push(
       context,
@@ -149,10 +145,11 @@ class _PlayerItemState extends State<PlayerItem> {
     final grimoireSize = getGrimoireSize(context);
 
     final isPlayerOnRightSide = _offset.dx > grimoireSize.width / 2;
+    final settings = ref.watch(settingsProvider);
 
-    final double additionalInfoWidth = widget.showPlayersNotes
-        ? kPlayerNotesSize
-        : (widget.showVotingPhase ? kPlayerCheckboxesSize : 0);
+    final double additionalInfoWidth = settings.showPlayersNotes
+        ? kPlayerNotesSize + 2
+        : (settings.showVotingPhase ? kPlayerCheckboxesSize : 0) + 2;
 
     return Positioned(
         left:
@@ -185,20 +182,20 @@ class _PlayerItemState extends State<PlayerItem> {
               widget.player.setY = _offset.dy;
               widget.saveGameSession();
             },
-            child: Transform.scale(
-              scale: widget.playerTokenScale,
-              child: SizedBox(
-                width: kCharacterTokenSizeSmall + additionalInfoWidth + 2,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: isPlayerOnRightSide
-                          ? Alignment.topRight
-                          : Alignment.topLeft,
-                      child: Column(
-                        children: [
-                          Hero(
-                            tag: id,
+            child: SizedBox(
+              width: kCharacterTokenSizeSmall + additionalInfoWidth + 2,
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: isPlayerOnRightSide
+                        ? Alignment.topRight
+                        : Alignment.topLeft,
+                    child: Column(
+                      children: [
+                        Hero(
+                          tag: id,
+                          child: Transform.scale(
+                            scale: settings.playerTokenScale,
                             child: Material(
                               type: MaterialType.transparency,
                               child: Stack(
@@ -272,29 +269,32 @@ class _PlayerItemState extends State<PlayerItem> {
                               ),
                             ),
                           ),
-                          if (widget.player.name != '')
-                            Card(
-                              margin: const EdgeInsets.symmetric(vertical: 4),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                        ),
+                        if (widget.player.name != '')
+                          Card(
+                            margin: const EdgeInsets.symmetric(vertical: 4),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 4),
+                              child: Text(
+                                widget.player.name,
+                                style: theme.textTheme.bodyMedium,
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 4),
-                                child: Text(
-                                  widget.player.name,
-                                  style: theme.textTheme.bodyMedium,
-                                ),
-                              ),
-                            )
-                        ],
-                      ),
+                            ),
+                          )
+                      ],
                     ),
-                    if (widget.showVotingPhase)
-                      Positioned(
-                        top: 0,
-                        left: isPlayerOnRightSide ? 0 : null,
-                        right: isPlayerOnRightSide ? null : 0,
+                  ),
+                  if (settings.showVotingPhase)
+                    Transform.scale(
+                      scale: settings.playerTokenScale,
+                      child: Align(
+                        alignment: isPlayerOnRightSide
+                            ? Alignment.topLeft
+                            : Alignment.topRight,
                         child: PlayerVotingPhase(
                           didPlayerVote: votedToday,
                           didPlayerNominate: nominatedToday,
@@ -318,8 +318,11 @@ class _PlayerItemState extends State<PlayerItem> {
                           },
                         ),
                       ),
-                    if (widget.showPlayersNotes && notes != '')
-                      Align(
+                    ),
+                  if (settings.showPlayersNotes && notes != '')
+                    Transform.scale(
+                      scale: settings.playerTokenScale,
+                      child: Align(
                           alignment: isPlayerOnRightSide
                               ? Alignment.topLeft
                               : Alignment.topRight,
@@ -346,9 +349,9 @@ class _PlayerItemState extends State<PlayerItem> {
                                 ),
                               ),
                             ),
-                          ))
-                  ],
-                ),
+                          )),
+                    )
+                ],
               ),
             ),
           ),

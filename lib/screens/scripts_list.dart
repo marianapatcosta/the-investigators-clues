@@ -8,7 +8,12 @@ import 'package:my_botc_notes/models/script.dart';
 import 'package:my_botc_notes/providers/index.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
-    show Layout, ScriptItem, ScriptItemSkeleton, ScriptsListAppBar;
+    show
+        CustomSafeArea,
+        Layout,
+        ScriptItem,
+        ScriptItemSkeleton,
+        ScriptsListAppBar;
 
 const kScriptsPerPage = 10;
 const kScriptsPlaceholderNumber = 5;
@@ -169,6 +174,7 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final t = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
@@ -280,23 +286,25 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen>
           onRefresh: _handleRefresh,
           color: theme.colorScheme.surface,
           backgroundColor: theme.colorScheme.primary,
-          child: CustomScrollView(
-            controller: _showOnlyFavorites ? null : _scrollController,
-            slivers: [
-              ScriptsListAppBar(
-                showOnlyFavorites: _showOnlyFavorites,
-                searchController: _searchController,
-                toggleShowOnlyFavorites: toggleShowOnlyFavorites,
-                onChange: _showOnlyFavorites
-                    ? (input) => setState(() {})
-                    : _fetchScripts,
-                clearSearch: _clearSearch,
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.only(top: 16),
-                sliver: content,
-              )
-            ],
+          child: CustomSafeArea(
+            child: CustomScrollView(
+              controller: _showOnlyFavorites ? null : _scrollController,
+              slivers: [
+                ScriptsListAppBar(
+                  showOnlyFavorites: _showOnlyFavorites,
+                  searchController: _searchController,
+                  toggleShowOnlyFavorites: toggleShowOnlyFavorites,
+                  onChange: _showOnlyFavorites
+                      ? (input) => setState(() {})
+                      : _fetchScripts,
+                  clearSearch: _clearSearch,
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(top: 16),
+                  sliver: content,
+                )
+              ],
+            ),
           ),
         ),
       ),

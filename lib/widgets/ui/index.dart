@@ -1,4 +1,5 @@
 export 'button_tab.dart';
+export 'custom_safearea.dart';
 export 'dropdown_search.dart';
 export 'form_action_bar.dart';
 export 'dropdown.dart';

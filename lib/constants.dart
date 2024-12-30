@@ -6,13 +6,11 @@ import 'package:my_botc_notes/models/info_token.dart';
 import 'package:my_botc_notes/models/reminder.dart';
 import 'package:my_botc_notes/models/screen_metadata.dart';
 import 'package:my_botc_notes/screens/about.dart';
-import 'package:my_botc_notes/screens/acknowledgments.dart';
 import 'package:my_botc_notes/screens/characters_list.dart';
 import 'package:my_botc_notes/screens/game.dart';
 import 'package:my_botc_notes/screens/more.dart';
 import 'package:my_botc_notes/screens/rules.dart';
 import 'package:my_botc_notes/screens/scripts_list.dart';
-import 'package:my_botc_notes/screens/settings.dart';
 import 'package:my_botc_notes/utils.dart';
 
 const uuid = Uuid();
@@ -59,7 +57,7 @@ final screensMetadata = [
     icon: Icons.info_outlined,
     screen: AboutScreen(),
   ),
-  const ScreenMetadata(
+/*   const ScreenMetadata(
     titleKey: 'settings',
     icon: Icons.settings,
     screen: SettingsScreen(),
@@ -68,7 +66,7 @@ final screensMetadata = [
     titleKey: 'acknowledgments',
     icon: Icons.handshake_outlined,
     screen: AcknowledgmentsScreen(),
-  ),
+  ), */
 ];
 
 const moreScreenMetadata = ScreenMetadata(

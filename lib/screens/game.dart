@@ -278,8 +278,13 @@ class _GameScreenState extends ConsumerState<GameScreen>
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      gameSession == null ? t.game : gameSession!.script.name,
+                    Expanded(
+                      child: Text(
+                        gameSession == null ? t.game : gameSession!.script.name,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 4,
                     ),
                     IconButton(
                         icon: AnimatedSwitcher(

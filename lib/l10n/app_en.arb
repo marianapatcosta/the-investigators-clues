@@ -43,6 +43,7 @@
   "drawing": "Drawing...", 
   "drawCharacters": "Draw characters", 
   "drawYourCharacter": "Grab your character from the bag!", 
+  "eachNightExcept": "* Each night except the first night.", 
   "edit": "Edit", 
   "editGeneralNotes": "Edit general notes", 
   "editInfoToken": "Edit info token", 

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart';
 import 'package:my_botc_notes/models/index.dart'
     show Character, CustomInfoToken, GameSession, Player, Reminder;
+import 'package:my_botc_notes/providers/index.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
     show
@@ -17,37 +19,25 @@ import 'package:my_botc_notes/widgets/index.dart'
         PlayerItem,
         ReminderItem;
 
-class Grimoire extends StatefulWidget {
+class Grimoire extends ConsumerStatefulWidget {
   const Grimoire({
     super.key,
     required this.gameSession,
-    this.showPlayersNotes = false,
-    this.showVotingPhase = false,
-    this.showGamePhase = true,
-    this.showGameSetup = true,
-    this.playerTokenScale = 1,
-    this.reminderTokenScale = 1,
     required this.saveGameSession,
     required this.updateParent,
   });
 
   final GameSession gameSession;
-  final bool showPlayersNotes;
-  final bool showVotingPhase;
-  final bool showGamePhase;
-  final bool showGameSetup;
-  final double playerTokenScale;
-  final double reminderTokenScale;
   final void Function() saveGameSession;
   final void Function() updateParent;
 
   @override
-  State<Grimoire> createState() {
+  ConsumerState<Grimoire> createState() {
     return _GrimoireState();
   }
 }
 
-class _GrimoireState extends State<Grimoire> {
+class _GrimoireState extends ConsumerState<Grimoire> {
   bool get isLunaticInPlay {
     if (!widget.gameSession.isStorytellerMode) {
       return false;
@@ -161,7 +151,9 @@ class _GrimoireState extends State<Grimoire> {
   }
 
   void _updateGamePhase(String gamePhase) {
-    if (widget.showVotingPhase && gamePhase.startsWith('D')) {
+    final settings = ref.watch(settingsProvider);
+
+    if (settings.showVotingPhase && gamePhase.startsWith('D')) {
       for (final player in widget.gameSession.players) {
         player.setVotedToday = false;
         player.setNominatedToday = false;
@@ -267,6 +259,7 @@ class _GrimoireState extends State<Grimoire> {
     final width = MediaQuery.of(context).size.width;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
     final grimoireSize = getGrimoireSize(context);
+    final settings = ref.watch(settingsProvider);
 
     final GameSession(
       :players,
@@ -323,11 +316,11 @@ class _GrimoireState extends State<Grimoire> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (widget.showGamePhase)
+                if (settings.showGamePhase)
                   GamePhase(
                       gamePhase: gamePhase,
                       onUpdateGamePhase: _updateGamePhase),
-                if (widget.showGameSetup)
+                if (settings.showGameSetup)
                   GameSetupTable(
                     gameSetup: gameSetup,
                     numberOfPlayers: numberOfPlayers,
@@ -386,9 +379,6 @@ class _GrimoireState extends State<Grimoire> {
                 sessionCharacters: sessionCharacters,
                 sessionReminders: reminders,
                 isStorytellerMode: isStorytellerMode,
-                showPlayersNotes: widget.showPlayersNotes,
-                showVotingPhase: widget.showVotingPhase,
-                playerTokenScale: widget.playerTokenScale,
                 firstNightOrder:
                     _getCharacterOrder(player.characterId, NightType.first),
                 otherNightsOrder:
@@ -410,7 +400,6 @@ class _GrimoireState extends State<Grimoire> {
                     reminder: reminder,
                     constraints: constraints,
                     sessionCharacters: sessionCharacters,
-                    reminderTokenScale: widget.reminderTokenScale,
                     removeReminder: () => _onRemoveReminder(reminder),
                     saveGameSession: widget.saveGameSession),
           ]),

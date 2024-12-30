@@ -484,6 +484,16 @@ class _NewGameStorytellerFormState
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              SizedBox(
+                width: 300,
+                child: Text(
+                  t.addRemindersFirstNight,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
               Checkbox(
                 value: _addRemindersFirstNight,
                 onChanged: (bool? newValue) {
@@ -492,19 +502,22 @@ class _NewGameStorytellerFormState
                   });
                 },
               ),
-              const SizedBox(
-                width: 8,
-              ),
-              Text(
-                t.addRemindersFirstNight,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
             ],
           ),
           for (final badDisabledReminder in _bagDisabledReminders)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                SizedBox(
+                  width: 300,
+                  child: Text(
+                    '${t.add} ${badDisabledReminder.reminder.reminder}',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
                 Checkbox(
                   value: badDisabledReminder.addToGrimoire,
                   onChanged: (bool? newValue) {
@@ -512,13 +525,6 @@ class _NewGameStorytellerFormState
                       badDisabledReminder.setAddToGrimoire = newValue ?? false;
                     });
                   },
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  '${t.add} ${badDisabledReminder.reminder.reminder}',
-                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],
             ),

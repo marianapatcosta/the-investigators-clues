@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_botc_notes/providers/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,6 +12,7 @@ import 'package:my_botc_notes/models/index.dart'
 import 'package:my_botc_notes/widgets/index.dart'
     show
         ButtonTab,
+        CustomSafeArea,
         GameMenu,
         Grimoire,
         Layout,
@@ -39,26 +42,20 @@ final gameTabsMetadata = {
 
 final scaffoldKey = GlobalKey<ScaffoldState>();
 
-class GameScreen extends StatefulWidget {
+class GameScreen extends ConsumerStatefulWidget {
   const GameScreen({
     super.key,
   });
 
   @override
-  State<GameScreen> createState() {
+  ConsumerState<GameScreen> createState() {
     return _GameScreenState();
   }
 }
 
-class _GameScreenState extends State<GameScreen>
+class _GameScreenState extends ConsumerState<GameScreen>
     with AutomaticKeepAliveClientMixin {
   GameSession? gameSession;
-  bool _showPlayersNotes = false;
-  bool _showVotingPhase = false;
-  bool _showGamePhase = true;
-  bool _showGameSetup = true;
-  double _playerTokenScale = 1;
-  double _reminderTokenScale = 1;
   bool _isScrollLocked = false;
   bool _showAllCharactersInStorytellerHelper = false;
   bool _showDeadCharactersInStorytellerHelper = false;
@@ -185,50 +182,7 @@ class _GameScreenState extends State<GameScreen>
         builder: (context) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState) {
-            return GrimoireSettings(
-              playerTokenScale: _playerTokenScale,
-              reminderTokenScale: _reminderTokenScale,
-              showPlayersNotes: _showPlayersNotes,
-              showVotingPhase: _showVotingPhase,
-              showGamePhase: _showGamePhase,
-              showGameSetup: _showGameSetup,
-              onUpdatePlayerTokenScale: (value) {
-                setState(() {
-                  _playerTokenScale = value;
-                });
-              },
-              onUpdateReminderTokenScale: (value) {
-                setState(() {
-                  _reminderTokenScale = value;
-                });
-              },
-              onUpdateShowPlayersNotes: () {
-                setState(() {
-                  if (!_showPlayersNotes && _showVotingPhase) {
-                    _showVotingPhase = false;
-                  }
-                  _showPlayersNotes = !_showPlayersNotes;
-                });
-              },
-              onUpdateShowVotesNominations: () {
-                setState(() {
-                  if (!_showVotingPhase && _showPlayersNotes) {
-                    _showPlayersNotes = false;
-                  }
-                  _showVotingPhase = !_showVotingPhase;
-                });
-              },
-              onUpdateShowGamePhase: () {
-                setState(() {
-                  _showGamePhase = !_showGamePhase;
-                });
-              },
-              onUpdateShowGameSetup: () {
-                setState(() {
-                  _showGameSetup = !_showGameSetup;
-                });
-              },
-            );
+            return GrimoireSettings();
           });
         });
   }
@@ -241,51 +195,50 @@ class _GameScreenState extends State<GameScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final t = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
     final getTranslationKey = getTranslationKeyGetter(context);
+    final settings = ref.watch(settingsProvider);
 
     Widget content = SliverFillRemaining(
       hasScrollBody: false,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 56,
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: const AssetImage("assets/images/clocktower.png"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.white.withOpacity(0.4),
+              BlendMode.dstATop,
             ),
-            Image(
-              image: const AssetImage("assets/images/clocktower.png"),
-              color: theme.colorScheme.onSurface,
-              width: 150,
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            Text(
-              t.noGame,
-              style: theme.textTheme.bodyLarge!.copyWith(fontSize: 18),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              t.noGameChallenge,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(
-              height: 48,
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                _addGame(context);
-              },
-              label: Text(t.addGame),
-              icon: const Icon(Icons.add),
-            )
-          ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 24.0, left: 24.0, bottom: 48),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                t.noGame,
+                style: theme.textTheme.bodyLarge!
+                    .copyWith(fontSize: 20, fontWeight: FontWeight.w900),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 48,
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  _addGame(context);
+                },
+                label: Text(t.addGame),
+                icon: const Icon(Icons.add),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -300,149 +253,199 @@ class _GameScreenState extends State<GameScreen>
       content = SliverToBoxAdapter(
           child: Grimoire(
               gameSession: gameSession!,
-              showPlayersNotes: _showPlayersNotes,
-              showVotingPhase: _showVotingPhase,
-              showGamePhase: _showGamePhase,
-              showGameSetup: _showGameSetup,
-              playerTokenScale: _playerTokenScale,
-              reminderTokenScale: _reminderTokenScale,
               saveGameSession: _saveGameSession,
-              updateParent: () => setState(() {})));
+              updateParent: () => setState(
+                    () {},
+                  )));
     }
 
     return Layout(
       child: Scaffold(
         key: scaffoldKey,
-        body: CustomScrollView(
-          physics: _isScrollLocked && _gameTab == GameTab.setup
-              ? const NeverScrollableScrollPhysics()
-              : null,
-          slivers: [
-            SliverAppBar(
-              expandedHeight: kTabsAppBarHeight,
-              automaticallyImplyLeading:
-                  isScreenSmallerThanX(width, ScreenSize.l),
-              actions: <Widget>[
-                Container()
-              ], // hide default hamburger menu for open drawer
-              title: Text(
-                gameSession == null ? t.game : gameSession!.script.name,
-              ),
-              centerTitle: false,
-              bottom: gameSession == null
-                  ? null
-                  : PreferredSize(
-                      preferredSize: const Size.fromHeight(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 4, vertical: 0),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Wrap(
-                                spacing: 4,
-                                children: [
-                                  for (final item in gameTabsMetadata.entries)
-                                    ButtonTab(
-                                      label: getTranslationKey(item.value),
-                                      isSelected: _gameTab == item.key,
-                                      onPressed: () => _toggleTab(
-                                        item.key,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Wrap(
-                            spacing: 4,
-                            children: [
-                              if (gameSession != null &&
-                                  gameSession!.isStorytellerMode &&
-                                  _gameTab == GameTab.setup) ...[
-                                IconButton(
-                                    icon: AnimatedSwitcher(
-                                        duration:
-                                            const Duration(milliseconds: 300),
-                                        transitionBuilder: (child, animation) {
-                                          return ScaleTransition(
-                                            scale:
-                                                Tween<double>(begin: 0, end: 1)
-                                                    .animate(animation),
-                                            child: child,
-                                          );
-                                        },
-                                        child: _isScrollLocked
-                                            ? ImageIcon(
-                                                key: const ValueKey(
-                                                    'scroll-locked'),
-                                                const AssetImage(
-                                                    "assets/images/lock.png"),
-                                                size: 20,
-                                                semanticLabel: t.unlockScroll,
-                                                color: Colors.white,
-                                              )
-                                            : ImageIcon(
-                                                key: const ValueKey(
-                                                    'scroll-unlocked'),
-                                                const AssetImage(
-                                                    "assets/images/unlock.png"),
-                                                size: 20,
-                                                color: Colors.white,
-                                                semanticLabel: t.lockScroll,
-                                              )),
-                                    onPressed: () => setState(() {
-                                          _isScrollLocked = !_isScrollLocked;
-                                        })),
-                                IconButton(
-                                  icon: ImageIcon(
-                                    const AssetImage(
-                                        "assets/images/fire_lighter.png"),
-                                    size: 20,
-                                    color: Colors.white,
-                                    semanticLabel: t.storytellerHelper,
-                                  ),
-                                  onPressed: () =>
-                                      scaffoldKey.currentState?.openEndDrawer(),
-                                ),
-                              ],
-                              GameMenu(
-                                showPlayersNotes: _showPlayersNotes,
-                                showVotingPhase: _showVotingPhase,
-                                menuActions: {
-                                  MenuItem.addPlayer: () => _onAddPlayer(
-                                      gameSession!.script.characters
-                                          .where((character) =>
-                                              character.team !=
-                                                  Team.traveller &&
-                                              character.team != Team.fabled)
-                                          .toList()),
-                                  MenuItem.addTraveller: _onAddTraveller,
-                                  MenuItem.addFabled: _onAddFabled,
-                                  MenuItem.grimoireSettings:
-                                      _onOpenGrimoireSettings,
-                                  MenuItem.delete: () {
-                                    showDeleteGameDialog(
-                                        context, t.deleteGameAreYouSure, () {
-                                      setState(() {
-                                        gameSession = null;
-                                        _saveGameSession();
-                                      });
-                                    });
-                                  },
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
+        body: CustomSafeArea(
+          child: CustomScrollView(
+            physics: _isScrollLocked && _gameTab == GameTab.setup
+                ? const NeverScrollableScrollPhysics()
+                : null,
+            slivers: [
+              SliverAppBar(
+                expandedHeight: kTabsAppBarHeight,
+                automaticallyImplyLeading:
+                    isScreenSmallerThanX(width, ScreenSize.l),
+                actions: <Widget>[
+                  Container()
+                ], // hide default hamburger menu for open drawer
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        gameSession == null ? t.game : gameSession!.script.name,
                       ),
                     ),
-              floating: true,
-            ),
-            content,
-          ],
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    IconButton(
+                        icon: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          transitionBuilder: (child, animation) {
+                            return ScaleTransition(
+                              scale: Tween<double>(begin: 0, end: 1)
+                                  .animate(animation),
+                              child: child,
+                            );
+                          },
+                          child: settings.themeMode == ThemeMode.light
+                              ? Transform.rotate(
+                                  angle: 3,
+                                  child: Icon(
+                                    Icons.nightlight,
+                                    key: const ValueKey('dark-theme'),
+                                    size: 20,
+                                    semanticLabel: t.darkTheme,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Icon(
+                                  Icons.sunny,
+                                  key: const ValueKey('light-theme'),
+                                  size: 20,
+                                  color: Colors.white,
+                                  semanticLabel: t.lightTheme,
+                                ),
+                        ),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        style: const ButtonStyle(
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        onPressed: () => setState(() {
+                              final newValue =
+                                  settings.themeMode == ThemeMode.light
+                                      ? ThemeMode.dark
+                                      : ThemeMode.light;
+                              ref
+                                  .read(settingsProvider.notifier)
+                                  .setTheme(newValue);
+                            })),
+                  ],
+                ),
+                centerTitle: false,
+                bottom: gameSession == null
+                    ? null
+                    : PreferredSize(
+                        preferredSize: const Size.fromHeight(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 4, vertical: 0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Wrap(
+                                  spacing: 4,
+                                  children: [
+                                    for (final item in gameTabsMetadata.entries)
+                                      ButtonTab(
+                                        label: getTranslationKey(item.value),
+                                        isSelected: _gameTab == item.key,
+                                        onPressed: () => _toggleTab(
+                                          item.key,
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Wrap(
+                              spacing: 4,
+                              children: [
+                                if (gameSession != null &&
+                                    gameSession!.isStorytellerMode &&
+                                    _gameTab == GameTab.setup) ...[
+                                  IconButton(
+                                      icon: AnimatedSwitcher(
+                                          duration:
+                                              const Duration(milliseconds: 300),
+                                          transitionBuilder:
+                                              (child, animation) {
+                                            return ScaleTransition(
+                                              scale: Tween<double>(
+                                                      begin: 0, end: 1)
+                                                  .animate(animation),
+                                              child: child,
+                                            );
+                                          },
+                                          child: _isScrollLocked
+                                              ? ImageIcon(
+                                                  key: const ValueKey(
+                                                      'scroll-locked'),
+                                                  const AssetImage(
+                                                      "assets/images/lock.png"),
+                                                  size: 20,
+                                                  semanticLabel: t.unlockScroll,
+                                                  color: Colors.white,
+                                                )
+                                              : ImageIcon(
+                                                  key: const ValueKey(
+                                                      'scroll-unlocked'),
+                                                  const AssetImage(
+                                                      "assets/images/unlock.png"),
+                                                  size: 20,
+                                                  color: Colors.white,
+                                                  semanticLabel: t.lockScroll,
+                                                )),
+                                      onPressed: () => setState(() {
+                                            _isScrollLocked = !_isScrollLocked;
+                                          })),
+                                  IconButton(
+                                    icon: ImageIcon(
+                                      const AssetImage(
+                                          "assets/images/fire_lighter.png"),
+                                      size: 20,
+                                      color: Colors.white,
+                                      semanticLabel: t.storytellerHelper,
+                                    ),
+                                    onPressed: () => scaffoldKey.currentState
+                                        ?.openEndDrawer(),
+                                  ),
+                                ],
+                                GameMenu(
+                                  menuActions: {
+                                    MenuItem.addPlayer: () => _onAddPlayer(
+                                        gameSession!.script.characters
+                                            .where((character) =>
+                                                character.team !=
+                                                    Team.traveller &&
+                                                character.team != Team.fabled)
+                                            .toList()),
+                                    MenuItem.addTraveller: _onAddTraveller,
+                                    MenuItem.addFabled: _onAddFabled,
+                                    MenuItem.grimoireSettings:
+                                        _onOpenGrimoireSettings,
+                                    MenuItem.delete: () {
+                                      showDeleteGameDialog(
+                                          context, t.deleteGameAreYouSure, () {
+                                        setState(() {
+                                          gameSession = null;
+                                          _saveGameSession();
+                                        });
+                                      });
+                                    },
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                floating: true,
+              ),
+              content,
+            ],
+          ),
         ),
         floatingActionButton: _gameTab != GameTab.setup
             ? null

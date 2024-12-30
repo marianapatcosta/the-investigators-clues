@@ -16,8 +16,7 @@ class _TabsScreenState extends State<TabsScreen>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final tabsMetadata = getTabsMetadata(width);
+    final tabsMetadata = screensMetadata; //getTabsMetadata(width);
     final getTranslationKey = getTranslationKeyGetter(context);
 
     return Layout(

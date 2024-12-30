@@ -64,10 +64,9 @@ class SettingsNotifier extends Notifier<Settings> {
     state = state.copyWith(themeMode: theme);
     saveState(preferences);
 
+    // change title bar theme color for PWA
     if (kIsWeb) {
       final color = theme == ThemeMode.dark ? '#231e23' : '#2c0b3f';
-
-      // change title bar theme color for PWA
       updateThemeColor(color);
     }
   }

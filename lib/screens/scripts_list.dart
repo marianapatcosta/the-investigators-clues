@@ -174,6 +174,7 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final t = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;

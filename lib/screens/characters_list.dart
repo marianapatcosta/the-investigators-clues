@@ -5,7 +5,7 @@ import 'package:my_botc_notes/data/characters.dart';
 import 'package:my_botc_notes/models/character.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
-    show CharacterItem, CustomSafeArea, Layout, Search;
+    show CharactersGrid, CharacterItem, CustomSafeArea, Layout, Search;
 
 final kInitialCharactersByTeam = getCharactersByTeam(characters);
 
@@ -65,6 +65,8 @@ class _CharactersListScreenState extends State<CharactersListScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final t = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
@@ -120,25 +122,14 @@ class _CharactersListScreenState extends State<CharactersListScreen>
                                 ),
                                 children: [
                                   if (isScreenBiggerThanX(width, ScreenSize.md))
-                                    GridView(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 8,
-                                        childAspectRatio: 5,
-                                      ),
-                                      children: [
-                                        for (final character in item.value)
-                                          CharacterItem(
-                                              character: character, small: true)
-                                      ],
-                                    )
+                                    CharactersGrid(characters: item.value)
                                   else
-                                    for (final character in item.value)
+                                    for (final character in item.value) ...[
                                       CharacterItem(character: character),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                    ],
                                 ],
                               );
                       },

@@ -5,7 +5,7 @@ import 'package:my_botc_notes/models/index.dart' show Character, Script;
 import 'package:my_botc_notes/screens/index.dart' show CharacterDetailsScreen;
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
-    show CharactersGrid, CharactersList, Jinxes, NightOrder;
+    show CharactersGrid, CharacterItem, Jinxes, NightOrder, TeamScriptTitle;
 
 class ScriptDetailsContent extends StatelessWidget {
   const ScriptDetailsContent({
@@ -62,21 +62,6 @@ class ScriptDetailsContent extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final isLargeScreen = isScreenBiggerThanX(width, ScreenSize.md);
 
-    List<Widget> content = [
-      for (final item in charactersByTeam.entries)
-        CharactersList(characters: item.value, title: item.key)
-    ];
-
-    if (isLargeScreen) {
-      content = [
-        const SizedBox(
-          height: 8,
-        ),
-        for (final item in charactersByTeam.entries)
-          CharactersGrid(characters: item.value, title: item.key),
-      ];
-    }
-
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -87,7 +72,33 @@ class ScriptDetailsContent extends StatelessWidget {
         ),
         child: Column(
           children: [
-            ...content,
+            for (final item in charactersByTeam.entries)
+              Column(
+                children: [
+                  ExpansionTile(
+                      initiallyExpanded: true,
+                      shape: const Border(),
+                      tilePadding: EdgeInsets.zero,
+                      title: TeamScriptTitle(title: item.key),
+                      children: [
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        if (isLargeScreen)
+                          CharactersGrid(characters: item.value)
+                        else
+                          for (final character in item.value) ...[
+                            CharacterItem(character: character),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                          ],
+                        const SizedBox(
+                          height: 16,
+                        ),
+                      ])
+                ],
+              ),
             const SizedBox(
               height: 8,
             ),

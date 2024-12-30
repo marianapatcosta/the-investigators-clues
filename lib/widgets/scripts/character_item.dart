@@ -61,66 +61,71 @@ class CharacterItem extends StatelessWidget {
     final t = AppLocalizations.of(context);
 
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 4),
+      margin: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Center(
-        child: Semantics(
-          link: kIsWeb,
-          button: !kIsWeb,
-          label: '${t.select} ${character.name}',
-          child: InkWell(
-            onTap: () => onSelectCharacter(context),
-            child: Hero(
-              tag: character.id,
-              child: Material(
-                type: MaterialType.transparency,
-                child: ListTile(
-                  title: Transform.translate(
-                    offset: const Offset(-16, 0),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Semantics(
+            link: kIsWeb,
+            button: !kIsWeb,
+            label: '${t.select} ${character.name}',
+            child: InkWell(
+              onTap: () => onSelectCharacter(context),
+              child: Hero(
+                tag: character.id,
+                child: Material(
+                    type: MaterialType.transparency,
+                    // Row because ListTile was not adapting its width when using flutter_layout_grid
                     child: Row(
                       children: [
-                        Text(
-                          character.name,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        if (character.jinxes != null &&
-                            character.jinxes!.jinx.isNotEmpty)
-                          for (final jinx in character.jinxes!.jinx)
-                            SizedBox(
-                              width: 26,
-                              height: 26,
-                              child: CharacterImage(
-                                name: charactersMap[jinx['id']!]!.name,
-                                image: charactersMap[jinx['id']!]!.image,
-                              ),
+                        Center(
+                          child: SizedBox(
+                            width: tokenSize,
+                            height: tokenSize,
+                            child: CharacterImage(
+                              name: character.name,
+                              image: character.image,
                             ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    character.name,
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  if (character.jinxes != null &&
+                                      character.jinxes!.jinx.isNotEmpty)
+                                    for (final jinx in character.jinxes!.jinx)
+                                      SizedBox(
+                                        width: 26,
+                                        height: 26,
+                                        child: CharacterImage(
+                                          name:
+                                              charactersMap[jinx['id']!]!.name,
+                                          image:
+                                              charactersMap[jinx['id']!]!.image,
+                                        ),
+                                      ),
+                                ],
+                              ),
+                              Text(character.ability),
+                            ],
+                          ),
+                        )
                       ],
-                    ),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 0.0,
-                  ),
-                  subtitle: Transform.translate(
-                    offset: const Offset(-16, 0),
-                    child: Text(character.ability),
-                  ),
-                  leading: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: SizedBox(
-                      width: tokenSize,
-                      height: tokenSize,
-                      child: CharacterImage(
-                        name: character.name,
-                        image: character.image,
-                      ),
-                    ),
-                  ),
-                ),
+                    )),
               ),
             ),
           ),

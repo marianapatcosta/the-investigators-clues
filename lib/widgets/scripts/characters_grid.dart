@@ -1,46 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:my_botc_notes/models/index.dart' show Character;
-import 'package:my_botc_notes/widgets/index.dart'
-    show CharacterItem, TeamScriptTitle;
+import 'package:my_botc_notes/widgets/index.dart' show CharacterItem;
+
+const _kColumnNumber = 2;
 
 class CharactersGrid extends StatelessWidget {
   const CharactersGrid({
     super.key,
     required this.characters,
-    required this.title,
   });
 
   final List<Character> characters;
-  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return LayoutGrid(
+      columnSizes: [
+        1.fr,
+        1.fr,
+      ],
+      rowSizes: [
+        for (int index = 0;
+            index < (characters.length / _kColumnNumber).ceil();
+            index++)
+          auto
+      ],
+      rowGap: 8,
+      columnGap: 8,
       children: [
-        ExpansionTile(
-          initiallyExpanded: true,
-          shape: const Border(),
-          tilePadding: EdgeInsets.zero,
-          title: TeamScriptTitle(title: title),
-          children: [
-            GridView(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8,
-                childAspectRatio: 3,
-              ),
-              children: [
-                for (final character in characters)
-                  CharacterItem(character: character, small: true)
-              ],
-            )
-          ],
-        ),
+        for (int index = 0; index < characters.length; index++)
+          GridPlacement(
+            rowStart: (index / _kColumnNumber).floor(),
+            columnStart: index % _kColumnNumber == 0 ? 0 : 1,
+            child: CharacterItem(
+              character: characters[index],
+            ),
+          ),
       ],
     );
   }

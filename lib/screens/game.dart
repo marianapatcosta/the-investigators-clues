@@ -195,6 +195,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final t = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
@@ -203,35 +204,42 @@ class _GameScreenState extends ConsumerState<GameScreen>
 
     Widget content = SliverFillRemaining(
       hasScrollBody: false,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(
-            height: 56,
-          ),
-          Image(
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
             image: const AssetImage("assets/images/clocktower.png"),
-            color: theme.colorScheme.onSurface,
-            width: 150,
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.white.withOpacity(0.4),
+              BlendMode.dstATop,
+            ),
           ),
-          const SizedBox(
-            height: 32,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 24.0, left: 24.0, bottom: 48),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                t.noGame,
+                style: theme.textTheme.bodyLarge!
+                    .copyWith(fontSize: 20, fontWeight: FontWeight.w900),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 48,
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  _addGame(context);
+                },
+                label: Text(t.addGame),
+                icon: const Icon(Icons.add),
+              )
+            ],
           ),
-          Text(
-            t.noGame,
-            style: theme.textTheme.bodyLarge!.copyWith(fontSize: 18),
-          ),
-          const SizedBox(
-            height: 48,
-          ),
-          ElevatedButton.icon(
-            onPressed: () {
-              _addGame(context);
-            },
-            label: Text(t.addGame),
-            icon: const Icon(Icons.add),
-          )
-        ],
+        ),
       ),
     );
 

@@ -2106,6 +2106,18 @@ const charactersJson = [
         "Each night, choose a player: if they nominate tomorrow, they die. If just 3 players live, you lose this ability.",
   },
   {
+    "id": "wizard",
+    "name": "Wizard",
+    "edition": "",
+    "team": "minion",
+    "firstNightReminder": "Run the Wizard's ability, if applicable.",
+    "otherNightReminder": "Run the Wizard's ability, if applicable.",
+    "reminders": ["?", "?"],
+    "setup": false,
+    "ability":
+        "Once per game, choose to make a wish. If granted, it might have a price & leave a clue as to its nature.",
+  },
+  {
     "id": "xaan",
     "name": "Xaan",
     "edition": "",

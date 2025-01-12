@@ -5,13 +5,13 @@ import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show charactersMap;
 import 'package:my_botc_notes/models/index.dart' show Character, Reminder;
 import 'package:my_botc_notes/providers/index.dart';
+import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart' show ReminderToken, ShowToken;
 
 class ReminderItem extends ConsumerStatefulWidget {
   const ReminderItem({
     super.key,
     required this.reminder,
-    required this.constraints,
     required this.sessionCharacters,
     this.tokenSize = TokenSize.small,
     required this.removeReminder,
@@ -19,7 +19,6 @@ class ReminderItem extends ConsumerStatefulWidget {
   });
 
   final Reminder reminder;
-  final BoxConstraints constraints;
   final List<Character> sessionCharacters;
   final TokenSize tokenSize;
   final void Function() removeReminder;
@@ -85,6 +84,7 @@ class _ReminderItemState extends ConsumerState<ReminderItem> {
     final Reminder(:id, characterId: characterId, :reminder) = widget.reminder;
     final t = AppLocalizations.of(context);
     final settings = ref.watch(settingsProvider);
+    final grimoireSize = getGrimoireSize(context);
 
     return Positioned(
       left: _offset.dx,
@@ -99,13 +99,11 @@ class _ReminderItemState extends ConsumerState<ReminderItem> {
           onPanUpdate: (details) {
             setState(() {
               double limitX = (_offset.dx + details.delta.dx)
-                  .clamp(
-                      0, widget.constraints.maxWidth - kCharacterTokenSizeSmall)
+                  .clamp(0, grimoireSize.width - kReminderTokenSizeSmall)
                   .toDouble();
 
               double limitY = (_offset.dy + details.delta.dy)
-                  .clamp(0,
-                      widget.constraints.maxHeight - kCharacterTokenSizeSmall)
+                  .clamp(0, grimoireSize.height - kReminderTokenSizeSmall)
                   .toDouble();
 
               _offset = Offset(limitX, limitY);

@@ -93,7 +93,8 @@ const kMobileTabsNumber = 5;
 const double kTabsAppBarHeight = 75;
 
 const double kTopPlayersOffset = 10;
-const double kBottomPlayersOffset = 30;
+const double kSidePlayersOffset = 5;
+const double kBottomPlayersOffset = 50;
 
 const botcWikiUrl = 'https://wiki.bloodontheclocktower.com';
 

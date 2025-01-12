@@ -60,7 +60,6 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen>
 
       if (!_showOnlyFavorites) {
         if (_fetchedScripts.isNotEmpty) {
-          setState(() {});
           return;
         }
 
@@ -73,7 +72,7 @@ class _ScriptsListScreenState extends ConsumerState<ScriptsListScreen>
   void _fetchScripts(String inputValue, [bool? isScrolling = false]) async {
     final url = Uri.https(kScriptsDatabaseUrl, 'api/scripts', {
       'search': _searchController.text,
-      'page': 1.toString(),
+      'page': _currentPage.toString(),
       'per_page': 20
           .toString() // not working; we need to change api  https://github.com/AdmiralGT/botc-scripts/blob/main/botc/settings.py
     });

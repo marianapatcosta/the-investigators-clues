@@ -18,7 +18,6 @@ class PlayerItem extends ConsumerStatefulWidget {
     required this.player,
     required this.sessionCharacters,
     required this.sessionReminders,
-    required this.constraints,
     required this.inPlayCharactersIds,
     required this.isStorytellerMode,
     this.firstNightOrder,
@@ -32,7 +31,6 @@ class PlayerItem extends ConsumerStatefulWidget {
   final Player player;
   final List<Character> sessionCharacters;
   final List<Reminder> sessionReminders;
-  final BoxConstraints constraints;
   final List<String> inPlayCharactersIds;
   final bool isStorytellerMode;
   final int? firstNightOrder;
@@ -76,14 +74,18 @@ class _PlayerItemState extends ConsumerState<PlayerItem> {
 
     final EditPlayerData(:updatedPlayer, :reminders) = editPlayerData;
 
+    final wasCharacterUpdated =
+        updatedPlayer.characterId != widget.player.characterId;
     final wasIsDeadUpdated = updatedPlayer.isDead != widget.player.isDead;
     final wasHasGhostVoteUpdated =
         updatedPlayer.hasGhostVote != widget.player.hasGhostVote;
 
     final wereRemindersUpdated = reminders.isNotEmpty;
 
-    final updateParent =
-        wasIsDeadUpdated || wasHasGhostVoteUpdated || wereRemindersUpdated;
+    final updateParent = wasIsDeadUpdated ||
+        wasHasGhostVoteUpdated ||
+        wereRemindersUpdated ||
+        (widget.isStorytellerMode && wasCharacterUpdated);
 
     if (updatedPlayer.name != widget.player.name) {
       widget.player.setName = updatedPlayer.name;
@@ -101,7 +103,7 @@ class _PlayerItemState extends ConsumerState<PlayerItem> {
       widget.player.setHasGhostVote = updatedPlayer.hasGhostVote;
     }
 
-    if (updatedPlayer.characterId != widget.player.characterId) {
+    if (wasCharacterUpdated) {
       widget.player.setCharacterId = updatedPlayer.characterId;
     }
 
@@ -165,13 +167,11 @@ class _PlayerItemState extends ConsumerState<PlayerItem> {
             onPanUpdate: (details) {
               setState(() {
                 double limitX = (_offset.dx + details.delta.dx)
-                    .clamp(0,
-                        widget.constraints.maxWidth - kCharacterTokenSizeSmall)
+                    .clamp(0, grimoireSize.width - kCharacterTokenSizeSmall)
                     .toDouble();
 
                 double limitY = (_offset.dy + details.delta.dy)
-                    .clamp(0,
-                        widget.constraints.maxHeight - kCharacterTokenSizeSmall)
+                    .clamp(0, grimoireSize.height - kCharacterTokenSizeSmall)
                     .toDouble();
 
                 _offset = Offset(limitX, limitY);

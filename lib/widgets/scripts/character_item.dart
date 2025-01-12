@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:my_botc_notes/utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show charactersMap;
 import 'package:my_botc_notes/models/index.dart' show Character;
 import 'package:my_botc_notes/screens/index.dart' show CharacterDetailsScreen;
@@ -18,31 +17,12 @@ class CharacterItem extends StatelessWidget {
   final Character character;
   final bool? small;
 
-  Future<void> _launchInWebView(Uri url) async {
-    if (!await launchUrl(url,
-        mode: LaunchMode.inAppWebView, webOnlyWindowName: '_self')) {
-      throw Exception('Could not launch $url');
-    }
-  }
-
   void onSelectCharacter(BuildContext context) async {
     if (kIsWeb) {
-      final [scheme, host] = botcWikiUrl.split('://');
-      Uri url = Uri(
-        scheme: scheme,
-        host: host,
-        path: character.name,
-      );
-      if (character.characterInfoUrl != null) {
-        final [scheme, urlWithoutScheme] =
-            character.characterInfoUrl!.split('://');
-
-        final [host, ...rest] = urlWithoutScheme.split('/');
-        final [path, query] = rest.join('/').split('#');
-
-        url = Uri(scheme: scheme, host: host, path: path, query: query);
+      if (kIsWeb) {
+        launchInWebView(getUrl(character));
+        return;
       }
-      _launchInWebView(url);
       return;
     }
     Navigator.push(

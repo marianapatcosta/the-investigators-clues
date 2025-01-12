@@ -94,14 +94,11 @@ class ScriptDetailsContent extends StatelessWidget {
                             ),
                           ],
                         const SizedBox(
-                          height: 16,
+                          height: 8,
                         ),
                       ])
                 ],
               ),
-            const SizedBox(
-              height: 8,
-            ),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -109,7 +106,7 @@ class ScriptDetailsContent extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 12,
+              height: 16,
             ),
             if (isScreenBiggerThanX(width, ScreenSize.md))
               Row(

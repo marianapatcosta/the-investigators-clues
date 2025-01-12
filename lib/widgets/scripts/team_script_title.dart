@@ -17,7 +17,9 @@ class TeamScriptTitle extends StatelessWidget {
         Container(
           padding: const EdgeInsets.only(left: 8, right: 8, top: 2),
           decoration: BoxDecoration(
-            border: Border.all(),
+            border: Border.all(
+              color: theme.colorScheme.onSurface,
+            ),
             borderRadius: BorderRadius.circular(16),
           ),
           child: Text(

@@ -109,7 +109,9 @@ class NightOrderItem extends StatelessWidget {
             if (itemInfo['description'] != null &&
                 itemInfo['description'] != '') ...[
               Text(
-                nightType == NightType.first ? t.firstNight : t.otherNights,
+                nightType == NightType.first
+                    ? t.firstNightReminder
+                    : t.otherNightsReminder,
                 style: theme.textTheme.titleSmall,
               ),
               const SizedBox(

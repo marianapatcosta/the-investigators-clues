@@ -1,22 +1,14 @@
-import 'package:my_botc_notes/widgets/index.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_botc_notes/utils.dart';
-import 'package:my_botc_notes/widgets/ui/layout.dart';
+import 'package:my_botc_notes/widgets/index.dart' show Acknowledgments, Layout;
 import 'package:my_botc_notes/constants.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({
     super.key,
   });
-
-  Future<void> _launchInWebView(Uri url) async {
-    if (!await launchUrl(url, mode: LaunchMode.inAppWebView)) {
-      throw Exception('Could not launch $url');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +75,7 @@ class AboutScreen extends StatelessWidget {
                         decoration: TextDecoration.underline,
                       ),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () => _launchInWebView(
+                        ..onTap = () => launchInWebView(
                               Uri(
                                   scheme: 'https',
                                   host: 'github.com',
@@ -111,7 +103,7 @@ class AboutScreen extends StatelessWidget {
                         height: 1.25,
                       ),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () => _launchInWebView(
+                        ..onTap = () => launchInWebView(
                               Uri(
                                 scheme: 'https',
                                 host: 'bloodontheclocktower.com',
@@ -183,7 +175,7 @@ class AboutScreen extends StatelessWidget {
                               height: 1.25,
                             ),
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => _launchInWebView(
+                              ..onTap = () => launchInWebView(
                                     Uri(
                                       scheme: 'https',
                                       host: 'wiki.bloodontheclocktower.com',
@@ -225,7 +217,7 @@ class AboutScreen extends StatelessWidget {
                             height: 1.25,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => _launchInWebView(
+                            ..onTap = () => launchInWebView(
                                   Uri(
                                     scheme: 'https',
                                     host: 'wiki.bloodontheclocktower.com',

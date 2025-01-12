@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show characters;
 import 'package:my_botc_notes/models/index.dart' show Character, Team;
+import 'package:my_botc_notes/screens/index.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
     show CharacterToken, GhostVoteToken, ShowToken;
@@ -102,6 +104,24 @@ class EditPlayerHeader extends StatelessWidget {
     );
   }
 
+  void _openCharacterDetails(BuildContext context) async {
+    if (character == null) {
+      return;
+    }
+    if (kIsWeb) {
+      launchInWebView(getUrl(character!));
+      return;
+    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (ctx) => CharacterDetailsScreen(
+          character: character!,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
@@ -171,34 +191,43 @@ class EditPlayerHeader extends StatelessWidget {
               ),
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   width: 40,
-                  child: Transform.translate(
-                    offset: const Offset(0, -12),
-                    child: IconButton(
-                      onPressed: () => _onDeletePlayer(context),
-                      icon: Icon(
-                        Icons.delete,
-                        semanticLabel: t.deleteGame,
-                      ),
+                  height: 40,
+                  child: IconButton(
+                    onPressed: () => _onDeletePlayer(context),
+                    icon: Icon(
+                      Icons.delete_outline,
+                      semanticLabel: t.deleteGame,
                     ),
                   ),
                 ),
-                if (character != null)
+                if (character != null) ...[
                   SizedBox(
                     width: 40,
-                    child: Transform.translate(
-                      offset: const Offset(0, -12),
-                      child: IconButton(
-                        onPressed: () => _openShowPlayer(context),
-                        icon: Icon(
-                          Icons.visibility,
-                          semanticLabel: '${t.show} ${character!.name}',
-                        ),
+                    height: 40,
+                    child: IconButton(
+                      onPressed: () => _openShowPlayer(context),
+                      icon: Icon(
+                        Icons.visibility_outlined,
+                        semanticLabel: '${t.show} ${character!.name}',
                       ),
                     ),
                   ),
+                  SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: IconButton(
+                      onPressed: () => _openCharacterDetails(context),
+                      icon: Icon(
+                        Icons.read_more,
+                        semanticLabel: '${character!.name} - ${t.details}',
+                      ),
+                    ),
+                  )
+                ],
               ],
             ),
           ]),

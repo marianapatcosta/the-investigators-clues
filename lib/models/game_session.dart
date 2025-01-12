@@ -37,7 +37,9 @@ class GameSession {
     final playersNumber = players.where((player) => !player.isTraveller).length;
     final travellersNumber = players.length - playersNumber;
     final gameSetup = gameSetups[playersNumber.toString()]!.copyWith();
-    gameSetup.setTraveller = travellersNumber;
+    if (travellersNumber > 0) {
+      gameSetup.setTraveller = travellersNumber;
+    }
     return gameSetup;
   }
 

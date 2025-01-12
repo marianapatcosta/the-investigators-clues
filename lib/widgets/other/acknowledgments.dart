@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:my_botc_notes/utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/gestures.dart';
 
@@ -7,13 +7,6 @@ class Acknowledgments extends StatelessWidget {
   const Acknowledgments({
     super.key,
   });
-
-  Future<void> _launchInWebView(Uri url) async {
-    if (!await launchUrl(url,
-        mode: LaunchMode.inAppWebView, webOnlyWindowName: '_self')) {
-      throw Exception('Could not launch $url');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +26,7 @@ class Acknowledgments extends StatelessWidget {
                 height: 1.25,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
                         host: 'bloodontheclocktower.com',
@@ -64,7 +57,7 @@ class Acknowledgments extends StatelessWidget {
                 height: 1.25,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
                         host: 'botc-scripts.azurewebsites.net',
@@ -95,7 +88,7 @@ class Acknowledgments extends StatelessWidget {
                 height: 1.25,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
                         host: 'wiki.bloodontheclocktower.com',
@@ -125,7 +118,7 @@ class Acknowledgments extends StatelessWidget {
                   decoration: TextDecoration.underline,
                   height: 1.25),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
                         host: 'clocktower.online',
@@ -144,7 +137,7 @@ class Acknowledgments extends StatelessWidget {
                   decoration: TextDecoration.underline,
                   height: 1.25),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
                         host: 'pocketgrimoire.co.uk',
@@ -167,7 +160,7 @@ class Acknowledgments extends StatelessWidget {
                   decoration: TextDecoration.underline,
                   height: 1.25),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                           scheme: 'https',
                           host: 'fontawesome.com',
@@ -197,7 +190,7 @@ class Acknowledgments extends StatelessWidget {
                   decoration: TextDecoration.underline,
                   height: 1.25),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
                         host: 'clocktower.online',
@@ -216,7 +209,7 @@ class Acknowledgments extends StatelessWidget {
                   decoration: TextDecoration.underline,
                   height: 1.25),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
                         host: 'flaticon.com',
@@ -246,7 +239,7 @@ class Acknowledgments extends StatelessWidget {
                   decoration: TextDecoration.underline,
                   height: 1.25),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
                         host: 'clocktower.online',
@@ -265,7 +258,7 @@ class Acknowledgments extends StatelessWidget {
                   decoration: TextDecoration.underline,
                   height: 1.25),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchInWebView(
+                ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
                         host: 'pocketgrimoire.co.uk',

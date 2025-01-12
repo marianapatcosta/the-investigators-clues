@@ -13,7 +13,6 @@ import 'package:my_botc_notes/widgets/index.dart'
         EditNotes,
         GamePhase,
         GameSetupTable,
-        Grimoire,
         InfoTokenSelector,
         InfoTokenManager,
         PlayerItem,
@@ -347,7 +346,8 @@ class _GrimoireState extends ConsumerState<Grimoire> {
                         color: theme.colorScheme.onSurface,
                       ),
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 0),
                       ),
                     ),
                     TextButton.icon(
@@ -364,7 +364,8 @@ class _GrimoireState extends ConsumerState<Grimoire> {
                         color: theme.colorScheme.onSurface,
                       ),
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 4, vertical: 0),
                       ),
                     )
                   ],
@@ -388,7 +389,6 @@ class _GrimoireState extends ConsumerState<Grimoire> {
                 },
                 updateParent: widget.updateParent,
                 saveGameSession: widget.saveGameSession,
-                constraints: constraints,
                 addReminders: _onAddReminders,
               ),
             ],
@@ -398,7 +398,6 @@ class _GrimoireState extends ConsumerState<Grimoire> {
               for (final reminder in inPlayReminders)
                 ReminderItem(
                     reminder: reminder,
-                    constraints: constraints,
                     sessionCharacters: sessionCharacters,
                     removeReminder: () => _onRemoveReminder(reminder),
                     saveGameSession: widget.saveGameSession),
@@ -414,7 +413,6 @@ class _GrimoireState extends ConsumerState<Grimoire> {
                   Theme.of(context).colorScheme.surface,
                 ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
               ),
-              margin: const EdgeInsets.only(top: 16),
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 24),

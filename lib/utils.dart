@@ -7,6 +7,7 @@ import 'package:my_botc_notes/data/index.dart';
 import 'package:my_botc_notes/models/index.dart';
 import 'package:my_botc_notes/widgets/game_setup/character_selector.dart';
 import 'package:my_botc_notes/widgets/grimoire/reminder_selector.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 String getCapitalizedTeamTitle(String title) {
   return '${title[0].toUpperCase()}${title.substring(1)}${title.toLowerCase() == 'fabled' || title.toLowerCase() == 'townsfolk' ? '' : 's'}';
@@ -79,7 +80,7 @@ List<Script> mapInfoToScripts(List<Map<String, dynamic>> scriptsInfo) {
         (script) => Script(
           id: script['pk'] as int,
           name: script['name'] as String,
-          author: script['author'] as String,
+          author: script['author'] != null ? script['author'] as String : null,
           version:
               script['version'] != null ? script['version'] as String : null,
           score: script['score'] != null ? script['score'] as int : null,
@@ -350,7 +351,9 @@ Offset getPlayerOffset(
   int playerIndex,
 ) {
   // Scaling the size of the ellipse
-  final radiusX = (grimoireSize.width - kCharacterTokenSizeSmall) / 2;
+  final radiusX =
+      (grimoireSize.width - 2 * kSidePlayersOffset - kCharacterTokenSizeSmall) /
+          2;
   final radiusY =
       (grimoireSize.height - kBottomPlayersOffset - kCharacterTokenSizeSmall) /
           2;
@@ -358,7 +361,8 @@ Offset getPlayerOffset(
   const angleOffset =
       pi / 2; // to align the first player at the bottom of the screen
   final radians = (playerIndex * pi * 2) / numberOfPlayers;
-  final double x = radiusX + (cos(radians + angleOffset) * radiusX);
+  final double x =
+      radiusX + (cos(radians + angleOffset) * radiusX) + kSidePlayersOffset;
   final double y =
       radiusY + (sin(radians + angleOffset) * radiusY) + kTopPlayersOffset;
   return Offset(x, y);
@@ -397,4 +401,30 @@ List<Reminder> getRemindersFirstNight(
   }).toList();
 
   return playerReminders;
+}
+
+Uri getUrl(Character character) {
+  final [scheme, host] = botcWikiUrl.split('://');
+  Uri url = Uri(
+    scheme: scheme,
+    host: host,
+    path: character.name,
+  );
+  if (character.characterInfoUrl != null) {
+    final [scheme, urlWithoutScheme] = character.characterInfoUrl!.split('://');
+
+    final [host, ...rest] = urlWithoutScheme.split('/');
+    final [path, query] = rest.join('/').split('#');
+
+    url = Uri(scheme: scheme, host: host, path: path, query: query);
+  }
+
+  return url;
+}
+
+Future<void> launchInWebView(Uri url) async {
+  if (!await launchUrl(url,
+      mode: LaunchMode.inAppWebView, webOnlyWindowName: '_self')) {
+    throw Exception('Could not launch $url');
+  }
 }

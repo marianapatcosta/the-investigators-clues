@@ -232,7 +232,7 @@ class Acknowledgments extends StatelessWidget {
               style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
             ),
             TextSpan(
-              text: 'Clocktower.online',
+              text: 'Script.bloodontheclocktower',
               style: const TextStyle(
                   color: Colors.blue,
                   fontWeight: FontWeight.bold,
@@ -242,7 +242,7 @@ class Acknowledgments extends StatelessWidget {
                 ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
-                        host: 'clocktower.online',
+                        host: 'script.bloodontheclocktower',
                       ),
                     ),
             ),

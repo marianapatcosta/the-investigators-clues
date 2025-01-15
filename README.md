@@ -1,8 +1,10 @@
 # The Investigator's Clues
 
 _The Investigator's Clues_ is an unofficial application to help Blood on the Clocktower's players to track the game status and register the clues they collected, and to help the storyteller to setup the game and track its status.
-This is a free and open source multi-platform project developed with Flutter, which supports Android, Web and iOS. <br/>
+This is a free and open source multi-platform project developed with Flutter, which supports Web, Android and iOS. <br/>
 This application is not affiliated with The Pandemonium Institute.<br/> All roles and characters are the property of Steven Medway and The Pandemonium Institute.
+
+![The Investigator's clues overview](https://github.com/user-attachments/assets/69419f93-7859-41f0-9d06-5f2e01461444)
 
 ## Main features
 
@@ -27,8 +29,8 @@ This application is not affiliated with The Pandemonium Institute.<br/> All role
 - Scripts data are obtained from [BotC Scripts database](https://botc-scripts.azurewebsites.net)
 - Detailed information about each official character is obtained from [Blood on the Clocktower Wiki](https://wiki.bloodontheclocktower.com).
 - Character icons were obtained from [Clocktower.online](https://www.clocktower.online/) and [Pocket Grimoire](https://www.pocketgrimoire.co.uk/) (source: [Font Awesome](https://fontawesome.com/v5/search)).
-- Some images were collected from [Clocktower.online](https://www.clocktower.online/) and [Flaticon](https://www.flaticon.com/) .
-- Information about night order, reminders and Jinxes was obtained from [Clocktower.online](https://www.clocktower.online/) and [Pocket Grimoire](https://www.pocketgrimoire.co.uk/).
+- Some images were collected from [Clocktower.online](https://www.clocktower.online/) and [Flaticon](https://www.flaticon.com/).
+- Information about night order, reminders and Jinxes was obtained from [Script.bloodontheclocktower](https://script.bloodontheclocktower.com) and [Pocket Grimoire](https://www.pocketgrimoire.co.uk/).
 
 ## How to Update
 

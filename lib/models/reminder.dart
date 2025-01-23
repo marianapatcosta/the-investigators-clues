@@ -54,6 +54,5 @@ class BagDisabledReminder {
 
   set setAddToGrimoire(bool newValue) {
     _addToGrimoire = newValue;
-    print(_addToGrimoire);
   }
 }

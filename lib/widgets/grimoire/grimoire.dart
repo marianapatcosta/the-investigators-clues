@@ -111,6 +111,7 @@ class _GrimoireState extends ConsumerState<Grimoire> {
     final updatedReminders = widget.gameSession.inPlayReminders!
         .where((sessionReminder) => sessionReminder.id != reminder.id)
         .toList();
+
     setState(() {
       widget.gameSession.setInPlayReminders = updatedReminders;
     });
@@ -397,6 +398,7 @@ class _GrimoireState extends ConsumerState<Grimoire> {
                 inPlayReminders.isNotEmpty)
               for (final reminder in inPlayReminders)
                 ReminderItem(
+                    key: ValueKey(reminder.id),
                     reminder: reminder,
                     sessionCharacters: sessionCharacters,
                     removeReminder: () => _onRemoveReminder(reminder),

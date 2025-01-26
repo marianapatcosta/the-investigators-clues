@@ -362,44 +362,43 @@ class _GameScreenState extends ConsumerState<GameScreen>
                             Wrap(
                               spacing: 4,
                               children: [
+                                IconButton(
+                                    icon: AnimatedSwitcher(
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        transitionBuilder: (child, animation) {
+                                          return ScaleTransition(
+                                            scale:
+                                                Tween<double>(begin: 0, end: 1)
+                                                    .animate(animation),
+                                            child: child,
+                                          );
+                                        },
+                                        child: _isScrollLocked
+                                            ? ImageIcon(
+                                                key: const ValueKey(
+                                                    'scroll-locked'),
+                                                const AssetImage(
+                                                    "assets/images/lock.png"),
+                                                size: 20,
+                                                semanticLabel: t.unlockScroll,
+                                                color: Colors.white,
+                                              )
+                                            : ImageIcon(
+                                                key: const ValueKey(
+                                                    'scroll-unlocked'),
+                                                const AssetImage(
+                                                    "assets/images/unlock.png"),
+                                                size: 20,
+                                                color: Colors.white,
+                                                semanticLabel: t.lockScroll,
+                                              )),
+                                    onPressed: () => setState(() {
+                                          _isScrollLocked = !_isScrollLocked;
+                                        })),
                                 if (gameSession != null &&
                                     gameSession!.isStorytellerMode &&
-                                    _gameTab == GameTab.setup) ...[
-                                  IconButton(
-                                      icon: AnimatedSwitcher(
-                                          duration:
-                                              const Duration(milliseconds: 300),
-                                          transitionBuilder:
-                                              (child, animation) {
-                                            return ScaleTransition(
-                                              scale: Tween<double>(
-                                                      begin: 0, end: 1)
-                                                  .animate(animation),
-                                              child: child,
-                                            );
-                                          },
-                                          child: _isScrollLocked
-                                              ? ImageIcon(
-                                                  key: const ValueKey(
-                                                      'scroll-locked'),
-                                                  const AssetImage(
-                                                      "assets/images/lock.png"),
-                                                  size: 20,
-                                                  semanticLabel: t.unlockScroll,
-                                                  color: Colors.white,
-                                                )
-                                              : ImageIcon(
-                                                  key: const ValueKey(
-                                                      'scroll-unlocked'),
-                                                  const AssetImage(
-                                                      "assets/images/unlock.png"),
-                                                  size: 20,
-                                                  color: Colors.white,
-                                                  semanticLabel: t.lockScroll,
-                                                )),
-                                      onPressed: () => setState(() {
-                                            _isScrollLocked = !_isScrollLocked;
-                                          })),
+                                    _gameTab == GameTab.setup)
                                   IconButton(
                                     icon: ImageIcon(
                                       const AssetImage(
@@ -411,7 +410,6 @@ class _GameScreenState extends ConsumerState<GameScreen>
                                     onPressed: () => scaffoldKey.currentState
                                         ?.openEndDrawer(),
                                   ),
-                                ],
                                 GameMenu(
                                   menuActions: {
                                     MenuItem.addPlayer: () => _onAddPlayer(

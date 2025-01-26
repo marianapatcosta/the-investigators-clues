@@ -76,14 +76,16 @@ class _ReminderSelectorState extends State<ReminderSelector> {
                     ),
                   ),
                 ),
-              ShowMoreButton(
+              if (widget.otherReminders.isNotEmpty)
+                ShowMoreButton(
                   size: kReminderTokenSizeSmall,
                   showMore: !_showAllReminders,
                   toggleShowMore: () {
                     setState(() {
                       _showAllReminders = !_showAllReminders;
                     });
-                  })
+                  },
+                )
             ],
           ),
         ));

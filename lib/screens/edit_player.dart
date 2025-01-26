@@ -98,7 +98,8 @@ class _EditPlayerState extends State<EditPlayer> {
     final List<Reminder> otherReminders = [];
 
     for (final reminder in widget.sessionReminders) {
-      if (widget.inPlayCharactersIds.contains(reminder.characterId)) {
+      if (!widget.isStorytellerMode ||
+          widget.inPlayCharactersIds.contains(reminder.characterId)) {
         inPlayCharactersReminders.add(reminder);
       } else {
         otherReminders.add(reminder);
@@ -175,37 +176,35 @@ class _EditPlayerState extends State<EditPlayer> {
     final displayName =
         widget.player.name != '' ? widget.player.name : t.player;
 
-    final remindersWidget = widget.isStorytellerMode
-        ? Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    t.reminders,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  IconButton(
-                      onPressed: _onAddReminder,
-                      icon: Icon(Icons.add,
-                          semanticLabel: t.addReminder,
-                          color: theme.colorScheme.primary)),
-                ],
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              RemindersDisplay(
-                  reminders: _reminders,
-                  sessionCharacters: widget.sessionCharacters,
-                  onRemoveReminder: (reminder) => setState(() {
-                        _reminders.remove(reminder);
-                      }))
-            ],
-          )
-        : const SizedBox();
+    final remindersWidget = Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              t.reminders,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            IconButton(
+                onPressed: _onAddReminder,
+                icon: Icon(Icons.add,
+                    semanticLabel: t.addReminder,
+                    color: theme.colorScheme.primary)),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        RemindersDisplay(
+            reminders: _reminders,
+            sessionCharacters: widget.sessionCharacters,
+            onRemoveReminder: (reminder) => setState(() {
+                  _reminders.remove(reminder);
+                }))
+      ],
+    );
 
     return Layout(
         child: PopScope(

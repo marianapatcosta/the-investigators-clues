@@ -393,9 +393,7 @@ class _GrimoireState extends ConsumerState<Grimoire> {
                 addReminders: _onAddReminders,
               ),
             ],
-            if (isStorytellerMode &&
-                inPlayReminders != null &&
-                inPlayReminders.isNotEmpty)
+            if (inPlayReminders != null && inPlayReminders.isNotEmpty)
               for (final reminder in inPlayReminders)
                 ReminderItem(
                     key: ValueKey(reminder.id),

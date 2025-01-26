@@ -217,15 +217,16 @@ void selectReminder(
     List<Character> sessionCharacters,
     void Function(Reminder reminder) select) {
   selectToken(
-      context,
-      (ctx) => ReminderSelector(
-          inPlayCharactersReminders: inPlayCharactersReminders,
-          otherReminders: otherReminders,
-          sessionCharacters: sessionCharacters,
-          onSelectReminder: (reminder) {
-            Navigator.pop(ctx);
-            select(reminder);
-          }));
+    context,
+    (ctx) => ReminderSelector(
+        inPlayCharactersReminders: inPlayCharactersReminders,
+        otherReminders: otherReminders,
+        sessionCharacters: sessionCharacters,
+        onSelectReminder: (reminder) {
+          Navigator.pop(ctx);
+          select(reminder);
+        }),
+  );
 }
 
 void showDeleteGameDialog(

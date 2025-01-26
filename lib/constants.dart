@@ -100,7 +100,7 @@ const botcWikiUrl = 'https://wiki.bloodontheclocktower.com';
 
 const kScriptsDatabaseUrl = 'botc-scripts.azurewebsites.net';
 
-const kCharactersTokensPath = 'assets/images/character_tokens';
+const kCharactersTokensPath = 'assets/images/character_tokens_off';
 
 final kInitialFavoriteScripts = mapInfoToScripts(favoriteScriptsInfo);
 

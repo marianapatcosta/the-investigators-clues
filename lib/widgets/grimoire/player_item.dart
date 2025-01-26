@@ -331,7 +331,9 @@ class _PlayerItemState extends ConsumerState<PlayerItem> {
                               maxWidth: kPlayerNotesSize,
                             ),
                             child: Align(
-                              alignment: Alignment.topLeft,
+                              alignment: isPlayerOnRightSide
+                                  ? Alignment.topRight
+                                  : Alignment.topLeft,
                               child: Card(
                                 margin: const EdgeInsets.all(0),
                                 shape: RoundedRectangleBorder(
@@ -342,9 +344,11 @@ class _PlayerItemState extends ConsumerState<PlayerItem> {
                                       horizontal: 6.0, vertical: 4),
                                   child: Text(
                                     notes,
+                                    softWrap: false,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 4,
-                                    style: theme.textTheme.bodySmall,
+                                    style: theme.textTheme.bodySmall!
+                                        .copyWith(fontSize: 11),
                                   ),
                                 ),
                               ),

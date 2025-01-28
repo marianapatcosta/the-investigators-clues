@@ -28,9 +28,9 @@ This application is not affiliated with The Pandemonium Institute.<br/> All role
 - [Blood on the Clocktower](https://bloodontheclocktower.com) is a trademark of Steven Medway and The Pandemonium Institute.
 - Scripts data are obtained from [BotC Scripts database](https://botc-scripts.azurewebsites.net)
 - Detailed information about each official character is obtained from [Blood on the Clocktower Wiki](https://wiki.bloodontheclocktower.com).
-- Character icons were obtained from [Clocktower.online](https://www.clocktower.online/) and [Pocket Grimoire](https://www.pocketgrimoire.co.uk/) (source: [Font Awesome](https://fontawesome.com/v5/search)).
+- Character icons were obtained from [BotC Icons](https://github.com/tomozbot/botc-icon).
 - Some images were collected from [Clocktower.online](https://www.clocktower.online/) and [Flaticon](https://www.flaticon.com/).
-- Information about night order, reminders and Jinxes was obtained from [Script.bloodontheclocktower](https://script.bloodontheclocktower.com) and [Pocket Grimoire](https://www.pocketgrimoire.co.uk/).
+- Information about night order, reminders and Jinxes was obtained from [Script.bloodontheclocktower](https://script.bloodontheclocktower.com), [BotC Tools](https://github.com/ratteler50/botc_tools/) and [Pocket Grimoire](https://www.pocketgrimoire.co.uk/).
 
 ## How to Update
 

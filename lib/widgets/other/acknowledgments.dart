@@ -111,7 +111,7 @@ class Acknowledgments extends StatelessWidget {
               style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
             ),
             TextSpan(
-              text: 'Clocktower.online',
+              text: 'BotC Icons',
               style: const TextStyle(
                   color: Colors.blue,
                   fontWeight: FontWeight.bold,
@@ -121,54 +121,13 @@ class Acknowledgments extends StatelessWidget {
                 ..onTap = () => launchInWebView(
                       Uri(
                         scheme: 'https',
-                        host: 'clocktower.online',
+                        host: 'github.com',
+                        path: 'tomozbot/botc-icons',
                       ),
                     ),
             ),
             TextSpan(
-              text: ' ${t.and} ',
-              style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
-            ),
-            TextSpan(
-              text: 'Pocket Grimoire',
-              style: const TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
-                  height: 1.25),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => launchInWebView(
-                      Uri(
-                        scheme: 'https',
-                        host: 'pocketgrimoire.co.uk',
-                      ),
-                    ),
-            ),
-            TextSpan(
-              text: '. (',
-              style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
-            ),
-            TextSpan(
-              text: '${t.source}: ',
-              style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
-            ),
-            TextSpan(
-              text: 'Font Awesome',
-              style: const TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
-                  height: 1.25),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => launchInWebView(
-                      Uri(
-                          scheme: 'https',
-                          host: 'fontawesome.com',
-                          path: 'v5/search'),
-                    ),
-            ),
-            TextSpan(
-              text: ').',
+              text: '.',
               style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
             )
           ],
@@ -243,6 +202,25 @@ class Acknowledgments extends StatelessWidget {
                       Uri(
                         scheme: 'https',
                         host: 'script.bloodontheclocktower',
+                      ),
+                    ),
+            ),
+            TextSpan(
+                text: ', ',
+                style: theme.textTheme.bodyMedium!.copyWith(height: 1.25)),
+            TextSpan(
+              text: 'BotC Tools',
+              style: const TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                  height: 1.25),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => launchInWebView(
+                      Uri(
+                        scheme: 'https',
+                        host: 'github.com',
+                        path: 'ratteler50/botc_tools',
                       ),
                     ),
             ),

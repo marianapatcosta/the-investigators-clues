@@ -29,7 +29,7 @@ class Character {
     this.reminders,
     this.remindersFirstNight,
     this.remindersGlobal,
-  }) : image = '$kCharactersTokensPath/$id.png';
+  }) : image = '$kCharactersTokensPath/$id.$kCharactersTokensFileFormat';
 
   final String id;
   final String name;

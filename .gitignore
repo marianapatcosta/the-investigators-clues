@@ -47,4 +47,3 @@ app.*.map.json
 
 /.firebase/
 /.firebaserc
-/firebase.json

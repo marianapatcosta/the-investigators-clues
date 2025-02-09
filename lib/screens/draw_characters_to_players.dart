@@ -95,6 +95,9 @@ class _DrawCharactersToPlayersScreenState
 
           player.setX = offset.dx;
           player.setY = offset.dy;
+          if (player.name == '') {
+            player.setName = (_players.length + 1).toString();
+          }
           _players.add(player);
         }
       }

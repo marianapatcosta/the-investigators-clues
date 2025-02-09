@@ -1,8 +1,10 @@
+import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show charactersMap, gameSetups;
 import 'package:my_botc_notes/models/index.dart'
     show
         Character,
         CustomInfoToken,
+        GameHistory,
         GameSetup,
         InfoToken,
         Player,
@@ -26,7 +28,14 @@ class GameSession {
   List<Reminder>? inPlayReminders;
   bool isStorytellerMode;
 
-  String gamePhase = 'N1';
+  String gamePhase = initialGamePhase;
+
+  late List<GameHistory> gameHistory = [
+    GameHistory(
+      gamePhase: initialGamePhase,
+      isStorytellerMode: isStorytellerMode,
+    )
+  ];
 
   String? _notes;
   String? _playerInfoToken;
@@ -194,8 +203,19 @@ class GameSession {
     return (numberOfAlivePlayers / 2).ceil();
   }
 
+  GameHistory get currentGameHistoryItem {
+    return gameHistory.firstWhere((history) => history.gamePhase == gamePhase);
+  }
+
   set setGamePhase(String newGamePhase) {
     gamePhase = newGamePhase;
+    final gameHistoryAlreadyExists = gameHistory
+        .where((history) => history.gamePhase == newGamePhase)
+        .isNotEmpty;
+    if (!gameHistoryAlreadyExists) {
+      gameHistory.add(GameHistory(
+          gamePhase: newGamePhase, isStorytellerMode: isStorytellerMode));
+    }
   }
 
   set setNotes(String notes) {
@@ -236,6 +256,9 @@ class GameSession {
             .toList(),
         script = Script.fromJson(json['script']),
         gamePhase = json['gamePhase'],
+        gameHistory = List.from(json['gameHistory'])
+            .map((item) => GameHistory.fromJson(item))
+            .toList(),
         _notes = json['notes'] as String?,
         _playerInfoToken = json['infoToken'] as String?,
         _customInfoTokensSimplified = json['customInfoTokensSimplified'] != null
@@ -267,6 +290,7 @@ class GameSession {
       'players': players.map((player) => player.toJson()).toList(),
       'script': script.toJson(),
       'gamePhase': gamePhase,
+      'gameHistory': gameHistory.map((history) => history.toJson()).toList(),
       'notes': notes,
       'fabled': fabled,
       'infoToken': playerInfoToken,

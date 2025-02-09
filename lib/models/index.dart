@@ -1,6 +1,7 @@
 export './character.dart';
 export './custom_info_token.dart';
 export './dropdown_item.dart';
+export './game_history.dart';
 export './game_session.dart';
 export './game_setup.dart';
 export './info_token.dart';

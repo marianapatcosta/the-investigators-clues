@@ -13,6 +13,7 @@ import 'package:my_botc_notes/widgets/index.dart'
     show
         ButtonTab,
         CustomSafeArea,
+        GameHistoryContent,
         GameMenu,
         Grimoire,
         Layout,
@@ -20,7 +21,6 @@ import 'package:my_botc_notes/widgets/index.dart'
         ScriptDetailsContent,
         StorytellerHelper,
         GrimoireSettings;
-
 import 'package:my_botc_notes/screens/new_game.dart';
 import 'package:my_botc_notes/utils.dart';
 
@@ -30,13 +30,11 @@ const kNewPlayerOffset = 50.0;
 double kMinScale = 0.5;
 double kMaxScale = 2;
 
-enum GameTab {
-  setup,
-  scriptDetails,
-}
+enum GameTab { setup, scriptDetails, gameHistory }
 
 final gameTabsMetadata = {
   GameTab.setup: 'setup',
+  GameTab.gameHistory: 'history',
   GameTab.scriptDetails: 'script',
 };
 
@@ -209,6 +207,7 @@ class _GameScreenState extends ConsumerState<GameScreen>
           image: DecorationImage(
             image: const AssetImage("assets/images/clocktower.png"),
             fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
             colorFilter: ColorFilter.mode(
               Colors.white.withOpacity(0.4),
               BlendMode.dstATop,
@@ -247,6 +246,14 @@ class _GameScreenState extends ConsumerState<GameScreen>
       content = ScriptDetailsContent(
           script: gameSession!.script,
           sessionCharacters: gameSession!.sessionCharacters);
+    }
+
+    if (gameSession != null && _gameTab == GameTab.gameHistory) {
+      content = GameHistoryContent(
+        gameHistory: gameSession!.gameHistory,
+        isStorytellerMode: gameSession!.isStorytellerMode,
+        saveGameSession: _saveGameSession,
+      );
     }
 
     if (gameSession != null && _gameTab == GameTab.setup) {
@@ -362,40 +369,42 @@ class _GameScreenState extends ConsumerState<GameScreen>
                             Wrap(
                               spacing: 4,
                               children: [
-                                IconButton(
-                                    icon: AnimatedSwitcher(
-                                        duration:
-                                            const Duration(milliseconds: 300),
-                                        transitionBuilder: (child, animation) {
-                                          return ScaleTransition(
-                                            scale:
-                                                Tween<double>(begin: 0, end: 1)
-                                                    .animate(animation),
-                                            child: child,
-                                          );
-                                        },
-                                        child: _isScrollLocked
-                                            ? ImageIcon(
-                                                key: const ValueKey(
-                                                    'scroll-locked'),
-                                                const AssetImage(
-                                                    "assets/images/lock.png"),
-                                                size: 20,
-                                                semanticLabel: t.unlockScroll,
-                                                color: Colors.white,
-                                              )
-                                            : ImageIcon(
-                                                key: const ValueKey(
-                                                    'scroll-unlocked'),
-                                                const AssetImage(
-                                                    "assets/images/unlock.png"),
-                                                size: 20,
-                                                color: Colors.white,
-                                                semanticLabel: t.lockScroll,
-                                              )),
-                                    onPressed: () => setState(() {
-                                          _isScrollLocked = !_isScrollLocked;
-                                        })),
+                                if (_gameTab == GameTab.setup)
+                                  IconButton(
+                                      icon: AnimatedSwitcher(
+                                          duration:
+                                              const Duration(milliseconds: 300),
+                                          transitionBuilder:
+                                              (child, animation) {
+                                            return ScaleTransition(
+                                              scale: Tween<double>(
+                                                      begin: 0, end: 1)
+                                                  .animate(animation),
+                                              child: child,
+                                            );
+                                          },
+                                          child: _isScrollLocked
+                                              ? ImageIcon(
+                                                  key: const ValueKey(
+                                                      'scroll-locked'),
+                                                  const AssetImage(
+                                                      "assets/images/lock.png"),
+                                                  size: 20,
+                                                  semanticLabel: t.unlockScroll,
+                                                  color: Colors.white,
+                                                )
+                                              : ImageIcon(
+                                                  key: const ValueKey(
+                                                      'scroll-unlocked'),
+                                                  const AssetImage(
+                                                      "assets/images/unlock.png"),
+                                                  size: 20,
+                                                  color: Colors.white,
+                                                  semanticLabel: t.lockScroll,
+                                                )),
+                                      onPressed: () => setState(() {
+                                            _isScrollLocked = !_isScrollLocked;
+                                          })),
                                 if (gameSession != null &&
                                     gameSession!.isStorytellerMode &&
                                     _gameTab == GameTab.setup)

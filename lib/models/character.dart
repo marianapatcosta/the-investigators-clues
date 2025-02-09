@@ -82,7 +82,8 @@ class Character {
         name = json['name'] as String,
         team = getTeamFromString(json['team'] as String),
         ability = json['ability'] as String,
-        image = json['image'] ?? '$kCharactersTokensPath/${json['id']}.png',
+        image = json['image'] ??
+            '$kCharactersTokensPath/${json['id']}.$kCharactersTokensFileFormat',
         edition = json['edition'] as String?,
         setup = json['setup'] as bool?,
         bagDisabled =

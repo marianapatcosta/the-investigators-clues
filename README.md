@@ -18,8 +18,9 @@ This application is not affiliated with The Pandemonium Institute.<br/> All role
   - Track the global number of alive players, ghost votes, number of votes required to successfully execute and number of players per team;
   - Save general notes about the game and write/show some token to the other players or Storyteller;
   - Track current game phase;
-  - Add reminders to each player (Storyteller mode only);
-  - Check first and other nights order tips and jinxes (Storyteller mode only);
+  - Track game history, with possibility to register if demon voted or minions nominated;
+  - Add reminders to each player;
+  - Check first and other nights actions' order tips and jinxes (Storyteller mode only);
 - List of the official and custom scripts available in [BotC Scripts database](https://botc-scripts.azurewebsites.net), with script's characters, night order and jinxes;
 - List of all the official characters (townsfolk, outsiders, minions, demo, travellers and fabled), including the experimental ones, with summary and the detailed information about each of them as per [Blood on the Clocktower Wiki](https://wiki.bloodontheclocktower.com).
 
@@ -27,7 +28,7 @@ This application is not affiliated with The Pandemonium Institute.<br/> All role
 
 - [Blood on the Clocktower](https://bloodontheclocktower.com) is a trademark of Steven Medway and The Pandemonium Institute.
 - Scripts data are obtained from [BotC Scripts database](https://botc-scripts.azurewebsites.net)
-- Detailed information about each official character is obtained from [Blood on the Clocktower Wiki](https://wiki.bloodontheclocktower.com).
+- Detailed information about each official character is obtained from [Blood on the Clocktower Wiki](https://wiki.bloodontheclocktower.com) and [Experimental Characters Almanac](https://drive.google.com/file/d/1eS5s0ZbQdKP2EwtWMSLHyEmcORf9Ni38).
 - Character icons were obtained from [BotC Icons](https://github.com/tomozbot/botc-icon).
 - Some images were collected from [Clocktower.online](https://www.clocktower.online/) and [Flaticon](https://www.flaticon.com/).
 - Information about night order, reminders and Jinxes was obtained from [Script.bloodontheclocktower](https://script.bloodontheclocktower.com), [BotC Tools](https://github.com/ratteler50/botc_tools/) and [Pocket Grimoire](https://www.pocketgrimoire.co.uk/).
@@ -44,12 +45,20 @@ This application is not affiliated with The Pandemonium Institute.<br/> All role
 
 - Find the character info in _lib/assets/data/characters.json_ and update the info.
 
+### Update Jinxes
+
+- Find the character jinxes in _lib/assets/data/jinxes.dart_ and update the info.
+
+### Update Night Order
+
+- Find the character jinxes in _lib/assets/data/night_order.dart_ and update the info regarding firstNight and/or otherNights.
+
 ### Add new script
 
 - Find the script at [BotC Scripts database](https://botc-scripts.azurewebsites.net) and click on click;
 - In the scripts details url (e.g. https://botc-scripts.azurewebsites.net/script/5144/1.0.1) click in _json_ button to copy json link (e.g. https://botc-scripts.azurewebsites.net/api/scripts/8748/json/);
 - Grab the script id from the json link (8748 in the example given above), and replace _id_ placeholder by the real id in the url `https://botc-scripts.azurewebsites.net/api/scripts/{id}/` and open the resulting url.
-- Copy the json data provided in the response payload and add it to the list available in _lib/assets/data/characters.json_ file. update the info.
+- Copy the json data provided in the response payload, and add it to the list available in _lib/assets/data/scripts.dart_ file.
 
 ### Run the App locally
 

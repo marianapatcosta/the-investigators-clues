@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_botc_notes/widgets/index.dart';
 
 class PlayerVotingPhase extends StatelessWidget {
   const PlayerVotingPhase({
     super.key,
+    required this.gamePhase,
     this.didPlayerVote = false,
     this.didPlayerNominate = false,
     this.wasPlayerNominate = false,
@@ -13,6 +15,7 @@ class PlayerVotingPhase extends StatelessWidget {
     required this.onWasPlayerNominatedChange,
   });
 
+  final String gamePhase;
   final bool didPlayerVote;
   final bool didPlayerNominate;
   final bool wasPlayerNominate;
@@ -20,6 +23,10 @@ class PlayerVotingPhase extends StatelessWidget {
   final Function(bool?)? onDidPlayerVoteChange;
   final Function(bool?)? onDidPlayerNominateChange;
   final Function(bool?)? onWasPlayerNominatedChange;
+
+  DayPhase get dayPhase {
+    return DayPhase.values.byName(gamePhase.split('')[0]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +38,7 @@ class PlayerVotingPhase extends StatelessWidget {
           label: t.playerVoted,
           image: 'voted',
           orientation: orientation,
-          onChangeValue: onDidPlayerVoteChange),
+          onChangeValue: dayPhase == DayPhase.N ? null : onDidPlayerVoteChange),
       SizedBox(
         height: orientation == Orientation.portrait ? 4.0 : 0,
         width: orientation == Orientation.landscape ? 4.0 : 0,
@@ -41,7 +48,8 @@ class PlayerVotingPhase extends StatelessWidget {
           label: t.playerNominated,
           image: 'nominate',
           orientation: orientation,
-          onChangeValue: onDidPlayerNominateChange),
+          onChangeValue:
+              dayPhase == DayPhase.N ? null : onDidPlayerNominateChange),
       SizedBox(
         height: orientation == Orientation.portrait ? 4.0 : 0,
         width: orientation == Orientation.landscape ? 4.0 : 0,
@@ -51,7 +59,8 @@ class PlayerVotingPhase extends StatelessWidget {
           label: t.wasPlayerNominated,
           image: 'nominated',
           orientation: orientation,
-          onChangeValue: onWasPlayerNominatedChange),
+          onChangeValue:
+              dayPhase == DayPhase.N ? null : onWasPlayerNominatedChange),
     ];
 
     return orientation == Orientation.portrait

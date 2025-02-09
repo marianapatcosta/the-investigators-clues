@@ -52,6 +52,9 @@ class _DrawCharactersToPlayersWithNumbersScreenState
           grimoireSize, widget.charactersToDraw.length, playerIndex);
       player.setX = offset.dx;
       player.setY = offset.dy;
+      if (player.name == '') {
+        player.setName = (_players.length + 1).toString();
+      }
       _players.add(player);
     }
   }

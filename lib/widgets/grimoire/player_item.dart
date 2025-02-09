@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show charactersMap;
 import 'package:my_botc_notes/models/index.dart'
-    show Character, Player, Reminder, Team;
+    show Character, GameHistory, Player, PlayerDataForHistory, Reminder, Team;
 import 'package:my_botc_notes/providers/index.dart';
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
@@ -20,6 +20,8 @@ class PlayerItem extends ConsumerStatefulWidget {
     required this.sessionReminders,
     required this.inPlayCharactersIds,
     required this.isStorytellerMode,
+    required this.gamePhase,
+    required this.gameHistory,
     this.firstNightOrder,
     this.otherNightsOrder,
     required this.removePlayer,
@@ -35,6 +37,8 @@ class PlayerItem extends ConsumerStatefulWidget {
   final bool isStorytellerMode;
   final int? firstNightOrder;
   final int? otherNightsOrder;
+  final String gamePhase;
+  final GameHistory gameHistory;
   final void Function() removePlayer;
   final void Function() updateParent;
   final void Function() saveGameSession;
@@ -48,6 +52,14 @@ class PlayerItem extends ConsumerStatefulWidget {
     return charactersMap[player.characterId] ??
         sessionCharacters
             .firstWhere((character) => character.id == player.characterId);
+  }
+
+  PlayerDataForHistory get playerDataForHistory {
+    return PlayerDataForHistory(
+      id: player.id,
+      name: player.name,
+      team: character?.team,
+    );
   }
 
   @override
@@ -97,10 +109,12 @@ class _PlayerItemState extends ConsumerState<PlayerItem> {
 
     if (wasIsDeadUpdated) {
       widget.player.setIsDead = updatedPlayer.isDead;
+      widget.gameHistory.updateWhoDied(widget.player.name);
     }
 
     if (wasHasGhostVoteUpdated) {
       widget.player.setHasGhostVote = updatedPlayer.hasGhostVote;
+      widget.gameHistory.updateWhoUsedGhostVote(widget.player.name);
     }
 
     if (wasCharacterUpdated) {
@@ -125,6 +139,29 @@ class _PlayerItemState extends ConsumerState<PlayerItem> {
   void initState() {
     super.initState();
     _offset = Offset(widget.player.x ?? 10, widget.player.y ?? 10);
+
+    if (widget.gameHistory.gamePhase == widget.gamePhase) {
+      final playerVoted = widget.gameHistory.whoVotedData
+          .where((item) => item.id == widget.player.id)
+          .isNotEmpty;
+      if (widget.player.votedToday != playerVoted) {
+        widget.player.setVotedToday = playerVoted;
+      }
+
+      final playerNominated = widget.gameHistory.whoNominatedData
+          .where((item) => item.id == widget.player.id)
+          .isNotEmpty;
+      if (widget.player.nominatedToday != playerNominated) {
+        widget.player.setNominatedToday = playerNominated;
+      }
+
+      final playerWasNominatedToday = widget.gameHistory.whoWasNominatedData
+          .where((item) => item.id == widget.player.id)
+          .isNotEmpty;
+      if (widget.player.wasNominatedToday != playerWasNominatedToday) {
+        widget.player.setWasNominatedToday = playerWasNominatedToday;
+      }
+    }
   }
 
   @override
@@ -296,25 +333,35 @@ class _PlayerItemState extends ConsumerState<PlayerItem> {
                             ? Alignment.topLeft
                             : Alignment.topRight,
                         child: PlayerVotingPhase(
+                          gamePhase: widget.gamePhase,
                           didPlayerVote: votedToday,
                           didPlayerNominate: nominatedToday,
                           wasPlayerNominate: wasNominatedToday,
                           onDidPlayerVoteChange: (newValue) {
                             setState(() {
                               widget.player.setVotedToday = newValue ?? false;
+                              widget.gameHistory
+                                  .updateWhoVoted(widget.playerDataForHistory);
                             });
+                            widget.saveGameSession();
                           },
                           onDidPlayerNominateChange: (newValue) {
                             setState(() {
                               widget.player.setNominatedToday =
                                   newValue ?? false;
+                              widget.gameHistory.updateWhoNominated(
+                                  widget.playerDataForHistory);
                             });
+                            widget.saveGameSession();
                           },
                           onWasPlayerNominatedChange: (newValue) {
                             setState(() {
                               widget.player.setWasNominatedToday =
                                   newValue ?? false;
+                              widget.gameHistory.updateWhoWasNominated(
+                                  widget.playerDataForHistory);
                             });
+                            widget.saveGameSession();
                           },
                         ),
                       ),

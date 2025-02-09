@@ -7,6 +7,7 @@ import 'package:my_botc_notes/data/index.dart';
 import 'package:my_botc_notes/models/index.dart';
 import 'package:my_botc_notes/widgets/game_setup/character_selector.dart';
 import 'package:my_botc_notes/widgets/grimoire/reminder_selector.dart';
+import 'package:my_botc_notes/widgets/index.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 String getCapitalizedTeamTitle(String title) {
@@ -116,6 +117,7 @@ Function(String) getTranslationKeyGetter(BuildContext context) {
     'light': t.lightTheme,
     'system': t.systemTheme,
     'setup': t.setup,
+    'history': t.history,
     'storyteller': t.storyteller,
     'day': t.day,
     'night': t.night,
@@ -428,4 +430,15 @@ Future<void> launchInWebView(Uri url) async {
       mode: LaunchMode.inAppWebView, webOnlyWindowName: '_self')) {
     throw Exception('Could not launch $url');
   }
+}
+
+String getGamePhaseLabel(BuildContext context, gamePhase) {
+  final getTranslationKey = getTranslationKeyGetter(context);
+
+  final dayPhase = DayPhase.values.byName(gamePhase.split('')[0]);
+  final dayPhaseLabel = dayPhase == DayPhase.D ? 'day' : 'night';
+
+  final dayCount = int.parse(gamePhase.split('').sublist(1).join());
+
+  return '${getTranslationKey(dayPhaseLabel)} $dayCount';
 }

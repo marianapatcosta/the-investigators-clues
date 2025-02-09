@@ -96,6 +96,27 @@ class Acknowledgments extends StatelessWidget {
                     ),
             ),
             TextSpan(
+              text: ' ${t.and} ',
+              style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
+            ),
+            TextSpan(
+              text: 'Experimental Characters Almanac',
+              style: const TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+                height: 1.25,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => launchInWebView(
+                      Uri(
+                        scheme: 'https',
+                        host: 'drive.google.com',
+                        path: 'file/d/1eS5s0ZbQdKP2EwtWMSLHyEmcORf9Ni38',
+                      ),
+                    ),
+            ),
+            TextSpan(
               text: '.',
               style: theme.textTheme.bodyMedium!.copyWith(height: 1.25),
             )

@@ -641,7 +641,7 @@ const charactersJson = [
     "remindersFirstNight": ["Fear"],
     "setup": false,
     "ability":
-        "Each night, choose a player. If you nominate & execute them, their team loses. All players know if you choose a new player.",
+        "Each night, choose a player. If you nominate and execute them, their team loses. All players know if you choose a new player.",
   },
   {
     "id": "ferryman",
@@ -1431,7 +1431,7 @@ const charactersJson = [
     "reminders": ["About to die"],
     "setup": false,
     "ability":
-        "All players keep their eyes closed when voting and the vote tally is secret. Each night, choose if you are drunk or not.",
+        "All players keep their eyes closed when voting and the vote tally is secret. Each night, choose if you are drunk until dusk.",
   },
   {
     "id": "pacifist",
@@ -1469,7 +1469,7 @@ const charactersJson = [
     "reminders": [],
     "setup": false,
     "ability":
-        "Each night*, choose a player & a character they become (if not-in-play). If a Demon is made, deaths tonight are arbitrary.",
+        "Each night*, choose a player & a character they become (if not in play). If a Demon is made, deaths tonight are arbitrary.",
   },
   {
     "id": "pixie",
@@ -1655,12 +1655,13 @@ const charactersJson = [
     "name": "Riot",
     "edition": "",
     "team": "demon",
-    "firstNightReminder": "",
-    "otherNightReminder": "",
-    "reminders": [],
+    "firstNightReminder": "Place the Riot 'Day 1' reminder. ",
+    "otherNightReminder":
+        "Change the Riot Day reminder for the next day. On Day 3, wake up the Minions, and 'You are' card, then the 'Riot' token.",
+    "reminders": ["Day 1", "Day 2", "Day 3"],
     "setup": true,
     "ability":
-        "Nominees die, but may nominate again immediately (on day 3, they must). After day 3, evil wins. [All Minions are Riot]",
+        "On day 3, Minions become Riot & nominees die but nominate an alive player immediately. This must happen.",
   },
   {
     "id": "sage",
@@ -2035,7 +2036,7 @@ const charactersJson = [
     "reminders": [],
     "setup": false,
     "ability":
-        "All players know who you are. You can not die during the day. If good voted, you may choose to execute immediately.",
+        "All players know who you are. You cannot die during the day. If good voted, you may choose to execute immediately.",
   },
   {
     "id": "vortox",

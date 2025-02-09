@@ -121,7 +121,7 @@ const kGhostVoteTokenSizeMedium = 50.0;
 const kInfoCardWidth = 200.0;
 const kInfoCardHeight = 340.0;
 
-const kPocketGrimoireUrl = 'https://www.pocketgrimoire.co.uk';
+const initialGamePhase = 'N1';
 
 final kGeneralReminders = [
   Reminder(characterId: 'good', reminder: 'Good'),

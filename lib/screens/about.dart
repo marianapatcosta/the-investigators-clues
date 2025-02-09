@@ -28,6 +28,7 @@ class AboutScreen extends StatelessWidget {
       t.feature1i,
       t.feature1j,
       t.feature1k,
+      t.feature1l,
     ];
 
     return Layout(

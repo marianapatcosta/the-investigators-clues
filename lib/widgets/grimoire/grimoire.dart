@@ -278,6 +278,8 @@ class _GrimoireState extends ConsumerState<Grimoire> {
       :demonBluffs,
       :lunaticBluffs,
       :inPlayReminders,
+      :gameHistory,
+      :currentGameHistoryItem,
     ) = widget.gameSession;
 
     final bluffs = isStorytellerMode
@@ -381,6 +383,8 @@ class _GrimoireState extends ConsumerState<Grimoire> {
                 sessionCharacters: sessionCharacters,
                 sessionReminders: reminders,
                 isStorytellerMode: isStorytellerMode,
+                gamePhase: gamePhase,
+                gameHistory: currentGameHistoryItem,
                 firstNightOrder:
                     _getCharacterOrder(player.characterId, NightType.first),
                 otherNightsOrder:

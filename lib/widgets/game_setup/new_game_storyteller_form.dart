@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_botc_notes/constants.dart';
 import 'package:my_botc_notes/data/index.dart' show gameSetups;
 import 'package:my_botc_notes/models/index.dart'
@@ -13,37 +12,62 @@ import 'package:my_botc_notes/models/index.dart'
         Reminder,
         Script,
         Team;
-import 'package:my_botc_notes/providers/index.dart'
-    show favoriteScriptsProvider;
 import 'package:my_botc_notes/screens/index.dart'
     show
         DrawCharactersToPlayersScreen,
         DrawCharactersToPlayersWithNumbersScreen;
 import 'package:my_botc_notes/utils.dart';
 import 'package:my_botc_notes/widgets/index.dart'
-    show CharactersManager, FormActionBar, NumberPlayersSlider, ScriptSelector;
+    show CharactersManager, FormActionBar;
 
-class NewGameStorytellerForm extends ConsumerStatefulWidget {
+class NewGameStorytellerForm extends StatefulWidget {
   const NewGameStorytellerForm({
     super.key,
+    required this.selectedScript,
+    required this.numberOfPlayers,
   });
 
+  final Script? selectedScript;
+  final double numberOfPlayers;
+
   @override
-  ConsumerState<NewGameStorytellerForm> createState() {
+  State<NewGameStorytellerForm> createState() {
     return _NewGameStorytellerFormState();
   }
 }
 
-class _NewGameStorytellerFormState
-    extends ConsumerState<NewGameStorytellerForm> {
-  Script? _selectedScript;
-  double _numberOfPlayers = 10;
+class _NewGameStorytellerFormState extends State<NewGameStorytellerForm> {
   List<Character> _selectedScriptCharacters = [];
   List<Character> _demonBluffs = [];
   List<Character> _lunaticBluffs = [];
   List<Player> _players = [];
   bool _addRemindersFirstNight = true;
   List<BagDisabledReminder> _bagDisabledReminders = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(old) {
+    super.didUpdateWidget(old);
+
+    if (old.selectedScript?.id != widget.selectedScript?.id) {
+      _bagDisabledReminders = _getBagDisabledReminders();
+      if (_selectedScriptCharacters.isNotEmpty) {
+        _selectedScriptCharacters = [];
+      }
+
+      if (_demonBluffs.isNotEmpty) {
+        _demonBluffs = [];
+      }
+
+      if (_lunaticBluffs.isNotEmpty) {
+        _lunaticBluffs = [];
+      }
+    }
+  }
 
   List<Reminder> get remindersFirstNight {
     if (_selectedScriptCharacters.isEmpty) {
@@ -69,11 +93,11 @@ class _NewGameStorytellerFormState
   }
 
   GameSetup get gameSetup {
-    return gameSetups[_numberOfPlayers.toInt().toString()]!.copyWith();
+    return gameSetups[widget.numberOfPlayers.toInt().toString()]!.copyWith();
   }
 
   bool get isLunaticInPlay {
-    if (_selectedScript == null) {
+    if (widget.selectedScript == null) {
       return false;
     }
 
@@ -83,12 +107,12 @@ class _NewGameStorytellerFormState
   }
 
   List<Character> get demonsBluffsOptions {
-    if (_selectedScript == null) {
+    if (widget.selectedScript == null) {
       return [];
     }
     final scriptCharactersIds =
         _selectedScriptCharacters.map((character) => character.id).toList();
-    return _selectedScript!.characters
+    return widget.selectedScript!.characters
         .where((character) =>
             !scriptCharactersIds.contains(character.id) &&
             (character.team == Team.townsfolk ||
@@ -97,11 +121,11 @@ class _NewGameStorytellerFormState
   }
 
   List<BagDisabledReminder> _getBagDisabledReminders() {
-    if (_selectedScript == null) {
+    if (widget.selectedScript == null) {
       return [];
     }
 
-    final bagDisabledCharacters = _selectedScript!.characters
+    final bagDisabledCharacters = widget.selectedScript!.characters
         .where((character) =>
             character.bagDisabled && character.remindersGlobal != null)
         .toList();
@@ -121,15 +145,9 @@ class _NewGameStorytellerFormState
     }).toList();
   }
 
-  void _onUpdatePlayersNumber(double newValue) {
-    setState(() {
-      _numberOfPlayers = newValue;
-    });
-  }
-
   void _updateScriptCharacters(List<Character> scriptCharacters) {
     final List<Character> orderedCharacters = [];
-    for (final selectedScriptCharacter in _selectedScript!.characters) {
+    for (final selectedScriptCharacter in widget.selectedScript!.characters) {
       final currentCharacters = scriptCharacters
           .where((character) => character.id == selectedScriptCharacter.id)
           .toList();
@@ -155,30 +173,12 @@ class _NewGameStorytellerFormState
     });
   }
 
-  void _onSelectScript(Script? script) {
-    setState(() {
-      _selectedScript = script;
-      _bagDisabledReminders = _getBagDisabledReminders();
-      if (_selectedScriptCharacters.isNotEmpty) {
-        _selectedScriptCharacters = [];
-      }
-
-      if (_demonBluffs.isNotEmpty) {
-        _demonBluffs = [];
-      }
-
-      if (_lunaticBluffs.isNotEmpty) {
-        _lunaticBluffs = [];
-      }
-    });
-  }
-
   void _onSave(BuildContext context) {
     final t = AppLocalizations.of(context);
 
-    if (_selectedScript == null ||
-        _numberOfPlayers < kMinNumberPlayers ||
-        _numberOfPlayers > kMaxNumberPlayers) {
+    if (widget.selectedScript == null ||
+        widget.numberOfPlayers < kMinNumberPlayers ||
+        widget.numberOfPlayers > kMaxNumberPlayers) {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -203,8 +203,8 @@ class _NewGameStorytellerFormState
     }
 
     final List<String> warnings = [];
-    if (_selectedScriptCharacters.length != _numberOfPlayers) {
-      warnings.add(t.invalidNumberOfCharacters(_numberOfPlayers.toInt()));
+    if (_selectedScriptCharacters.length != widget.numberOfPlayers) {
+      warnings.add(t.invalidNumberOfCharacters(widget.numberOfPlayers.toInt()));
     }
 
     final charactersWhoCannotBeInTheBag = _selectedScriptCharacters
@@ -288,12 +288,12 @@ class _NewGameStorytellerFormState
       final shuffledCharacters = [..._selectedScriptCharacters]..shuffle();
 
       _players = List.generate(
-        _numberOfPlayers.toInt(),
+        widget.numberOfPlayers.toInt(),
         (index) {
-          final offset =
-              getPlayerOffset(grimoireSize, _numberOfPlayers.toInt(), index);
+          final offset = getPlayerOffset(
+              grimoireSize, widget.numberOfPlayers.toInt(), index);
           return Player(
-              name: '',
+              name: (index + 1).toString(),
               characterId: index < shuffledCharacters.length
                   ? shuffledCharacters[index].id
                   : null,
@@ -316,7 +316,7 @@ class _NewGameStorytellerFormState
 
     Navigator.of(context).pop(
       GameSession(
-          script: _selectedScript!,
+          script: widget.selectedScript!,
           players: _players,
           inPlayReminders: inPlayReminders,
           isStorytellerMode: true,
@@ -392,7 +392,7 @@ class _NewGameStorytellerFormState
         if (isLunaticInPlay) ...[
           CharactersManager(
             title: '${t.select} ${t.lunaticBluffs}',
-            characters: _selectedScript!.characters
+            characters: widget.selectedScript!.characters
                 .where((character) =>
                     character.team == Team.townsfolk ||
                     character.team == Team.outsider)
@@ -410,38 +410,18 @@ class _NewGameStorytellerFormState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (isLargeScreen) ...[
-          Row(
-            children: [
-              Expanded(
-                child: ScriptSelector(
-                    selectedScript: _selectedScript,
-                    favoriteScripts: ref.watch(favoriteScriptsProvider),
-                    onSelectScript: _onSelectScript),
-              ),
-              const SizedBox(width: 24),
-              Expanded(
-                child: NumberPlayersSlider(
-                    numberOfPlayers: _numberOfPlayers,
-                    gameSetup: gameSetup,
-                    onUpdatePlayersNumber: _onUpdatePlayersNumber),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 22,
-          ),
-          if (_selectedScript != null)
+          if (widget.selectedScript != null)
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: CharactersManager(
                     title: '${t.select} ${t.characters}',
-                    characters: _selectedScript!.characters
+                    characters: widget.selectedScript!.characters
                         .where((character) => character.team != Team.traveller)
                         .toList(),
                     selectedCharacters: _selectedScriptCharacters,
-                    numberOfCharactersToSelect: _numberOfPlayers.toInt(),
+                    numberOfCharactersToSelect: widget.numberOfPlayers.toInt(),
                     gameSetup: gameSetup,
                     allowMoreThanOneOfSameCharacter: true,
                     saveCharacters: _updateScriptCharacters,
@@ -454,24 +434,14 @@ class _NewGameStorytellerFormState
               ],
             )
         ] else ...[
-          ScriptSelector(
-              selectedScript: _selectedScript,
-              favoriteScripts: ref.watch(favoriteScriptsProvider),
-              onSelectScript: _onSelectScript),
-          const SizedBox(height: 24),
-          NumberPlayersSlider(
-              numberOfPlayers: _numberOfPlayers,
-              gameSetup: gameSetup,
-              onUpdatePlayersNumber: _onUpdatePlayersNumber),
-          const SizedBox(height: 12),
-          if (_selectedScript != null) ...[
+          if (widget.selectedScript != null) ...[
             CharactersManager(
               title: '${t.select} ${t.characters}',
-              characters: _selectedScript!.characters
+              characters: widget.selectedScript!.characters
                   .where((character) => character.team != Team.traveller)
                   .toList(),
               selectedCharacters: _selectedScriptCharacters,
-              numberOfCharactersToSelect: _numberOfPlayers.toInt(),
+              numberOfCharactersToSelect: widget.numberOfPlayers.toInt(),
               gameSetup: gameSetup,
               allowMoreThanOneOfSameCharacter: true,
               saveCharacters: _updateScriptCharacters,
@@ -529,7 +499,7 @@ class _NewGameStorytellerFormState
               ],
             ),
         ],
-        if (_selectedScript != null &&
+        if (widget.selectedScript != null &&
             _selectedScriptCharacters.isNotEmpty) ...[
           const SizedBox(height: 12),
           Text(

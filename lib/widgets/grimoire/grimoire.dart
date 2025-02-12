@@ -252,6 +252,14 @@ class _GrimoireState extends ConsumerState<Grimoire> {
     );
   }
 
+  void _onRemoveFabled() {
+    setState(() {
+      widget.gameSession!.setFabled = null;
+    });
+
+    widget.saveGameSession();
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
@@ -331,6 +339,7 @@ class _GrimoireState extends ConsumerState<Grimoire> {
                     numberOfVotesRequiredToExecute:
                         numberOfVotesRequiredToExecute,
                     fabled: fabled,
+                    removeFabled: _onRemoveFabled,
                   ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

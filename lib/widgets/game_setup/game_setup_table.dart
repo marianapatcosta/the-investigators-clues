@@ -17,6 +17,7 @@ class GameSetupTable extends StatelessWidget {
     required this.numberOfGhostVotes,
     required this.numberOfVotesRequiredToExecute,
     required this.fabled,
+    required this.removeFabled,
   });
 
   final GameSetup gameSetup;
@@ -25,8 +26,15 @@ class GameSetupTable extends StatelessWidget {
   final int numberOfGhostVotes;
   final int numberOfVotesRequiredToExecute;
   final Character? fabled;
+  final void Function() removeFabled;
+
+  void _onDeleteFabled(BuildContext context) {
+    removeFabled();
+    Navigator.of(context).pop();
+  }
 
   void _openShowFabled(BuildContext context) async {
+    final t = AppLocalizations.of(context);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -36,12 +44,19 @@ class GameSetupTable extends StatelessWidget {
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       builder: (ctx) => ShowToken(
-        token: CharacterToken(
-          character: fabled,
-          tokenSize: TokenSize.large,
-        ),
-        tokenText: fabled?.ability,
-      ),
+          token: CharacterToken(
+            character: fabled,
+            tokenSize: TokenSize.large,
+          ),
+          tokenText: fabled?.ability,
+          actionWidget: IconButton(
+            onPressed: () => _onDeleteFabled(context),
+            icon: Icon(
+              Icons.delete,
+              semanticLabel: t.deleteReminder,
+              size: 28,
+            ),
+          )),
     );
   }
 

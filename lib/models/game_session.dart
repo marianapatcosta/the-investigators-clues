@@ -230,7 +230,7 @@ class GameSession {
     _customInfoTokensSimplified = infoTokens;
   }
 
-  set setFabled(Character fabled) {
+  set setFabled(Character? fabled) {
     _fabled = fabled;
   }
 

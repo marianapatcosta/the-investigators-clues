@@ -31,98 +31,105 @@ class _GameHistoryItemState extends State<GameHistoryItem> {
     final t = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    return ExpansionTile(
-        initiallyExpanded: true,
-        shape: const Border(),
-        tilePadding: EdgeInsets.zero,
-        title: Row(
-          children: [
-            Text(
-              getGamePhaseLabel(
-                context,
-                widget.gameHistory.gamePhase,
+    return Card(
+      margin: const EdgeInsets.all(0),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: ExpansionTile(
+            initiallyExpanded: true,
+            shape: const Border(),
+            tilePadding: EdgeInsets.zero,
+            title: Row(
+              children: [
+                Text(
+                  getGamePhaseLabel(
+                    context,
+                    widget.gameHistory.gamePhase,
+                  ),
+                  style: theme.textTheme.titleMedium!.copyWith(
+                    color: theme.colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Icon(
+                  dayPhase == DayPhase.D ? Icons.sunny : Icons.mode_night,
+                ),
+              ],
+            ),
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+            expandedAlignment: Alignment.topLeft,
+            children: [
+              const SizedBox(
+                height: 8,
               ),
-              style: theme.textTheme.titleMedium!.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.bold,
+              if (widget.gameHistory.whoVotedData.isNotEmpty) ...[
+                _HistoryInfo(
+                  title: t.whoVoted,
+                  imageName: 'voted',
+                  textList: widget.gameHistory.whoVoted,
+                  checkboxLabel: t.demonVoted,
+                  // checkboxIconName: 'flowergirl',
+                  checkboxValue: widget.gameHistory.demonVoted,
+                  onChangeCheckboxValue: widget.isStorytellerMode
+                      ? null
+                      : (newValue) {
+                          setState(() {
+                            widget.gameHistory.setDemonVoted =
+                                newValue ?? false;
+                          });
+                          widget.saveGameSession();
+                        },
+                ),
+              ],
+              if (widget.gameHistory.whoNominatedData.isNotEmpty) ...[
+                _HistoryInfo(
+                  title: t.whoNominated,
+                  imageName: 'nominate',
+                  textList: widget.gameHistory.whoNominated,
+                  checkboxLabel: t.minionNominated,
+                  checkboxValue: widget.gameHistory.minionNominated,
+                  // checkboxIconName: 'towncrier',
+                  onChangeCheckboxValue: widget.isStorytellerMode
+                      ? null
+                      : (newValue) {
+                          setState(() {
+                            widget.gameHistory.setMinionNominated =
+                                newValue ?? false;
+                          });
+                          widget.saveGameSession();
+                        },
+                ),
+              ],
+              if (widget.gameHistory.whoWasNominated.isNotEmpty) ...[
+                _HistoryInfo(
+                  title: t.whoWasNominated,
+                  imageName: 'nominated',
+                  textList: widget.gameHistory.whoWasNominated,
+                ),
+              ],
+              if (widget.gameHistory.whoDied.isNotEmpty) ...[
+                _HistoryInfo(
+                  title: t.whoDied,
+                  imageName: 'shroud-icon',
+                  textList: widget.gameHistory.whoDied,
+                ),
+              ],
+              if (widget.gameHistory.whoUsedGhostVote.isNotEmpty) ...[
+                _HistoryInfo(
+                  title: t.whoUsedGhostVote,
+                  imageName: 'shroud-vote-icon',
+                  textList: widget.gameHistory.whoUsedGhostVote,
+                ),
+              ],
+              const SizedBox(
+                height: 8,
               ),
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            Icon(
-              dayPhase == DayPhase.D ? Icons.sunny : Icons.mode_night,
-            ),
-          ],
-        ),
-        expandedCrossAxisAlignment: CrossAxisAlignment.start,
-        expandedAlignment: Alignment.topLeft,
-        children: [
-          const SizedBox(
-            height: 8,
-          ),
-          if (widget.gameHistory.whoVotedData.isNotEmpty) ...[
-            _HistoryInfo(
-              title: t.whoVoted,
-              imageName: 'voted',
-              textList: widget.gameHistory.whoVoted,
-              checkboxLabel: t.demonVoted,
-              // checkboxIconName: 'flowergirl',
-              checkboxValue: widget.gameHistory.demonVoted,
-              onChangeCheckboxValue: widget.isStorytellerMode
-                  ? null
-                  : (newValue) {
-                      setState(() {
-                        widget.gameHistory.setDemonVoted = newValue ?? false;
-                      });
-                      widget.saveGameSession();
-                    },
-            ),
-          ],
-          if (widget.gameHistory.whoNominatedData.isNotEmpty) ...[
-            _HistoryInfo(
-              title: t.whoNominated,
-              imageName: 'nominate',
-              textList: widget.gameHistory.whoNominated,
-              checkboxLabel: t.minionNominated,
-              checkboxValue: widget.gameHistory.minionNominated,
-              // checkboxIconName: 'towncrier',
-              onChangeCheckboxValue: widget.isStorytellerMode
-                  ? null
-                  : (newValue) {
-                      setState(() {
-                        widget.gameHistory.setMinionNominated =
-                            newValue ?? false;
-                      });
-                      widget.saveGameSession();
-                    },
-            ),
-          ],
-          if (widget.gameHistory.whoWasNominated.isNotEmpty) ...[
-            _HistoryInfo(
-              title: t.whoWasNominated,
-              imageName: 'nominated',
-              textList: widget.gameHistory.whoWasNominated,
-            ),
-          ],
-          if (widget.gameHistory.whoDied.isNotEmpty) ...[
-            _HistoryInfo(
-              title: t.whoDied,
-              imageName: 'shroud-icon',
-              textList: widget.gameHistory.whoDied,
-            ),
-          ],
-          if (widget.gameHistory.whoUsedGhostVote.isNotEmpty) ...[
-            _HistoryInfo(
-              title: t.whoUsedGhostVote,
-              imageName: 'shroud-vote-icon',
-              textList: widget.gameHistory.whoUsedGhostVote,
-            ),
-          ],
-          const SizedBox(
-            height: 8,
-          ),
-        ]);
+            ]),
+      ),
+    );
   }
 }
 
@@ -179,7 +186,7 @@ class _HistoryInfo extends StatelessWidget {
         ),
         Text(text),
         const SizedBox(
-          height: 8,
+          height: 2,
         ),
         if (checkboxLabel != null) ...[
           Row(

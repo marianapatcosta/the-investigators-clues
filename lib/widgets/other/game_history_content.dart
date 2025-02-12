@@ -64,6 +64,7 @@ class GameHistoryContent extends StatelessWidget {
           bottom: 16,
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: hasNoHistoryInformation
               ? CrossAxisAlignment.center
               : CrossAxisAlignment.start,
@@ -78,30 +79,33 @@ class GameHistoryContent extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w900),
                 textAlign: TextAlign.center,
               )
-            ] else if (isScreenBiggerThanX(width, ScreenSize.md))
-              Wrap(
-                  runAlignment: WrapAlignment.start,
-                  runSpacing: 16,
-                  spacing: 36,
-                  children: [
-                    for (final item in gameHistory)
-                      if (shouldRenderItem(item))
-                        SizedBox(
-                            width: width / 3.8,
+            ] else
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                    alignment: WrapAlignment.start,
+                    runAlignment: WrapAlignment.start,
+                    runSpacing: 8,
+                    spacing: 8,
+                    children: [
+                      for (final item in gameHistory)
+                        if (shouldRenderItem(item))
+                          Container(
+                            width: width /
+                                (isScreenBiggerThanX(width, ScreenSize.md)
+                                    ? 4.2
+                                    : 2.2),
+                            constraints: const BoxConstraints(
+                              maxWidth: 350,
+                            ),
                             child: GameHistoryItem(
                               gameHistory: item,
                               isStorytellerMode: isStorytellerMode,
                               saveGameSession: saveGameSession,
-                            ))
-                  ])
-            else
-              for (final item in gameHistory)
-                if (shouldRenderItem(item))
-                  GameHistoryItem(
-                    gameHistory: item,
-                    isStorytellerMode: isStorytellerMode,
-                    saveGameSession: saveGameSession,
-                  ),
+                            ),
+                          )
+                    ]),
+              ),
             const SizedBox(
               height: 16,
             ),

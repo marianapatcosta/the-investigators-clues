@@ -76,11 +76,11 @@ run `flutter build ipa`
 
 ### Build App
 
-##### For web
+#### For web
 
 run `flutter run -d chrome --release`
 
-##### For android
+#### For android
 
 In VSCode, click `Run` -> `Run Without Debugging`, after starting the Android emulator you plan to use.
 

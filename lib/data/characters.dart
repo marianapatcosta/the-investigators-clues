@@ -5,11 +5,11 @@ const charactersJson = [
     "id": "acrobat",
     "name": "Acrobat",
     "edition": "",
-    "team": "outsider",
+    "team": "townsfolk",
     "firstNightReminder": "",
     "otherNightReminder":
-        "The Acrobat chooses a player. If they are become drunk or poisoned tonight, the Acrobat player dies.",
-    "reminders": ["Dead"],
+        "The Acrobat chooses a player; add the 'Chosen' reminder to this player.  If they are become drunk or poisoned tonight, the Acrobat player dies.",
+    "reminders": ["Chosen", "Dead"],
     "setup": false,
     "ability":
         "Each night*, choose a player: if they are or become drunk or poisoned tonight, you die.",

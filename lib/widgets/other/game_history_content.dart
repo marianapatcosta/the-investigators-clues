@@ -93,11 +93,11 @@ class GameHistoryContent extends StatelessWidget {
                           Container(
                             width: width /
                                 (isScreenBiggerThanX(width, ScreenSize.md)
-                                    ? 4.2
-                                    : 2.2),
+                                    ? 2.2
+                                    : 1),
                             constraints: const BoxConstraints(
-                              maxWidth: 350,
-                            ),
+                                //maxWidth: 350,
+                                ),
                             child: GameHistoryItem(
                               gameHistory: item,
                               isStorytellerMode: isStorytellerMode,

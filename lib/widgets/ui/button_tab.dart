@@ -28,7 +28,6 @@ class ButtonTab extends StatelessWidget {
     return Transform.translate(
       offset: Offset(0, isScreenBiggerThanX(width, ScreenSize.md) ? 3 : 1),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: isSmallSize ? 0 : 8),
         decoration: BoxDecoration(
           border: isSelected
               ? Border(

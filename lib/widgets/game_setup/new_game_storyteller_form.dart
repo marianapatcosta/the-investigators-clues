@@ -284,7 +284,7 @@ class _NewGameStorytellerFormState extends State<NewGameStorytellerForm> {
   }
 
   void _createSession() {
-    if (_players.isEmpty) {
+    if (_players.isEmpty || _players.length < widget.numberOfPlayers) {
       final shuffledCharacters = [..._selectedScriptCharacters]..shuffle();
 
       _players = List.generate(

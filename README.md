@@ -4,7 +4,7 @@ _The Investigator's Clues_ is an unofficial application to help Blood on the Clo
 This is a free and open source multi-platform project developed with Flutter, which supports Web, Android and iOS. <br/>
 This application is not affiliated with The Pandemonium Institute.<br/> All roles and characters are the property of Steven Medway and The Pandemonium Institute.
 
-![The Investigator's clues overview](https://github.com/user-attachments/assets/69419f93-7859-41f0-9d06-5f2e01461444)
+![The Investigator's clues overview](https://github.com/user-attachments/assets/cb15bddd-8c53-4caf-8d94-e58e21a6e093)
 
 ## Main features
 
